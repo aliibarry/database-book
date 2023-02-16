@@ -7,8 +7,6 @@ bookdown::gitbook:
         <li><a href="./">Sequencing databases in Shiny</a></li>
       after: |
         <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
-    edit: https://github.com/aliibarry/database-book/edit/master/%s
-    download: ["pdf", "epub"]
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
