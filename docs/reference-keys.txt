@@ -4,10 +4,14 @@ data
 preparation
 building-an-sql-database
 ui
+server
+deploy
+shinyapps.io
+bioconductor
 trouble
 package-installation
 file-setup
 styling
 deployment
 basics
-bioconductor
+bioconductor-1

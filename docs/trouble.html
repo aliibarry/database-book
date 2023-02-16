@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Troubleshooting | A simple database framework for hosting and visualising sequencing data through Shiny</title>
+  <title>Chapter 6 Troubleshooting | A simple database framework for hosting and visualising sequencing data through Shiny</title>
   <meta name="description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Troubleshooting | A simple database framework for hosting and visualising sequencing data through Shiny" />
+  <meta property="og:title" content="Chapter 6 Troubleshooting | A simple database framework for hosting and visualising sequencing data through Shiny" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   <meta name="github-repo" content="aliibarry/omics-database" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Troubleshooting | A simple database framework for hosting and visualising sequencing data through Shiny" />
+  <meta name="twitter:title" content="Chapter 6 Troubleshooting | A simple database framework for hosting and visualising sequencing data through Shiny" />
   
   <meta name="twitter:description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ui.html"/>
-
+<link rel="prev" href="deploy.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">trial book</a></li>
+<li><a href="./">Sequencing databases in Shiny</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
@@ -146,17 +146,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="data.html"><a href="data.html#building-an-sql-database"><i class="fa fa-check"></i><b>2.2</b> Building an SQL database</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="ui.html"><a href="ui.html"><i class="fa fa-check"></i><b>3</b> User Interface</a></li>
-<li class="chapter" data-level="4" data-path="trouble.html"><a href="trouble.html"><i class="fa fa-check"></i><b>4</b> Troubleshooting</a>
+<li class="chapter" data-level="4" data-path="server.html"><a href="server.html"><i class="fa fa-check"></i><b>4</b> Server</a></li>
+<li class="chapter" data-level="5" data-path="deploy.html"><a href="deploy.html"><i class="fa fa-check"></i><b>5</b> Deploying your application</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="trouble.html"><a href="trouble.html#package-installation"><i class="fa fa-check"></i><b>4.1</b> Package installation</a></li>
-<li class="chapter" data-level="4.2" data-path="trouble.html"><a href="trouble.html#file-setup"><i class="fa fa-check"></i><b>4.2</b> File setup</a></li>
-<li class="chapter" data-level="4.3" data-path="trouble.html"><a href="trouble.html#styling"><i class="fa fa-check"></i><b>4.3</b> Styling</a></li>
-<li class="chapter" data-level="4.4" data-path="trouble.html"><a href="trouble.html#deployment"><i class="fa fa-check"></i><b>4.4</b> Deployment</a>
+<li class="chapter" data-level="5.1" data-path="deploy.html"><a href="deploy.html#shinyapps.io"><i class="fa fa-check"></i><b>5.1</b> Shinyapps.io</a></li>
+<li class="chapter" data-level="5.2" data-path="deploy.html"><a href="deploy.html#bioconductor"><i class="fa fa-check"></i><b>5.2</b> Bioconductor</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="trouble.html"><a href="trouble.html"><i class="fa fa-check"></i><b>6</b> Troubleshooting</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="trouble.html"><a href="trouble.html#basics"><i class="fa fa-check"></i><b>4.4.1</b> Basics</a></li>
-<li class="chapter" data-level="4.4.2" data-path="trouble.html"><a href="trouble.html#bioconductor"><i class="fa fa-check"></i><b>4.4.2</b> Bioconductor</a></li>
+<li class="chapter" data-level="6.1" data-path="trouble.html"><a href="trouble.html#package-installation"><i class="fa fa-check"></i><b>6.1</b> Package installation</a></li>
+<li class="chapter" data-level="6.2" data-path="trouble.html"><a href="trouble.html#file-setup"><i class="fa fa-check"></i><b>6.2</b> File setup</a></li>
+<li class="chapter" data-level="6.3" data-path="trouble.html"><a href="trouble.html#styling"><i class="fa fa-check"></i><b>6.3</b> Styling</a></li>
+<li class="chapter" data-level="6.4" data-path="trouble.html"><a href="trouble.html#deployment"><i class="fa fa-check"></i><b>6.4</b> Deployment</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="trouble.html"><a href="trouble.html#basics"><i class="fa fa-check"></i><b>6.4.1</b> Basics</a></li>
+<li class="chapter" data-level="6.4.2" data-path="trouble.html"><a href="trouble.html#bioconductor-1"><i class="fa fa-check"></i><b>6.4.2</b> Bioconductor</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
 
@@ -177,67 +184,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="trouble" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Troubleshooting<a href="trouble.html#trouble" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="package-installation" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Package installation<a href="trouble.html#package-installation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="trouble" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Troubleshooting<a href="trouble.html#trouble" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="package-installation" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Package installation<a href="trouble.html#package-installation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Most packages are installed from CRAN using <code>install.packages</code> or bioconductor using <code>BiocManager::install()</code>. Make sure to also install dependencies, and check to see which functions are masked by other packages if you change the order of loading libraries.</p>
 <p>Some require installation from github, using <code>devtools</code>. For example, <code>dict</code> installation:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="trouble.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;devtools&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
-<span id="cb2-2"><a href="trouble.html#cb2-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;mkuhn/dict&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="trouble.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;devtools&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
+<span id="cb4-2"><a href="trouble.html#cb4-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;mkuhn/dict&quot;</span>)</span></code></pre></div>
 <p>If you are using Windows and struggling with compilation, make sure <code>RTools</code> is installed properly (<a href="https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html" class="uri">https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html</a>). If you don’t have write permissions to update packages, this may require administrator access.</p>
 </div>
-<div id="file-setup" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> File setup<a href="trouble.html#file-setup" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="file-setup" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> File setup<a href="trouble.html#file-setup" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The most common error is that your file names or <code>PATH</code> is incorrect.</p>
 </div>
-<div id="styling" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Styling<a href="trouble.html#styling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="styling" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Styling<a href="trouble.html#styling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If you are using a style sheet (<code>style.css</code>), first make sure it’s in the correct repository. Are default options from<code>Shiny</code> overriding the options in your style sheet? Check options for each function. For more help, see
 <a href="https://shiny.rstudio.com/articles/css.html" class="uri">https://shiny.rstudio.com/articles/css.html</a>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="trouble.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example fluidRow</span></span>
-<span id="cb3-2"><a href="trouble.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tabItem</span>(<span class="at">tabName =</span> tabName,</span>
-<span id="cb3-3"><a href="trouble.html#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(<span class="fu">box</span>(<span class="at">title =</span> datasetTitle,</span>
-<span id="cb3-4"><a href="trouble.html#cb3-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>, <span class="co"># these with affect styling</span></span>
-<span id="cb3-5"><a href="trouble.html#cb3-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">solidHeader =</span> <span class="cn">TRUE</span>, <span class="co"># these with affect styling</span></span>
-<span id="cb3-6"><a href="trouble.html#cb3-6" aria-hidden="true" tabindex="-1"></a>                     <span class="cf">if</span> (<span class="fu">is.null</span>(des_dir) <span class="sc">==</span> <span class="cn">FALSE</span>) {<span class="fu">includeHTML</span>(des_dir)},</span>
-<span id="cb3-7"><a href="trouble.html#cb3-7" aria-hidden="true" tabindex="-1"></a>                     <span class="cf">if</span> (<span class="fu">is.null</span>(image_dir) <span class="sc">==</span> <span class="cn">FALSE</span>) {<span class="fu">img</span>(<span class="at">src =</span> image_dir, <span class="at">height =</span> <span class="dv">150</span>, <span class="at">width =</span> <span class="dv">400</span>)}</span>
-<span id="cb3-8"><a href="trouble.html#cb3-8" aria-hidden="true" tabindex="-1"></a>        )),<span class="fu">br</span>(),</span>
-<span id="cb3-9"><a href="trouble.html#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">actionLink</span>(<span class="fu">NS</span>(id, <span class="st">&quot;link_to_home&quot;</span>), <span class="st">&quot;Home&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;home&quot;</span>)),<span class="fu">br</span>(),<span class="fu">br</span>(),</span>
-<span id="cb3-10"><a href="trouble.html#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">actionButton</span>(<span class="fu">NS</span>(id, <span class="st">&quot;load&quot;</span>), <span class="st">&quot;Plot Graphs&quot;</span>)</span>
-<span id="cb3-11"><a href="trouble.html#cb3-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="trouble.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example fluidRow</span></span>
+<span id="cb5-2"><a href="trouble.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tabItem</span>(<span class="at">tabName =</span> tabName,</span>
+<span id="cb5-3"><a href="trouble.html#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(<span class="fu">box</span>(<span class="at">title =</span> datasetTitle,</span>
+<span id="cb5-4"><a href="trouble.html#cb5-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>, <span class="co"># these with affect styling</span></span>
+<span id="cb5-5"><a href="trouble.html#cb5-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">solidHeader =</span> <span class="cn">TRUE</span>, <span class="co"># these with affect styling</span></span>
+<span id="cb5-6"><a href="trouble.html#cb5-6" aria-hidden="true" tabindex="-1"></a>                     <span class="cf">if</span> (<span class="fu">is.null</span>(des_dir) <span class="sc">==</span> <span class="cn">FALSE</span>) {<span class="fu">includeHTML</span>(des_dir)},</span>
+<span id="cb5-7"><a href="trouble.html#cb5-7" aria-hidden="true" tabindex="-1"></a>                     <span class="cf">if</span> (<span class="fu">is.null</span>(image_dir) <span class="sc">==</span> <span class="cn">FALSE</span>) {<span class="fu">img</span>(<span class="at">src =</span> image_dir, <span class="at">height =</span> <span class="dv">150</span>, <span class="at">width =</span> <span class="dv">400</span>)}</span>
+<span id="cb5-8"><a href="trouble.html#cb5-8" aria-hidden="true" tabindex="-1"></a>        )),<span class="fu">br</span>(),</span>
+<span id="cb5-9"><a href="trouble.html#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">actionLink</span>(<span class="fu">NS</span>(id, <span class="st">&quot;link_to_home&quot;</span>), <span class="st">&quot;Home&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;home&quot;</span>)),<span class="fu">br</span>(),<span class="fu">br</span>(),</span>
+<span id="cb5-10"><a href="trouble.html#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">actionButton</span>(<span class="fu">NS</span>(id, <span class="st">&quot;load&quot;</span>), <span class="st">&quot;Plot Graphs&quot;</span>)</span>
+<span id="cb5-11"><a href="trouble.html#cb5-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
-<div id="deployment" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> Deployment<a href="trouble.html#deployment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="deployment" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Deployment<a href="trouble.html#deployment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Simple apps can be directly deployed with <code>rsconnect::deployApp()</code>, but it is common to have issues with the first deployment <em>even when the app works locally</em>. Here are a few examples below, but your error code will help inform a starting point (in particular, is there one package highlighted as a potential issue?)</p>
-<div id="basics" class="section level3 hasAnchor" number="4.4.1">
-<h3><span class="header-section-number">4.4.1</span> Basics<a href="trouble.html#basics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="basics" class="section level3 hasAnchor" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> Basics<a href="trouble.html#basics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li>Slow deployment: Uploading bundle for application and building packages will take time. Are you loading unneccessary data or packages?</li>
 <li>Memory: check <code>Instance Size</code> on shinyapps.io, this can be increased with specific pricing packages.</li>
 </ol>
 </div>
-<div id="bioconductor" class="section level3 hasAnchor" number="4.4.2">
-<h3><span class="header-section-number">4.4.2</span> Bioconductor<a href="trouble.html#bioconductor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="bioconductor-1" class="section level3 hasAnchor" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> Bioconductor<a href="trouble.html#bioconductor-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Because this framework uses Biocondutor packages, it is likely you need to set the repository (URL).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="trouble.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example error 1: you need to set a URL</span></span>
-<span id="cb4-2"><a href="trouble.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="trouble.html#cb4-3" aria-hidden="true" tabindex="-1"></a>May be unable to deploy package dependency <span class="st">&#39;AnnotationDbi&#39;</span>; could not</span>
-<span id="cb4-4"><a href="trouble.html#cb4-4" aria-hidden="true" tabindex="-1"></a>determine a repository URL <span class="cf">for</span> the source <span class="st">&#39;Bioconductor&#39;</span>.</span>
-<span id="cb4-5"><a href="trouble.html#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="trouble.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># example error 2: the URL is set but not sufficient to compile packages, may need to try another Bioconductor version, update packages, fix compiling, turn off a firewall, or update R</span></span>
-<span id="cb4-7"><a href="trouble.html#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="trouble.html#cb4-8" aria-hidden="true" tabindex="-1"></a>Unhandled Exception<span class="sc">:</span> Child Task <span class="dv">873781155</span> failed<span class="sc">:</span> Error parsing manifest<span class="sc">:</span> </span>
-<span id="cb4-9"><a href="trouble.html#cb4-9" aria-hidden="true" tabindex="-1"></a>Unable to determine package source <span class="cf">for</span> Bioconductor package</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="trouble.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example error 1: you need to set a URL</span></span>
+<span id="cb6-2"><a href="trouble.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="trouble.html#cb6-3" aria-hidden="true" tabindex="-1"></a>May be unable to deploy package dependency <span class="st">&#39;AnnotationDbi&#39;</span>; could not</span>
+<span id="cb6-4"><a href="trouble.html#cb6-4" aria-hidden="true" tabindex="-1"></a>determine a repository URL <span class="cf">for</span> the source <span class="st">&#39;Bioconductor&#39;</span>.</span>
+<span id="cb6-5"><a href="trouble.html#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="trouble.html#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># example error 2: the URL is set but not sufficient to compile packages, may need to try another Bioconductor version, update packages, fix compiling, turn off a firewall, or update R</span></span>
+<span id="cb6-7"><a href="trouble.html#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="trouble.html#cb6-8" aria-hidden="true" tabindex="-1"></a>Unhandled Exception<span class="sc">:</span> Child Task <span class="dv">873781155</span> failed<span class="sc">:</span> Error parsing manifest<span class="sc">:</span> </span>
+<span id="cb6-9"><a href="trouble.html#cb6-9" aria-hidden="true" tabindex="-1"></a>Unable to determine package source <span class="cf">for</span> Bioconductor package</span></code></pre></div>
 <p>You can specific the bioconductor repository here (depending on updates, a very new version may be incompatible with <code>Shiny</code> briefly). You can check which repositories have been set using <code>getOption("repos")</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="trouble.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setRepositories</span>(<span class="at">addURLs =</span> <span class="fu">c</span>(<span class="at">BioC =</span> <span class="st">&quot;https://bioconductor.org/packages/3.16/bioc&quot;</span>)) <span class="co">#specify version here</span></span>
-<span id="cb5-2"><a href="trouble.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="trouble.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># alternatively, this can be run at the top of the UI and *may* help</span></span>
-<span id="cb5-4"><a href="trouble.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiocManager)</span>
-<span id="cb5-5"><a href="trouble.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repos =</span> BiocManager<span class="sc">::</span><span class="fu">repositories</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="trouble.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setRepositories</span>(<span class="at">addURLs =</span> <span class="fu">c</span>(<span class="at">BioC =</span> <span class="st">&quot;https://bioconductor.org/packages/3.16/bioc&quot;</span>)) <span class="co">#specify version here</span></span>
+<span id="cb7-2"><a href="trouble.html#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="trouble.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># alternatively, this can be run at the top of the UI and *may* help</span></span>
+<span id="cb7-4"><a href="trouble.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiocManager)</span>
+<span id="cb7-5"><a href="trouble.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repos =</span> BiocManager<span class="sc">::</span><span class="fu">repositories</span>())</span></code></pre></div>
 <p>If there is a specific package referred to, check the installation to make sure it was successful (see above). You can force a new install using <code>force = TRUE</code>, but restart R before trying again.</p>
 <p>If you are planning to update many packages, you can check which are valid first.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="trouble.html#cb6-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">valid</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="trouble.html#cb8-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">valid</span>() </span></code></pre></div>
 <p>Still not working? A few other things to look for:</p>
 <ol style="list-style-type: decimal">
 <li>Package dependency mismatch between CRAN and Bioconductor (check <code>rsconnect::appDependencies()</code>)</li>
@@ -246,7 +253,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>If all else fails, try posting on the community forum for help (&lt;<a href="https://community.rstudio.com/" class="uri">https://community.rstudio.com/</a>) and tag <em>Shiny</em> and <em>shinyapp.io</em> with a reproducible example (ie. <em>reprex</em>). See <a href="https://community.rstudio.com/t/faq-tips-for-writing-r-related-questions/6824" class="uri">https://community.rstudio.com/t/faq-tips-for-writing-r-related-questions/6824</a> for how to best format this.</p>
 <p>For reference, the following were used for our database.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="trouble.html#cb7-1" aria-hidden="true" tabindex="-1"></a>rsconnect<span class="sc">::</span><span class="fu">appDependencies</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="trouble.html#cb9-1" aria-hidden="true" tabindex="-1"></a>rsconnect<span class="sc">::</span><span class="fu">appDependencies</span>()</span></code></pre></div>
 <pre><code>##       package version source
 ## 1          R6   2.5.1   CRAN
 ## 2     askpass     1.1   CRAN
@@ -286,12 +293,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 36      vctrs   0.5.2   CRAN
 ## 37       xfun    0.37   CRAN
 ## 38       yaml   2.3.7   CRAN</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="trouble.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getOption</span>(<span class="st">&quot;repos&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="trouble.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getOption</span>(<span class="st">&quot;repos&quot;</span>)</span></code></pre></div>
 <pre><code>##                        CRAN 
 ## &quot;https://cran.rstudio.com/&quot; 
 ## attr(,&quot;RStudio&quot;)
 ## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="trouble.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="trouble.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.2.2 (2022-10-31 ucrt)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
 ## Running under: Windows 10 x64 (build 19042)
@@ -306,11 +313,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] rstudioapi_0.14     knitr_1.42          magrittr_2.0.3      R6_2.5.1            rlang_1.0.6         fastmap_1.1.0      
-##  [7] stringr_1.5.0       tools_4.2.2         packrat_0.9.0       xfun_0.37           cli_3.6.0           jquerylib_0.1.4    
-## [13] htmltools_0.5.4     yaml_2.3.7          digest_0.6.31       lifecycle_1.0.3     bookdown_0.32       BiocManager_1.30.19
-## [19] sass_0.4.5          vctrs_0.5.2         rsconnect_0.8.29    glue_1.6.2          cachem_1.0.6        evaluate_0.20      
-## [25] rmarkdown_2.20      stringi_1.7.12      compiler_4.2.2      bslib_0.4.2         jsonlite_1.8.4</code></pre>
+##  [1] bookdown_0.32       packrat_0.9.0       digest_0.6.31       R6_2.5.1            jsonlite_1.8.4      evaluate_0.20      
+##  [7] cachem_1.0.6        rlang_1.0.6         cli_3.6.0           rstudioapi_0.14     jquerylib_0.1.4     bslib_0.4.2        
+## [13] rmarkdown_2.20      tools_4.2.2         rsconnect_0.8.29    xfun_0.37           yaml_2.3.7          fastmap_1.1.0      
+## [19] compiler_4.2.2      BiocManager_1.30.19 htmltools_0.5.4     knitr_1.42          sass_0.4.5</code></pre>
 <p>Happy building!</p>
 
 </div>
@@ -321,8 +327,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="ui.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="deploy.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

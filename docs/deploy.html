@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | A simple database framework for hosting and visualising sequencing data through Shiny</title>
+  <title>Chapter 5 Deploying your application | A simple database framework for hosting and visualising sequencing data through Shiny</title>
   <meta name="description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | A simple database framework for hosting and visualising sequencing data through Shiny" />
+  <meta property="og:title" content="Chapter 5 Deploying your application | A simple database framework for hosting and visualising sequencing data through Shiny" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   <meta name="github-repo" content="aliibarry/omics-database" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | A simple database framework for hosting and visualising sequencing data through Shiny" />
+  <meta name="twitter:title" content="Chapter 5 Deploying your application | A simple database framework for hosting and visualising sequencing data through Shiny" />
   
   <meta name="twitter:description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="server.html"/>
+<link rel="next" href="trouble.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -184,19 +184,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="deploy" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Deploying your application<a href="deploy.html#deploy" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="shinyapps.io" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Shinyapps.io<a href="deploy.html#shinyapps.io" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sign up to <a href="https://www.shinyapps.io/" class="uri">https://www.shinyapps.io/</a>. Your university may already have a subscription, otherwise you can use a free plan to host your app.</p>
+</div>
+<div id="bioconductor" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Bioconductor<a href="deploy.html#bioconductor" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before deploying, you should specific the bioconductor repository (depending on updates, a very new version may be incompatible with <code>Shiny</code> briefly). You can also check which repositories have been set using <code>getOption("repos")</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="deploy.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setRepositories</span>(<span class="at">addURLs =</span> <span class="fu">c</span>(<span class="at">BioC =</span> <span class="st">&quot;https://bioconductor.org/packages/3.16/bioc&quot;</span>)) <span class="co">#specify version here</span></span></code></pre></div>
+<p>And, DEPLOY! (this may take awhile). If you are using RStudio, you can also deploy using the blue icon in the top-right corner.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="deploy.html#cb3-1" aria-hidden="true" tabindex="-1"></a>rsconnect<span class="sc">::</span><span class="fu">deployApp</span>()</span></code></pre></div>
+<p>Still not working? Check our troubleshooting guide (<a href="trouble.html#trouble">6</a>) for more help. It may be as simple as turning off your firewall.</p>
+<!-- ## Equations -->
+<!-- Here is an equation. -->
+<!-- \begin{equation}  -->
+<!--   f\left(k\right) = \binom{n}{k} p^k\left(1-p\right)^{n-k} -->
+<!--   (\#eq:binom) -->
+<!-- \end{equation}  -->
+<!-- You may refer to using `\@ref(eq:binom)`, like see Equation \@ref(eq:binom). -->
+<!-- ## Theorems and proofs -->
+<!-- Labeled theorems can be referenced in text using `\@ref(thm:tri)`, for example, check out this smart theorem \@ref(thm:tri). -->
+<!-- ::: {.theorem #tri} -->
+<!-- For a right triangle, if $c$ denotes the *length* of the hypotenuse -->
+<!-- and $a$ and $b$ denote the lengths of the **other** two sides, we have -->
+<!-- $$a^2 + b^2 = c^2$$ -->
+<!-- ::: -->
+<!-- Read more here <https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html>. -->
+<!-- ## Callout blocks -->
+<!-- The R Markdown Cookbook provides more help on how to use custom blocks to design your own callouts: https://bookdown.org/yihui/rmarkdown-cookbook/custom-blocks.html -->
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="server.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="trouble.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -227,7 +254,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/aliibarry/database-book/edit/master/%s",
+"link": "https://github.com/aliibarry/database-book/edit/master/04-deploy.Rmd",
 "text": "Edit"
 },
 "history": {
