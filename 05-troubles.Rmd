@@ -1,0 +1,97 @@
+# Troubleshooting {#trouble}
+
+## Package installation
+
+Most packages are installed from CRAN using `install.packages` or bioconductor using `BiocManager::install()`. Make sure to also install dependencies, and check to see which functions are masked by other packages if you change the order of loading libraries. 
+
+Some require installation from github, using `devtools`. For example, `dict` installation:
+
+```{r eval=FALSE}
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github("mkuhn/dict")
+```
+
+If you are using Windows and struggling with compilation, make sure `RTools` is installed properly (<https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html>). If you don't have write permissions to update packages, this may require administrator access.
+
+## File setup
+
+The most common error is that your file names or `PATH` is incorrect.  
+
+## Styling
+
+If you are using a style sheet (`style.css`), first make sure it's in the correct repository. Are default options from`Shiny` overriding the options in your style sheet? Check options for each function. For more help, see
+<https://shiny.rstudio.com/articles/css.html>. 
+
+```{r eval=FALSE}
+# example fluidRow
+tabItem(tabName = tabName,
+        fluidRow(box(title = datasetTitle,
+                     status = "primary", # these with affect styling
+                     solidHeader = TRUE, # these with affect styling
+                     if (is.null(des_dir) == FALSE) {includeHTML(des_dir)},
+                     if (is.null(image_dir) == FALSE) {img(src = image_dir, height = 150, width = 400)}
+        )),br(),
+        actionLink(NS(id, "link_to_home"), "Home", icon = icon("home")),br(),br(),
+        actionButton(NS(id, "load"), "Plot Graphs")
+)
+```
+
+## Deployment
+
+Simple apps can be directly deployed with `rsconnect::deployApp()`, but it is common to have issues with the first deployment *even when the app works locally*. Here are a few examples below, but your error code will help inform a starting point (in particular, is there one package highlighted as a potential issue?)
+
+### Basics
+
+1. Slow deployment: Uploading bundle for application and building packages will take time. Are you loading unneccessary data or packages? 
+2. Memory: check `Instance Size` on shinyapps.io, this can be increased with specific pricing packages.
+
+### Bioconductor
+
+Because this framework uses Biocondutor packages, it is likely you need to set the repository (URL). 
+
+```{r eval=FALSE}
+# example error 1: you need to set a URL
+
+May be unable to deploy package dependency 'AnnotationDbi'; could not
+determine a repository URL for the source 'Bioconductor'.
+
+# example error 2: the URL is set but not sufficient to compile packages, may need to try another Bioconductor version, update packages, fix compiling, turn off a firewall, or update R
+
+Unhandled Exception: Child Task 873781155 failed: Error parsing manifest: 
+Unable to determine package source for Bioconductor package
+```
+
+You can specific the bioconductor repository here (depending on updates, a very new version may be incompatible with `Shiny` briefly). You can check which repositories have been set using `getOption("repos")`.
+
+```{r eval=FALSE}
+setRepositories(addURLs = c(BioC = "https://bioconductor.org/packages/3.16/bioc")) #specify version here
+
+# alternatively, this can be run at the top of the UI and *may* help
+library(BiocManager)
+options(repos = BiocManager::repositories())
+```
+
+If there is a specific package referred to, check the installation to make sure it was successful (see above). You can force a new install using `force = TRUE`, but restart R before trying again. 
+
+If you are planning to update many packages, you can check which are valid first. 
+
+```{r eval=FALSE}
+BiocManager::valid() 
+```
+
+Still not working? A few other things to look for:
+
+1. Package dependency mismatch between CRAN and Bioconductor (check `rsconnect::appDependencies()`)
+2. Make sure you are using a released version of R (shinyapps.io doesn't support beta versions, and you may need to revert to a released version of R and update packages.)
+3. Your local firewall/antivirus may be blocking deployment. 
+
+If all else fails, try posting on the community forum for help (<https://community.rstudio.com/) and tag _Shiny_ and _shinyapp.io_ with a reproducible example (ie. _reprex_). See <https://community.rstudio.com/t/faq-tips-for-writing-r-related-questions/6824> for how to best format this. 
+
+For reference, the following were used for our database.
+```{r}
+rsconnect::appDependencies()
+getOption("repos")
+sessionInfo()
+```
+
+Happy building!

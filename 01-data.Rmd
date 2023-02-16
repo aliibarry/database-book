@@ -1,0 +1,23 @@
+# Data Processing {#data}
+
+## Preparation
+
+To implement this app, you will need three types of data:
+
+1. Count tables in “./data/CountTables/” folder
+
+```{r}
+
+# ADD CODE HERE
+
+```
+
+2. Column Data (abbrev: colData) in “./data/ColDatas/” folder
+  * This contains the info about each sample
+  * The colnames of colData should include ‘Population’, ‘Timepoint’, ‘Sex’ , ‘Dataset’ and ‘Species’
+  * If your experiment does not separate those samples based on any of those parameters, you will need to create a column that specifies this. E.g. if your samples are of mixed sex, you can creates a ‘Sex’ column containing ‘mixed’ for all samples.
+3. Differential Expression data frames (abbrev: deg_df) in “./data/DegData/” folder
+  * This data file contains the log2FoldChange and statistics of one experimental group compared to the control
+  * An experiment can have multiple deg_df files
+
+## Building an SQL database

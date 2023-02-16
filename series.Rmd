@@ -1,0 +1,237 @@
+--- 
+title: "A simple database framework for hosting and visualising sequencing data through Shiny"
+author: "AMB and NZ"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  Here we will describe how to build a Shiny app for sequencing data using the code base described in _CITE PAPER HERE_.
+link-citations: yes
+github-repo: aliibarry/omics-database
+---
+
+# Overview
+
+Here we will describe how to build a Shiny app for sequencing data using the code base described in _CITE PAPER HERE_.
+
+A working example of this app is hosted at <https://livedataoxford.shinyapps.io/drg-directory/> and the code base is provided at <https://github.com/aliibarry/omics-database>.
+
+A previous version of <https://livedataoxford.shinyapps.io/drg-directory/> was first published in Barry _et al._ 2023 but was updated here to reflect a more developer-friendly code base along with addition features (eg. network integration). 
+
+## Shiny
+
+If you are completely new to Shiny, we recommend working through some short tutorials first, just to wrap your head around the structure <https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/>.
+
+
+<!-- Each **bookdown** chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter *must* start with a first-level heading: `# A good chapter`, and can contain one (and only one) first-level heading. -->
+
+<!-- Use second-level and higher headings within chapters like: `## A short section` or `### An even shorter section`. -->
+
+<!-- The `index.Rmd` file is required, and is also your first book chapter. It will be the homepage when you render the book. -->
+
+<!-- ## Render book -->
+
+<!-- You can render the HTML version of this example book without changing anything: -->
+
+<!-- 1. Find the **Build** pane in the RStudio IDE, and -->
+
+<!-- 1. Click on **Build Book**, then select your output format, or select "All formats" if you'd like to use multiple formats from the same book source files. -->
+
+<!-- Or build the book from the R console: -->
+
+<!-- ```{r, eval=FALSE} -->
+<!-- bookdown::render_book() -->
+<!-- ``` -->
+
+<!-- To render this example to PDF as a `bookdown::pdf_book`, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.org/tinytex/>. -->
+
+<!-- ## Preview book -->
+
+<!-- As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in "Preview book", or from the R console: -->
+
+<!-- ```{r eval=FALSE} -->
+<!-- bookdown::serve_book() -->
+<!-- ``` -->
+
+
+<!-- ```{r include=FALSE} -->
+<!-- # automatically create a bib database for R packages -->
+<!-- knitr::write_bib(c( -->
+<!--   .packages(), 'bookdown', 'knitr', 'rmarkdown' -->
+<!-- ), 'packages.bib') -->
+<!-- ``` -->
+
+<!--chapter:end:index.Rmd-->
+
+# Data Processing {#data}
+
+## Preparation
+
+To implement this app, you will need three types of data:
+
+1. Count tables in “./data/CountTables/” folder
+
+```{r}
+
+# ADD CODE HERE
+
+```
+
+2. Column Data (abbrev: colData) in “./data/ColDatas/” folder
+  * This contains the info about each sample
+  * The colnames of colData should include ‘Population’, ‘Timepoint’, ‘Sex’ , ‘Dataset’ and ‘Species’
+  * If your experiment does not separate those samples based on any of those parameters, you will need to create a column that specifies this. E.g. if your samples are of mixed sex, you can creates a ‘Sex’ column containing ‘mixed’ for all samples.
+3. Differential Expression data frames (abbrev: deg_df) in “./data/DegData/” folder
+  * This data file contains the log2FoldChange and statistics of one experimental group compared to the control
+  * An experiment can have multiple deg_df files
+
+## Building an SQL database
+
+<!--chapter:end:01-data.Rmd-->
+
+# User Interface {#ui}
+
+
+
+
+
+<!-- ## Cross-references {#cross} -->
+
+<!-- Cross-references make it easier for your readers to find and link to elements in your book. -->
+
+<!-- ## Chapters and sub-chapters -->
+
+<!-- There are two steps to cross-reference any heading: -->
+
+<!-- 1. Label the heading: `# Hello world {#nice-label}`.  -->
+<!--     - Leave the label off if you like the automated heading generated based on your heading title: for example, `# Hello world` = `# Hello world {#hello-world}`. -->
+<!--     - To label an un-numbered heading, use: `# Hello world {-#nice-label}` or `{# Hello world .unnumbered}`. -->
+
+<!-- 1. Next, reference the labeled heading anywhere in the text using `\@ref(nice-label)`; for example, please see Chapter \@ref(cross).  -->
+<!--     - If you prefer text as the link instead of a numbered reference use: [any text you want can go here](#cross). -->
+
+<!-- ## Captioned figures and tables -->
+
+<!-- Figures and tables *with captions* can also be cross-referenced from elsewhere in your book using `\@ref(fig:chunk-label)` and `\@ref(tab:chunk-label)`, respectively. -->
+
+<!-- See Figure \@ref(fig:nice-fig). -->
+
+<!-- ```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center', fig.alt='Plot with connected points showing that vapor pressure of mercury increases exponentially as temperature increases.'} -->
+<!-- par(mar = c(4, 4, .1, .1)) -->
+<!-- plot(pressure, type = 'b', pch = 19) -->
+<!-- ``` -->
+
+<!-- Don't miss Table \@ref(tab:nice-tab). -->
+
+<!-- ```{r nice-tab, tidy=FALSE} -->
+<!-- knitr::kable( -->
+<!--   head(pressure, 10), caption = 'Here is a nice table!', -->
+<!--   booktabs = TRUE -->
+<!-- ) -->
+<!-- ``` -->
+
+<!--chapter:end:02-ui.Rmd-->
+
+# Troubleshooting {#trouble}
+
+## Package installation
+
+Most packages are installed from CRAN using `install.packages` or bioconductor using `BiocManager::install()`. Make sure to also install dependencies, and check to see which functions are masked by other packages if you change the order of loading libraries. 
+
+Some require installation from github, using `devtools`. For example, `dict` installation:
+
+```{r eval=FALSE}
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github("mkuhn/dict")
+```
+
+If you are using Windows and struggling with compilation, make sure `RTools` is installed properly (<https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html>). If you don't have write permissions to update packages, this may require administrator access.
+
+## File setup
+
+The most common error is that your file names or `PATH` is incorrect.  
+
+## Styling
+
+If you are using a style sheet (`style.css`), first make sure it's in the correct repository. Are default options from`Shiny` overriding the options in your style sheet? Check options for each function. For more help, see
+<https://shiny.rstudio.com/articles/css.html>. 
+
+```{r eval=FALSE}
+# example fluidRow
+tabItem(tabName = tabName,
+        fluidRow(box(title = datasetTitle,
+                     status = "primary", # these with affect styling
+                     solidHeader = TRUE, # these with affect styling
+                     if (is.null(des_dir) == FALSE) {includeHTML(des_dir)},
+                     if (is.null(image_dir) == FALSE) {img(src = image_dir, height = 150, width = 400)}
+        )),br(),
+        actionLink(NS(id, "link_to_home"), "Home", icon = icon("home")),br(),br(),
+        actionButton(NS(id, "load"), "Plot Graphs")
+)
+```
+
+## Deployment
+
+Simple apps can be directly deployed with `rsconnect::deployApp()`, but it is common to have issues with the first deployment *even when the app works locally*. Here are a few examples below, but your error code will help inform a starting point (in particular, is there one package highlighted as a potential issue?)
+
+### Basics
+
+1. Slow deployment: Uploading bundle for application and building packages will take time. Are you loading unneccessary data or packages? 
+2. Memory: check `Instance Size` on shinyapps.io, this can be increased with specific pricing packages.
+
+### Bioconductor
+
+Because this framework uses Biocondutor packages, it is likely you need to set the repository (URL). 
+
+```{r eval=FALSE}
+# example error 1: you need to set a URL
+
+May be unable to deploy package dependency 'AnnotationDbi'; could not
+determine a repository URL for the source 'Bioconductor'.
+
+# example error 2: the URL is set but not sufficient to compile packages, may need to try another Bioconductor version, update packages, fix compiling, turn off a firewall, or update R
+
+Unhandled Exception: Child Task 873781155 failed: Error parsing manifest: 
+Unable to determine package source for Bioconductor package
+```
+
+You can specific the bioconductor repository here (depending on updates, a very new version may be incompatible with `Shiny` briefly). You can check which repositories have been set using `getOption("repos")`.
+
+```{r eval=FALSE}
+setRepositories(addURLs = c(BioC = "https://bioconductor.org/packages/3.16/bioc")) #specify version here
+
+# alternatively, this can be run at the top of the UI and *may* help
+library(BiocManager)
+options(repos = BiocManager::repositories())
+```
+
+If there is a specific package referred to, check the installation to make sure it was successful (see above). You can force a new install using `force = TRUE`, but restart R before trying again. 
+
+If you are planning to update many packages, you can check which are valid first. 
+
+```{r eval=FALSE}
+BiocManager::valid() 
+```
+
+Still not working? A few other things to look for:
+
+1. Package dependency mismatch between CRAN and Bioconductor (check `rsconnect::appDependencies()`)
+2. Make sure you are using a released version of R (shinyapps.io doesn't support beta versions, and you may need to revert to a released version of R and update packages.)
+3. Your local firewall/antivirus may be blocking deployment. 
+
+If all else fails, try posting on the community forum for help (<https://community.rstudio.com/) and tag _Shiny_ and _shinyapp.io_ with a reproducible example (ie. _reprex_). See <https://community.rstudio.com/t/faq-tips-for-writing-r-related-questions/6824> for how to best format this. 
+
+For reference, the following were used for our database.
+```{r}
+rsconnect::appDependencies()
+getOption("repos")
+sessionInfo()
+```
+
+Happy building!
+
+<!--chapter:end:05-troubles.Rmd-->
+

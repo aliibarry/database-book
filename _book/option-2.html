@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 option 2 | Sequencing databases in Shiny</title>
+  <meta name="description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 option 2 | Sequencing databases in Shiny" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
+  <meta name="github-repo" content="aliibarry/omics-database" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 option 2 | Sequencing databases in Shiny" />
+  
+  <meta name="twitter:description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
+  
+
+<meta name="author" content="AMB and NZ" />
+
+
+<meta name="date" content="2023-02-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="error-2-the-url-set-is-not-suffient-may-need-to-try-another-bioconductor-version-update-packages-or-update-r.html"/>
+<link rel="next" href="other.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Sequencing databases in Shiny</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like <span>https://bookdown.org/yihui/bookdown</span></a></li>
+<li class="chapter" data-level="2" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>2</b> Data Processing</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data.html"><a href="data.html#preparation"><i class="fa fa-check"></i><b>2.1</b> Preparation</a></li>
+<li class="chapter" data-level="2.2" data-path="data.html"><a href="data.html#building-an-sql-database"><i class="fa fa-check"></i><b>2.2</b> Building an SQL database</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ui.html"><a href="ui.html"><i class="fa fa-check"></i><b>3</b> User Interface</a></li>
+<li class="chapter" data-level="4" data-path="server.html"><a href="server.html"><i class="fa fa-check"></i><b>4</b> Server</a></li>
+<li class="chapter" data-level="5" data-path="trouble.html"><a href="trouble.html"><i class="fa fa-check"></i><b>5</b> Troubleshooting</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="trouble.html"><a href="trouble.html#package-istallation-and-errors"><i class="fa fa-check"></i><b>5.1</b> Package istallation and errors</a></li>
+<li class="chapter" data-level="5.2" data-path="trouble.html"><a href="trouble.html#file-set-up"><i class="fa fa-check"></i><b>5.2</b> File set-up</a></li>
+<li class="chapter" data-level="5.3" data-path="trouble.html"><a href="trouble.html#styling"><i class="fa fa-check"></i><b>5.3</b> Styling</a></li>
+<li class="chapter" data-level="5.4" data-path="trouble.html"><a href="trouble.html#deployment"><i class="fa fa-check"></i><b>5.4</b> Deployment</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="error-2-the-url-set-is-not-suffient-may-need-to-try-another-bioconductor-version-update-packages-or-update-r.html"><a href="error-2-the-url-set-is-not-suffient-may-need-to-try-another-bioconductor-version-update-packages-or-update-r.html"><i class="fa fa-check"></i><b>6</b> error 2: the URL set is not suffient, may need to try another Bioconductor version, update packages, or update R</a></li>
+<li class="chapter" data-level="7" data-path="option-2.html"><a href="option-2.html"><i class="fa fa-check"></i><b>7</b> option 2</a></li>
+<li class="chapter" data-level="8" data-path="other.html"><a href="other.html"><i class="fa fa-check"></i><b>8</b> Other</a></li>
+<li class="chapter" data-level="9" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>9</b> Sharing your book</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>9.1</b> Publishing</a></li>
+<li class="chapter" data-level="9.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>9.2</b> 404 pages</a></li>
+<li class="chapter" data-level="9.3" data-path="sharing-your-book.html"><a href="sharing-your-book.html#metadata-for-sharing"><i class="fa fa-check"></i><b>9.3</b> Metadata for sharing</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Sequencing databases in Shiny</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="option-2" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> option 2<a href="option-2.html#option-2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>setRepositories(addURLs = c(BioC = “<a href="https://bioconductor.org/packages/3.16/bioc" class="uri">https://bioconductor.org/packages/3.16/bioc</a>”)) #specify version here</p>
+<p>’’’</p>
+<p>If you need to update packages, check which are valid first</p>
+<p>’’‘{r}
+BiocManager::valid()’’’</p>
+<p>If this doesn’t work, make sure you are using a released version of R (shinyapps.io doesn’t support beta versions). If that’s fine, you may need to do a clean install and update of your packages. If not, revert to a released version of R and update packages.</p>
+<!-- ## Footnotes -->
+<!-- Footnotes are put inside the square brackets after a caret `^[]`. Like this one ^[This is a footnote.].  -->
+<!-- ## Citations -->
+<!-- Reference items in your bibliography file(s) using `@key`. -->
+<!-- For example, we are using the **bookdown** package [@R-bookdown] (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and **knitr** [@xie2015] (this citation was added manually in an external file book.bib).  -->
+<!-- Note that the `.bib` files need to be listed in the index.Rmd with the YAML `bibliography` key. -->
+<!-- The RStudio Visual Markdown Editor can also make it easier to insert citations: <https://rstudio.github.io/visual-markdown-editing/#/citations> -->
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="error-2-the-url-set-is-not-suffient-may-need-to-try-another-bioconductor-version-update-packages-or-update-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="other.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-citations.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

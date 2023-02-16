@@ -1,0 +1,14 @@
+# book_filename: "series"
+language:
+  ui:
+    chapter_name: "Chapter "
+rmd_files: [
+  "index.Rmd",
+  "01-data.Rmd",
+  "02-ui.Rmd",
+  "03-server.Rmd",
+  "04-deploy.Rmd",
+  "05-troubles.Rmd",
+  "07-references.Rmd"]
+delete_merged_file: true 
+output_dir: "docs"

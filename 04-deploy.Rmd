@@ -1,0 +1,50 @@
+# Deploying your application {#deploy}
+
+## Shinyapps.io
+
+Sign up to <https://www.shinyapps.io/>. Your university may already have a subscription, otherwise you can use a free plan to host your app.
+
+## Bioconductor
+
+Before deploying, you should specific the bioconductor repository (depending on updates, a very new version may be incompatible with `Shiny` briefly). You can also check which repositories have been set using `getOption("repos")`.
+
+```{r eval=FALSE}
+setRepositories(addURLs = c(BioC = "https://bioconductor.org/packages/3.16/bioc")) #specify version here
+```
+
+And, DEPLOY! (this may take awhile). If you are using RStudio, you can also deploy using the blue icon in the top-right corner.
+
+```{r eval=FALSE}
+rsconnect::deployApp()
+```
+
+Still not working? Check our troubleshooting guide (\@ref(trouble)) for more help. It may be as simple as turning off your firewall.
+
+<!-- ## Equations -->
+
+<!-- Here is an equation. -->
+
+<!-- \begin{equation}  -->
+<!--   f\left(k\right) = \binom{n}{k} p^k\left(1-p\right)^{n-k} -->
+<!--   (\#eq:binom) -->
+<!-- \end{equation}  -->
+
+<!-- You may refer to using `\@ref(eq:binom)`, like see Equation \@ref(eq:binom). -->
+
+
+<!-- ## Theorems and proofs -->
+
+<!-- Labeled theorems can be referenced in text using `\@ref(thm:tri)`, for example, check out this smart theorem \@ref(thm:tri). -->
+
+<!-- ::: {.theorem #tri} -->
+<!-- For a right triangle, if $c$ denotes the *length* of the hypotenuse -->
+<!-- and $a$ and $b$ denote the lengths of the **other** two sides, we have -->
+<!-- $$a^2 + b^2 = c^2$$ -->
+<!-- ::: -->
+
+<!-- Read more here <https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html>. -->
+
+<!-- ## Callout blocks -->
+
+
+<!-- The R Markdown Cookbook provides more help on how to use custom blocks to design your own callouts: https://bookdown.org/yihui/rmarkdown-cookbook/custom-blocks.html -->
