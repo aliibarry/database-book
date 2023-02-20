@@ -331,7 +331,7 @@ if (is.null(i) == FALSE) {
 })
 ```
 
-### Network Analysis 
+## Network Analysis 
 
 Network integration can give context when working with large datasets, and provide a platform to integrate information from multiple sources. 
 
@@ -355,7 +355,15 @@ shiny::updateSelectizeInput(session,
                             server = TRUE,
                             selected = c("ATF3") ## choose your favourite
 )
+```
 
+### Integration with STRING DB
+
+Node and edge data is extracted in real-time from STRING <https://string-db.org/> and reconstructed into a network based on user input.
+
+_For reference only, you don't need to modify this._
+
+```{r, eval = FALSE}
 ### this doesn't need to be modified
 # generates network  when the submit button is clicked 
 observeEvent(input$submit, {

@@ -25,6 +25,7 @@ tab-menu
 grouped-comparisons-1
 individual-analysis-1
 network-analysis
+integration-with-string-db
 functions
 data-processing
 dot-plots
@@ -44,4 +45,3 @@ debugging-reactive-code
 deployment
 basics
 bioconductor-1
-url-your-book-url-like-httpsbookdown.orgyihuibookdown
