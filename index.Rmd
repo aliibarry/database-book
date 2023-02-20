@@ -30,7 +30,7 @@ If you are completely new to Shiny, we recommend working through some short tuto
 * Prepare tables (count, differential analysis, column data)
 * Compile into a `.RData` or `.db`
 2. User interface (\@ref(ui))
-1. Write descriptions for each dataset and save them in `.\des\*`
+* Write descriptions for each dataset and save them in `.\des\*`
 * _encouraged_ select appropriate plots and add descriptions
 * _encouraged_ choose title + logo
 * _optional_ customize aesthetic
