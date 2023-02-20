@@ -19,7 +19,7 @@ The most common error is that your file names or `PATH` is incorrect.
 
 ## Styling
 
-If you are using a style sheet (`style.css`), first make sure it's in the correct repository. Are default options from`Shiny` overriding the options in your style sheet? Check options for each function. For more help, see
+If you are using a style sheet (`style.css`), first make sure it's in the correct repository. Are default options from `Shiny` overriding the options in your style sheet? Check options for each function. For more help, see
 <https://shiny.rstudio.com/articles/css.html>. 
 
 ```{r eval=FALSE}
@@ -34,6 +34,161 @@ tabItem(tabName = tabName,
         actionLink(NS(id, "link_to_home"), "Home", icon = icon("home")),br(),br(),
         actionButton(NS(id, "load"), "Plot Graphs")
 )
+```
+
+## Data input/output issues 
+Ensure that the data you are inputting into the app is in the correct format, and that the output is being generated correctly. Check if there are any issues with the data or if there are errors in the code that is manipulating the data. You can print data at each step of pre-processing to evaluate their format. 
+
+An example is the step of calculating median expression from all samples and grouping them based on experimental parameters. Use `print()` function throughout to monitor mistakes. 
+```{r}
+# load count data and colData 
+count   = read.csv("./data/CountTables/TPM_mouse.csv", header = TRUE)
+count$gene = count$X
+## print(count)
+
+colData = read.csv(paste0("./data/colData/", "TPM_mouse_colData.csv"), header = TRUE)
+rownames(colData) = colData[,1]
+## print(colData)
+
+# filter rows of genes queried 
+df = count[count$symbol %in% c("Gnai3", "Scml12"),]
+## print(df)
+
+# remove the symbol column 
+df$gene = df$X
+filt = df[,!names(df) %in% c("symbol","X")]
+rownames(filt) = filt$gene
+## print(filt)
+
+# convert wide to long data frame based on the rownames of colData and rownames of count data 
+# this requires rownames(tcounts) to be gene IDs and rownames(colData) to be the same as colnames(tcounts)
+# mistakes are generated if those columns do not match. 
+tcounts <- t(filt) %>%
+  base::merge(colData, ., by="row.names") %>%
+  gather(gene, expression, (ncol(.)-nrow(filt)+1):(ncol(.)))
+## print(tcounts)
+
+# add back symbols
+tcounts$symbol = count[count$X %in% tcounts$gene,]$symbol
+## print(tcounts)
+
+# display datasets 
+kbl(tcounts %>% head) %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 12, latex_options = "scale_down") %>% scroll_box(width = "100%", height = "200px")
+```
+
+
+## Debugging reactive code
+Reavtive components respond to user inputs. This allows users to interact with the data in real-time, updating visualizations and other content as they change settings or filters. Reactive components can be created using the `reactive()` function in Shiny. An example is shown below: 
+
+For example, 
+```{r, eval = FALSE}
+library(shiny)
+
+# Define the UI
+ui <- fluidPage(
+  # Input field for a number
+  numericInput(inputId = "my_number", label = "Enter a number:", value = 1),
+  # Text output for the number squared
+  textOutput(outputId = "my_output")
+)
+
+# Define the server
+server <- function(input, output) {
+  # Define a reactive expression for the square of the number
+  squared <- reactive({
+    input$my_number^2
+  })
+  
+  # Output the squared number to the text output
+  output$my_output <- renderText({
+    paste0("The square of ", input$my_number, " is ", squared())
+  })
+}
+
+# Run the app
+shinyApp(ui, server)
+```
+
+The example above uses the `numericInput()` function to create an input field where the user can enter a number. We then use the `reactive()` function to define a reactive expression called squared, which calculates the square of the input number. Finally, we use the `renderText()` function to display the squared number in a text output component.
+
+Note that the `squared` reactive expression is not evaluated until it is actually used in the `renderText()` function. This means that it will only be re-evaluated when the input value `my_number` changes. 
+
+To debug reactive code, there are a few tips. 
+
+1. Use the `print()` function to print out intermediate results of the reactive code to see where the problem is arising. For example, you can print the value of a reactive input or output to see if it is being calculated correctly. You can also use the `reactiveValues()` function to create reactive values that can be printed out for debugging purposes.
+
+```{r, eval = FALSE}
+# Example of using print statements to debug reactive code
+output$my_output <- renderText({
+  x <- input$my_input
+  print(x) # Print the value of x for debugging purposes
+  x * 2 # Return the value of x times 2
+})
+
+```
+
+2. Use the `browser()` function to pause the execution of the code at a particular point, which will allow you to inspect the current environment. This can be particularly useful for debugging complex reactive code. To use the `browser()` function, simply add it to the reactive expression where you want to pause the code.
+
+```{r, eval = FALSE}
+# Example of using the browser function to debug reactive code
+output$my_output <- renderText({
+  x <- input$my_input
+  browser() # Pause execution and allow user to inspect environment
+  x * 2 # Return the value of x times 2
+})
+
+```
+
+When the app runs and the server function is called, it will pause at the `browser()` statement. In the R console or IDE, you can then examine the value of the input variable by typing input at the prompt, or check the current state of the app by typing other R commands.
+
+Once you are finished debugging, you can continue the app execution by typing `c` (for "continue") in the R console. The app will resume execution and the output will be displayed in the Shiny app UI.
+
+3. Check for dependencies: Reactive expressions can sometimes depend on other reactive expressions or reactive values, and it can be challenging to trace the dependencies. The `reactiveLog()` function in the `reactlog` package can be useful for visualizing the dependencies between reactive expressions.
+
+```{r, eval = FALSE}
+library(shiny)
+library(shinydebug)
+
+ui <- fluidPage(
+  textInput("name", "Enter your name:"),
+  verbatimTextOutput("greeting")
+)
+
+server <- function(input, output) {
+  # Use reactiveLog() to log the execution of the reactive expression
+  reactiveLog({
+    name <- input$name
+    paste0("Hello, ", name, "!")
+  }, label = "greeting")
+  
+  # Render the greeting text in the output
+  output$greeting <- renderText({
+    reactiveValuesToList(reactiveLogData()$greeting$value)[[1]]
+  })
+}
+
+shinyApp(ui, server)
+```
+
+In this example, we're using `reactiveLog()` to log the execution of a reactive expression that generates a greeting message based on the user's input. We're also using the label argument to assign a label to the reactive expression, which will be used to identify it in the log.
+
+When the app runs, the `reactiveLog()` function will log the execution of the reactive expression and display it in the R console or IDE, along with a timestamp and the label. You can use the log to observe the order in which reactive expressions are executed and identify any issues or unexpected behavior.
+
+In the `output$greeting` function, we're using `reactiveLogData()` to retrieve the log data for the "greeting" label, and then extracting the value of the reactive expression using `reactiveValuesToList()`. This allows us to render the greeting text in the app output.
+
+4. Use `tryCatch()`: If your reactive code is throwing errors, you can use the `tryCatch()` function to catch the errors and display a custom error message. This can be useful for debugging errors that occur during reactive code execution.
+
+```{r, eval = FALSE}
+# Example of using the tryCatch function to catch errors in reactive code
+output$my_output <- renderText({
+  tryCatch({
+    x <- input$my_input
+    x * 2 # Return the value of x times 2
+  }, error = function(e) {
+    "An error occurred while calculating the output." # Display a custom error message
+  })
+})
+
 ```
 
 ## Deployment

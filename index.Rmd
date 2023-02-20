@@ -15,7 +15,7 @@ github-repo: aliibarry/omics-database
 
 # Overview
 
-Here we will describe how to build a Shiny app for sequencing data using the code base described in _CITE PAPER HERE_.
+Here we will describe how to build a Shiny app for sequencing data using the code base described in _A simple database framework for hosting and visualising sequencing data through Shiny_ *(CITATION HERE)*.
 
 A working example of this app is hosted at <https://livedataoxford.shinyapps.io/drg-directory/> and the code base is provided at <https://github.com/aliibarry/omics-database>.
 
@@ -24,6 +24,31 @@ A previous version of <https://livedataoxford.shinyapps.io/drg-directory/> was f
 ## Shiny
 
 If you are completely new to Shiny, we recommend working through some short tutorials first, just to wrap your head around the structure <https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/>.
+
+## Workflow
+1. Data processing (\@ref(data))
+* Prepare tables (count, differential analysis, column data)
+* Compile into a `.RData` or `.db`
+2. User interface (\@ref(ui))
+1. Write descriptions for each dataset and save them in `.\des\*`
+* _encouraged_ select appropriate plots and add descriptions
+* _encouraged_ choose title + logo
+* _optional_ customize aesthetic
+3. Server (\@ref(server))
+* Create a description dataframe `des_df` for the datasets included
+* Specify directory storing your data
+* _optional_ customize figure aesthetic by modifying provided functions
+* _optional_ build your own functions (and link to the UI)
+4. Deploy (\@ref(deploy))
+* Deploy your app using `rsconnect::deployApp()`
+
+Happy building!
+  
+
+---
+
+
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
 
 <!-- Each **bookdown** chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter *must* start with a first-level heading: `# A good chapter`, and can contain one (and only one) first-level heading. -->
