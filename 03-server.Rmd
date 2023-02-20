@@ -343,7 +343,8 @@ Here, networks are built using protein–protein interaction data taken from the
 
 1. An _Enrichment Score_, an integrated statistic using data from all experiments. 
 2. Differential expression in an individual experiment. 
-3. Known pain-associated genes from Dolorisk Priority Group, Human Pain Genetics Database, and the Pain Genes Database.
+3. Genes of interest, as a list
+* Here, we used known pain-associated genes from various sources
 
 ```{r, eval = FALSE}
 # update choice

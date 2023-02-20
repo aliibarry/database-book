@@ -786,8 +786,11 @@ FALSE
 <ol style="list-style-type: decimal">
 <li>An <em>Enrichment Score</em>, an integrated statistic using data from all experiments.</li>
 <li>Differential expression in an individual experiment.</li>
-<li>Known pain-associated genes from Dolorisk Priority Group, Human Pain Genetics Database, and the Pain Genes Database.</li>
+<li>Genes of interest, as a list</li>
 </ol>
+<ul>
+<li>Here, we used known pain-associated genes from Dolorisk Priority Group, Human Pain Genetics Database, and the Pain Genes Database.</li>
+</ul>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="server.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># update choice</span></span>
 <span id="cb10-2"><a href="server.html#cb10-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">updateSelectizeInput</span>(session,</span>
 <span id="cb10-3"><a href="server.html#cb10-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">inputId =</span> <span class="st">&quot;gene_symbols&quot;</span>,</span>
