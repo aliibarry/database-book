@@ -136,7 +136,6 @@ genes = reactive({
 Update active tab based on the current selection of a tab menu. 
 ```{r, eval = FALSE}
 ### this doesn't need to be modified
-
 shiny::observeEvent(input$metaa, {
   Newtab <- switch(input$tabs, "tabhome" = "tabmeta")
   shinydashboard::updateTabItems(session, "tabs", Newtab) 
@@ -163,11 +162,9 @@ knitr::include_graphics("./data/Images/meta.png")
 
 1. Render a table for datasets included 
 ```{r, eval = FALSE}
-### this doesn't need to be modified
-
 output$meta_table = DT::renderDataTable({
     DT::datatable(
-      bulk_df[c("Dataset", "Pain_Model", "Species", "Tissue")],
+      bulk_df[c("Dataset", "Pain_Model", "Species", "Tissue")], ## can select relevant columns
       width = 6,
       class = 'nowrap',
       options = list(scrollX = TRUE, scrollY = TRUE, pageLength = 5), 
@@ -184,7 +181,6 @@ output$meta_table = DT::renderDataTable({
 * A differential expression dot plot that allows visualisation of the significance level of differential gene expression
 ```{r, eval = FALSE}
 ### this doesn't need to be modified
-
 # plot in reponse to the 'load' button 
 observeEvent(input$load, {
   
@@ -259,11 +255,9 @@ knitr::include_graphics("./data/Images/indiv.png")
 
 First, a table that contains dataset description is rendered at the top. 
 ```{r, eval = FALSE}
-### this doesn't need to be modified
-
 output$dataset_table = DT::renderDataTable({
 DT::datatable(
-  des_df[c("Dataset", "Pain_Model", "Species", "Tissue")],
+  des_df[c("Dataset", "Pain_Model", "Species", "Tissue")], ## can select relevant columns
   width = 6,
   class = 'nowrap',
   options = list(scrollX = TRUE, scrollY = TRUE, pageLength = 5), selection = "single"

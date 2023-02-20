@@ -141,15 +141,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#shiny"><i class="fa fa-check"></i><b>1.1</b> Shiny</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#workflow"><i class="fa fa-check"></i><b>1.2</b> Workflow</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>2</b> Data Processing</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="data.html"><a href="data.html#preparation"><i class="fa fa-check"></i><b>2.1</b> Preparation</a></li>
-<li class="chapter" data-level="2.2" data-path="data.html"><a href="data.html#species-notes-optional"><i class="fa fa-check"></i><b>2.2</b> Species notes <em>(optional)</em></a></li>
+<li class="chapter" data-level="2.2" data-path="data.html"><a href="data.html#species-optional"><i class="fa fa-check"></i><b>2.2</b> Species <em>(optional)</em></a></li>
 <li class="chapter" data-level="2.3" data-path="data.html"><a href="data.html#rdata-option-1"><i class="fa fa-check"></i><b>2.3</b> RData (Option 1)</a></li>
 <li class="chapter" data-level="2.4" data-path="data.html"><a href="data.html#building-an-sql-database-recommended"><i class="fa fa-check"></i><b>2.4</b> Building an SQL database (recommended)</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="data.html"><a href="data.html#database-manipulation"><i class="fa fa-check"></i><b>2.4.1</b> Database manipulation</a></li>
+<li class="chapter" data-level="2.4.1" data-path="data.html"><a href="data.html#sql-manipulation"><i class="fa fa-check"></i><b>2.4.1</b> SQL manipulation</a></li>
 <li class="chapter" data-level="2.4.2" data-path="data.html"><a href="data.html#processing-multiple-files"><i class="fa fa-check"></i><b>2.4.2</b> Processing multiple files</a></li>
 </ul></li>
 </ul></li>
@@ -1172,16 +1173,22 @@ b10d2
 </table>
 </div>
 </div>
-<div id="species-notes-optional" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Species notes <em>(optional)</em><a href="data.html#species-notes-optional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>If your data contains different species, you will also need datasets that allow you map gene symbols/IDs between species. To do this, you will need the <code>biomaRt</code> library. An example of mapping gene symbols between mouse and human is shown below:</p>
+<div id="species-optional" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Species <em>(optional)</em><a href="data.html#species-optional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If your data contains different species, you will also need datasets that allow you map gene symbols/IDs between species. We have provided an option using the <code>biomaRt</code> library.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;biomaRt&quot;</span>)</span>
 <span id="cb1-2"><a href="data.html#cb1-2" aria-hidden="true" tabindex="-1"></a>mouse <span class="ot">=</span> <span class="fu">useMart</span>(<span class="st">&quot;ensembl&quot;</span>, <span class="at">dataset =</span> <span class="st">&quot;mmusculus_gene_ensembl&quot;</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">host =</span> <span class="st">&quot;https://dec2021.archive.ensembl.org&quot;</span>)</span>
 <span id="cb1-3"><a href="data.html#cb1-3" aria-hidden="true" tabindex="-1"></a>human <span class="ot">=</span> <span class="fu">useMart</span>(<span class="st">&quot;ensembl&quot;</span>, <span class="at">dataset =</span> <span class="st">&quot;hsapiens_gene_ensembl&quot;</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">host =</span> <span class="st">&quot;https://dec2021.archive.ensembl.org&quot;</span>)</span>
 <span id="cb1-4"><a href="data.html#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="data.html#cb1-5" aria-hidden="true" tabindex="-1"></a>geneV1 <span class="ot">=</span> <span class="fu">getLDS</span>(<span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;mgi_symbol&quot;</span>,<span class="st">&quot;ensembl_gene_id&quot;</span>), <span class="at">filters =</span> <span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="at">values =</span> count<span class="sc">$</span>X, <span class="at">mart =</span> mouse, <span class="at">attributesL =</span> <span class="fu">c</span>(<span class="st">&quot;hgnc_symbol&quot;</span>, <span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;description&quot;</span>), <span class="at">martL =</span> human, <span class="at">uniqueRows=</span>T)</span>
-<span id="cb1-6"><a href="data.html#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="data.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(geneV1) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;mgi_symbol&quot;</span>, <span class="st">&quot;mouse_gene_id&quot;</span>, <span class="st">&quot;hgnc_symbol&quot;</span>, <span class="st">&quot;human_gene_id&quot;</span>)</span></code></pre></div>
+<span id="cb1-5"><a href="data.html#cb1-5" aria-hidden="true" tabindex="-1"></a>geneV1 <span class="ot">=</span> <span class="fu">getLDS</span>(<span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;mgi_symbol&quot;</span>,<span class="st">&quot;ensembl_gene_id&quot;</span>), </span>
+<span id="cb1-6"><a href="data.html#cb1-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">filters =</span> <span class="st">&quot;ensembl_gene_id&quot;</span>, </span>
+<span id="cb1-7"><a href="data.html#cb1-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">values =</span> count<span class="sc">$</span>X, </span>
+<span id="cb1-8"><a href="data.html#cb1-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">mart =</span> mouse, </span>
+<span id="cb1-9"><a href="data.html#cb1-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">attributesL =</span> <span class="fu">c</span>(<span class="st">&quot;hgnc_symbol&quot;</span>, <span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;description&quot;</span>), </span>
+<span id="cb1-10"><a href="data.html#cb1-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">martL =</span> human, </span>
+<span id="cb1-11"><a href="data.html#cb1-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">uniqueRows=</span>T)</span>
+<span id="cb1-12"><a href="data.html#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="data.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(geneV1) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;mgi_symbol&quot;</span>, <span class="st">&quot;mouse_gene_id&quot;</span>, <span class="st">&quot;hgnc_symbol&quot;</span>, <span class="st">&quot;human_gene_id&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:450px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1206,6 +1213,23 @@ NA
 <tbody>
 <tr>
 <td style="text-align:left;">
+mt-Co3
+</td>
+<td style="text-align:left;">
+ENSMUSG00000064358
+</td>
+<td style="text-align:left;">
+MT-CO3
+</td>
+<td style="text-align:left;">
+ENSG00000198938
+</td>
+<td style="text-align:left;">
+mitochondrially encoded cytochrome c oxidase III [Source:HGNC Symbol;Acc:HGNC:7422]
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 mt-Nd6
 </td>
 <td style="text-align:left;">
@@ -1223,23 +1247,6 @@ mitochondrially encoded NADH:ubiquinone oxidoreductase core subunit 6 [Source:HG
 </tr>
 <tr>
 <td style="text-align:left;">
-mt-Cytb
-</td>
-<td style="text-align:left;">
-ENSMUSG00000064370
-</td>
-<td style="text-align:left;">
-MT-CYB
-</td>
-<td style="text-align:left;">
-ENSG00000198727
-</td>
-<td style="text-align:left;">
-mitochondrially encoded cytochrome b [Source:HGNC Symbol;Acc:HGNC:7427]
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 mt-Nd3
 </td>
 <td style="text-align:left;">
@@ -1253,6 +1260,23 @@ ENSG00000198840
 </td>
 <td style="text-align:left;">
 mitochondrially encoded NADH:ubiquinone oxidoreductase core subunit 3 [Source:HGNC Symbol;Acc:HGNC:7458]
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mt-Cytb
+</td>
+<td style="text-align:left;">
+ENSMUSG00000064370
+</td>
+<td style="text-align:left;">
+MT-CYB
+</td>
+<td style="text-align:left;">
+ENSG00000198727
+</td>
+<td style="text-align:left;">
+mitochondrially encoded cytochrome b [Source:HGNC Symbol;Acc:HGNC:7427]
 </td>
 </tr>
 <tr>
@@ -1289,23 +1313,6 @@ ENSG00000198886
 mitochondrially encoded NADH:ubiquinone oxidoreductase core subunit 4 [Source:HGNC Symbol;Acc:HGNC:7459]
 </td>
 </tr>
-<tr>
-<td style="text-align:left;">
-mt-Co3
-</td>
-<td style="text-align:left;">
-ENSMUSG00000064358
-</td>
-<td style="text-align:left;">
-MT-CO3
-</td>
-<td style="text-align:left;">
-ENSG00000198938
-</td>
-<td style="text-align:left;">
-mitochondrially encoded cytochrome c oxidase III [Source:HGNC Symbol;Acc:HGNC:7422]
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1329,13 +1336,14 @@ mitochondrially encoded cytochrome c oxidase III [Source:HGNC Symbol;Acc:HGNC:74
 <li>Collaboration: SQL databases are designed to facilitate collaboration among multiple users or teams. With SQL databases, multiple users can access and manipulate the same data simultaneously, while ensuring that changes are tracked and versioned. In contrast, sharing .RData files can be difficult, especially if multiple users need to make changes to the same file.</li>
 </ol>
 <p>An RSQLite <code>.db</code> object is a database connection to a SQLite database file. The structure of a SQLite database consists of one or more tables, which are composed of rows and columns. The following functions will be useful in creating and updating the <code>.db</code> object.</p>
+<p>Here, we provide an overview for bulk count data (not <code>Seurat</code> objects).</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="data.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This function connects to a SQLite database file called `example_database.db`</span></span>
 <span id="cb4-2"><a href="data.html#cb4-2" aria-hidden="true" tabindex="-1"></a>db_dir <span class="ot">=</span> <span class="st">&quot;example_database.db&quot;</span> </span>
 <span id="cb4-3"><a href="data.html#cb4-3" aria-hidden="true" tabindex="-1"></a>conn  <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), db_dir)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="data.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This function stores dataframe objects into `.db` object </span></span>
 <span id="cb5-2"><a href="data.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(conn, <span class="at">name =</span> <span class="st">&quot;count_df&quot;</span>, <span class="at">value =</span> count)</span></code></pre></div>
-<div id="database-manipulation" class="section level3 hasAnchor" number="2.4.1">
-<h3><span class="header-section-number">2.4.1</span> Database manipulation<a href="data.html#database-manipulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="sql-manipulation" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> SQL manipulation<a href="data.html#sql-manipulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List table names that you have already stored  </span></span>
 <span id="cb6-2"><a href="data.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListTables</span>(conn)</span></code></pre></div>
 <pre><code>## [1] &quot;count_df&quot;</code></pre>
@@ -1392,11 +1400,11 @@ mitochondrially encoded cytochrome c oxidase III [Source:HGNC Symbol;Acc:HGNC:74
 <span id="cb15-7"><a href="data.html#cb15-7" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;mouse/Subtype DRG (Barry)/&quot;</span>, <span class="st">&quot;mouse/Mouse DRG Bulk/&quot;</span>, <span class="st">&quot;rat/Rat DRG Bulk/&quot;</span>,</span>
 <span id="cb15-8"><a href="data.html#cb15-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;human/Human iPSC HSN1/&quot;</span>, <span class="st">&quot;human/Human skin Diabetes/&quot;</span>, <span class="st">&quot;human/Human skin Carpal Tunnel (CTS)/&quot;</span>)</span>
 <span id="cb15-9"><a href="data.html#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="data.html#cb15-10" aria-hidden="true" tabindex="-1"></a>human_deg_df <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
-<span id="cb15-11"><a href="data.html#cb15-11" aria-hidden="true" tabindex="-1"></a>mouse_deg_df <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
-<span id="cb15-12"><a href="data.html#cb15-12" aria-hidden="true" tabindex="-1"></a>rat_deg_df   <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
-<span id="cb15-13"><a href="data.html#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="data.html#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="do">## run this</span></span>
+<span id="cb15-10"><a href="data.html#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="do">## just run this</span></span>
+<span id="cb15-11"><a href="data.html#cb15-11" aria-hidden="true" tabindex="-1"></a>human_deg_df <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
+<span id="cb15-12"><a href="data.html#cb15-12" aria-hidden="true" tabindex="-1"></a>mouse_deg_df <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
+<span id="cb15-13"><a href="data.html#cb15-13" aria-hidden="true" tabindex="-1"></a>rat_deg_df   <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
+<span id="cb15-14"><a href="data.html#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-15"><a href="data.html#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># for each experiment</span></span>
 <span id="cb15-16"><a href="data.html#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(Dataset)) {</span>
 <span id="cb15-17"><a href="data.html#cb15-17" aria-hidden="true" tabindex="-1"></a>  </span>

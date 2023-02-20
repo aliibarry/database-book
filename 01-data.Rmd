@@ -69,16 +69,22 @@ kbl(deg %>% head) %>% kable_styling(bootstrap_options = c("striped", "hover", "c
 ```
 
 
-## Species notes _(optional)_
+## Species _(optional)_
 
-If your data contains different species, you will also need datasets that allow you map gene symbols/IDs between species. To do this, you will need the `biomaRt` library. An example of mapping gene symbols between mouse and human is shown below: 
+If your data contains different species, you will also need datasets that allow you map gene symbols/IDs between species. We have provided an option using the `biomaRt` library. 
 
 ```{r, message=FALSE, results = FALSE}
 library("biomaRt")
 mouse = useMart("ensembl", dataset = "mmusculus_gene_ensembl", verbose = TRUE, host = "https://dec2021.archive.ensembl.org")
 human = useMart("ensembl", dataset = "hsapiens_gene_ensembl", verbose = TRUE, host = "https://dec2021.archive.ensembl.org")
 
-geneV1 = getLDS(attributes = c("mgi_symbol","ensembl_gene_id"), filters = "ensembl_gene_id", values = count$X, mart = mouse, attributesL = c("hgnc_symbol", "ensembl_gene_id", "description"), martL = human, uniqueRows=T)
+geneV1 = getLDS(attributes = c("mgi_symbol","ensembl_gene_id"), 
+                filters = "ensembl_gene_id", 
+                values = count$X, 
+                mart = mouse, 
+                attributesL = c("hgnc_symbol", "ensembl_gene_id", "description"), 
+                martL = human, 
+                uniqueRows=T)
 
 colnames(geneV1) = c("mgi_symbol", "mouse_gene_id", "hgnc_symbol", "human_gene_id")
 ```
@@ -114,7 +120,7 @@ There are several advantages of using SQL databases over storing data in `.RData
 
 An RSQLite `.db` object is a database connection to a SQLite database file. The structure of a SQLite database consists of one or more tables, which are composed of rows and columns. The following functions will be useful in creating and updating the `.db` object. 
 
-
+Here, we provide an overview for bulk count data (not `Seurat` objects).
 
 ```{r}
 # This function connects to a SQLite database file called `example_database.db`
@@ -128,7 +134,7 @@ dbWriteTable(conn, name = "count_df", value = count)
 ```
 
 
-### Database manipulation 
+### SQL manipulation 
 
 
 ```{r}
@@ -219,11 +225,11 @@ deg_df_names = c("subtype_deg_df", "mouse_deg_df", "rat_deg_df", "ipsc_deg_df", 
 Dataset = c("mouse/Subtype DRG (Barry)/", "mouse/Mouse DRG Bulk/", "rat/Rat DRG Bulk/",
             "human/Human iPSC HSN1/", "human/Human skin Diabetes/", "human/Human skin Carpal Tunnel (CTS)/")
 
+## just run this
 human_deg_df = data.frame()
 mouse_deg_df = data.frame()
 rat_deg_df   = data.frame()
 
-## run this
 # for each experiment
 for (j in 1:length(Dataset)) {
   

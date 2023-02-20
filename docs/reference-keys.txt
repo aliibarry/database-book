@@ -1,11 +1,12 @@
 overview
 shiny
+workflow
 data
 preparation
-species-notes-optional
+species-optional
 rdata-option-1
 building-an-sql-database-recommended
-database-manipulation
+sql-manipulation
 processing-multiple-files
 ui
 basic-structure
@@ -43,4 +44,4 @@ debugging-reactive-code
 deployment
 basics
 bioconductor-1
-workflow
+url-your-book-url-like-httpsbookdown.orgyihuibookdown

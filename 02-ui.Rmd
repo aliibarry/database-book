@@ -51,7 +51,6 @@ The sidebar contains a gene search input and tabs, which allow you to switch bet
 
 ```{r, eval = FALSE}
 ### this doesn't need to be altered, unless you want a footer or to change labels
-
 shinydashboard::dashboardSidebar(width = 225,
      sidebarMenu(
        id = "tabs",
@@ -231,7 +230,6 @@ shinydashboard::tabItem(tabName="tabmeta",
 
 ```{r, eval = FALSE}
 ### this doesn't need to be altered
-
 shinydashboard::tabItem(tabName = "tabdata",
         fluidRow(
           
@@ -387,6 +385,8 @@ knitr::include_graphics("./data/Images/indiv.png")
 ### Network page
 
 We also provide an option for basic network analyses. The network tab contains a description box, a gene search bar, a network, a result table containing differential expression values, and a table containing information for datasets from RNA-seq and microarray studies. 
+
+On the server-side, this network is generated from STRING DB and reconstructed with `visNetwork`. In this app, users can also colour/annotate the network based on experimental results. 
 
 ```{r,echo = FALSE}
 knitr::include_graphics("./data/Images/network.png")
