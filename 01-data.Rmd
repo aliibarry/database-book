@@ -93,7 +93,7 @@ colnames(geneV1) = c("mgi_symbol", "mouse_gene_id", "hgnc_symbol", "human_gene_i
 kbl(geneV1 %>% head) %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 12, latex_options = "scale_down") %>% scroll_box(width = "100%", height = "450px")
 ```
 
-## RData (Option 1)
+## RData _(option 1)_
 You can store data frames into .RData using the `save()` function. For example, we can use the save() function to save the `count` data frame to a file called `my_data.RData`. 
 
 ```{r}
@@ -105,22 +105,54 @@ To load the data frame from the `.RData` file later, you can use the `load()` fu
 load("my_data.RData") # add to server
 ```
 
-If you plan to store data this way, move to the *User Interface* section now. *NOTE*, some functions will need to be modified to read from a `.RData` instead. If you are working with large amounts of data, you may find it useful to set up an SQL database (below).
+*NOTE*, some functions will need to be modified to read from a `.RData` instead. This can be done by uncommentng the relevant lines of code. For example:
 
-## Building an SQL database (recommended)
+
+```{r, eval=FALSE}
+  shiny::observeEvent(input$load, {
+    
+    if (include_count == TRUE){
+      # query count datasets
+      
+      # for database ## comment here for .RData file
+      {
+        if (species == "human") {
+          sql = paste("SELECT * FROM", count_df, "WHERE mgi_symbol = ?")
+        }
+        else{
+          sql = paste("SELECT * FROM", count_df, "WHERE symbol = ?")
+        }
+        filt = RSQLite::dbGetPreparedQuery(conn, sql, bind.data=data.frame(symbol=genes()))
+        filt = as.data.frame(filt)
+      }
+     
+      
+      
+      # using R Data ## uncomment here for .RData file
+      {
+        # if (species == "human"){
+        #   filt = count_df[count_df$mgi_symbol %in% genes(),]
+        #   X = rownames(filt)
+        #   filt = cbind(X, filt)
+        #   
+        # }
+        # else {
+        #   filt = count_df[count_df$symbol %in% genes(),]
+        #   X = rownames(filt)
+        #   filt = cbind(X, filt)
+        # }
+      }
+```
+
+If you plan to store data this way, move to the *User Interface* section now. If you are working with larger amounts of data, you may find it useful to set up an SQL database (_recommended_, below).
+
+## Building an SQL database via R _(recommended)_
 
 While `.RData` files can be useful small or medium-sized datasets in R, SQL databases provide a more powerful and flexible solution for managing large, complex datasets that need to be shared, queried, and analyzed by multiple users or integrated with other tools and applications.
 
-There are several advantages of using SQL databases over storing data in `.RData` files:
+An SQLite database consists of one or more tables, which are composed of rows and columns. An RSQLite `.db` object is a database connection to a SQLite database file through R. The following functions will be useful in creating and updating the `.db` object in R. 
 
-1. Scalability: SQL databases are designed to handle large amounts of data, making it easy to scale up as your data grows. In contrast, .RData files can become unwieldy and slow to load as the size of your data increases.
-2. Querying: SQL databases provide a powerful and flexible language (SQL) for querying and analyzing data. This allows you to easily extract and manipulate subsets of your data based on specific criteria. In contrast, querying data in .RData files requires writing custom R code, which can be time-consuming and error-prone.
-3. Security: SQL databases provide a range of security features to protect your data, such as authentication, authorization, and encryption. This can be especially important if you are dealing with sensitive data, such as personal information or financial data. .RData files, on the other hand, are generally less secure and can be easily accessed by anyone with access to your computer or file system.
-4. Collaboration: SQL databases are designed to facilitate collaboration among multiple users or teams. With SQL databases, multiple users can access and manipulate the same data simultaneously, while ensuring that changes are tracked and versioned. In contrast, sharing .RData files can be difficult, especially if multiple users need to make changes to the same file.
-
-An RSQLite `.db` object is a database connection to a SQLite database file. The structure of a SQLite database consists of one or more tables, which are composed of rows and columns. The following functions will be useful in creating and updating the `.db` object. 
-
-Here, we provide an overview for bulk count data (not `Seurat` objects).
+Here, we provide an overview for bulk count data. `Seurat` objects (for sc/snRNA-seq or ATAC-seq) are read in separately.
 
 ```{r}
 # This function connects to a SQLite database file called `example_database.db`
@@ -133,9 +165,7 @@ conn  <- dbConnect(RSQLite::SQLite(), db_dir)
 dbWriteTable(conn, name = "count_df", value = count)
 ```
 
-
 ### SQL manipulation 
-
 
 ```{r}
 # List table names that you have already stored  
