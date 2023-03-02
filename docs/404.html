@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | A simple database framework for hosting and visualising sequencing data through Shiny</title>
+  <title>Page not found | Sequencing databases in Shiny</title>
   <meta name="description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | A simple database framework for hosting and visualising sequencing data through Shiny" />
+  <meta property="og:title" content="Page not found | Sequencing databases in Shiny" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   <meta name="github-repo" content="aliibarry/omics-database" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | A simple database framework for hosting and visualising sequencing data through Shiny" />
+  <meta name="twitter:title" content="Page not found | Sequencing databases in Shiny" />
   
   <meta name="twitter:description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="AMB and NZ" />
 
 
-<meta name="date" content="2023-02-20" />
+<meta name="date" content="2023-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -144,11 +144,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>2</b> Data Processing</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="data.html"><a href="data.html#preparation"><i class="fa fa-check"></i><b>2.1</b> Preparation</a></li>
-<li class="chapter" data-level="2.2" data-path="data.html"><a href="data.html#species-notes-optional"><i class="fa fa-check"></i><b>2.2</b> Species notes <em>(optional)</em></a></li>
-<li class="chapter" data-level="2.3" data-path="data.html"><a href="data.html#rdata-option-1"><i class="fa fa-check"></i><b>2.3</b> RData (Option 1)</a></li>
-<li class="chapter" data-level="2.4" data-path="data.html"><a href="data.html#building-an-sql-database-recommended"><i class="fa fa-check"></i><b>2.4</b> Building an SQL database (recommended)</a>
+<li class="chapter" data-level="2.2" data-path="data.html"><a href="data.html#species-optional"><i class="fa fa-check"></i><b>2.2</b> Species <em>(optional)</em></a></li>
+<li class="chapter" data-level="2.3" data-path="data.html"><a href="data.html#rdata-option-1"><i class="fa fa-check"></i><b>2.3</b> RData <em>(option 1)</em></a></li>
+<li class="chapter" data-level="2.4" data-path="data.html"><a href="data.html#building-an-sql-database-via-r-recommended"><i class="fa fa-check"></i><b>2.4</b> Building an SQL database via R <em>(recommended)</em></a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="data.html"><a href="data.html#database-manipulation"><i class="fa fa-check"></i><b>2.4.1</b> Database manipulation</a></li>
+<li class="chapter" data-level="2.4.1" data-path="data.html"><a href="data.html#sql-manipulation"><i class="fa fa-check"></i><b>2.4.1</b> SQL manipulation</a></li>
 <li class="chapter" data-level="2.4.2" data-path="data.html"><a href="data.html#processing-multiple-files"><i class="fa fa-check"></i><b>2.4.2</b> Processing multiple files</a></li>
 </ul></li>
 </ul></li>
@@ -174,16 +174,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.2" data-path="server.html"><a href="server.html#tab-menu"><i class="fa fa-check"></i><b>4.2.2</b> Tab Menu</a></li>
 <li class="chapter" data-level="4.2.3" data-path="server.html"><a href="server.html#grouped-comparisons-1"><i class="fa fa-check"></i><b>4.2.3</b> Grouped comparisons</a></li>
 <li class="chapter" data-level="4.2.4" data-path="server.html"><a href="server.html#individual-analysis-1"><i class="fa fa-check"></i><b>4.2.4</b> Individual Analysis</a></li>
-<li class="chapter" data-level="4.2.5" data-path="server.html"><a href="server.html#network-analysis"><i class="fa fa-check"></i><b>4.2.5</b> Network Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="server.html"><a href="server.html#functions"><i class="fa fa-check"></i><b>4.3</b> Functions</a>
+<li class="chapter" data-level="4.3" data-path="server.html"><a href="server.html#network-analysis"><i class="fa fa-check"></i><b>4.3</b> Network Analysis</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="server.html"><a href="server.html#data-processing"><i class="fa fa-check"></i><b>4.3.1</b> Data processing</a></li>
-<li class="chapter" data-level="4.3.2" data-path="server.html"><a href="server.html#dot-plots"><i class="fa fa-check"></i><b>4.3.2</b> Dot plots</a></li>
-<li class="chapter" data-level="4.3.3" data-path="server.html"><a href="server.html#line-plots"><i class="fa fa-check"></i><b>4.3.3</b> Line plots</a></li>
-<li class="chapter" data-level="4.3.4" data-path="server.html"><a href="server.html#a-differential-expression-dot-plot"><i class="fa fa-check"></i><b>4.3.4</b> A differential expression dot plot</a></li>
-<li class="chapter" data-level="4.3.5" data-path="server.html"><a href="server.html#a-volcano-plot"><i class="fa fa-check"></i><b>4.3.5</b> A volcano plot</a></li>
-<li class="chapter" data-level="4.3.6" data-path="server.html"><a href="server.html#other"><i class="fa fa-check"></i><b>4.3.6</b> Other</a></li>
+<li class="chapter" data-level="4.3.1" data-path="server.html"><a href="server.html#integration-with-string-db"><i class="fa fa-check"></i><b>4.3.1</b> Integration with STRING DB</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="server.html"><a href="server.html#functions"><i class="fa fa-check"></i><b>4.4</b> Functions</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="server.html"><a href="server.html#data-processing"><i class="fa fa-check"></i><b>4.4.1</b> Data processing</a></li>
+<li class="chapter" data-level="4.4.2" data-path="server.html"><a href="server.html#dot-plots"><i class="fa fa-check"></i><b>4.4.2</b> Dot plots</a></li>
+<li class="chapter" data-level="4.4.3" data-path="server.html"><a href="server.html#line-plots"><i class="fa fa-check"></i><b>4.4.3</b> Line plots</a></li>
+<li class="chapter" data-level="4.4.4" data-path="server.html"><a href="server.html#a-differential-expression-dot-plot"><i class="fa fa-check"></i><b>4.4.4</b> A differential expression dot plot</a></li>
+<li class="chapter" data-level="4.4.5" data-path="server.html"><a href="server.html#a-volcano-plot"><i class="fa fa-check"></i><b>4.4.5</b> A volcano plot</a></li>
+<li class="chapter" data-level="4.4.6" data-path="server.html"><a href="server.html#other"><i class="fa fa-check"></i><b>4.4.6</b> Other</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="deploy.html"><a href="deploy.html"><i class="fa fa-check"></i><b>5</b> Deploying your application</a>
@@ -217,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A simple database framework for hosting and visualising sequencing data through Shiny</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Sequencing databases in Shiny</a>
           </h1>
         </div>
 
