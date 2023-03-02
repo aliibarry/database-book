@@ -1,5 +1,5 @@
 --- 
-title: "A simple database framework for hosting and visualising sequencing data through Shiny"
+title: "Sequencing databases in Shiny"
 author: "AMB and NZ"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site

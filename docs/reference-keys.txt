@@ -5,7 +5,7 @@ data
 preparation
 species-optional
 rdata-option-1
-building-an-sql-database-recommended
+building-an-sql-database-via-r-recommended
 sql-manipulation
 processing-multiple-files
 ui

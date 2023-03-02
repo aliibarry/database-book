@@ -23,7 +23,7 @@
 <meta name="author" content="AMB and NZ" />
 
 
-<meta name="date" content="2023-02-20" />
+<meta name="date" content="2023-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -147,8 +147,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="2.1" data-path="data.html"><a href="data.html#preparation"><i class="fa fa-check"></i><b>2.1</b> Preparation</a></li>
 <li class="chapter" data-level="2.2" data-path="data.html"><a href="data.html#species-optional"><i class="fa fa-check"></i><b>2.2</b> Species <em>(optional)</em></a></li>
-<li class="chapter" data-level="2.3" data-path="data.html"><a href="data.html#rdata-option-1"><i class="fa fa-check"></i><b>2.3</b> RData (Option 1)</a></li>
-<li class="chapter" data-level="2.4" data-path="data.html"><a href="data.html#building-an-sql-database-recommended"><i class="fa fa-check"></i><b>2.4</b> Building an SQL database (recommended)</a>
+<li class="chapter" data-level="2.3" data-path="data.html"><a href="data.html#rdata-option-1"><i class="fa fa-check"></i><b>2.3</b> RData <em>(option 1)</em></a></li>
+<li class="chapter" data-level="2.4" data-path="data.html"><a href="data.html#building-an-sql-database-via-r-recommended"><i class="fa fa-check"></i><b>2.4</b> Building an SQL database via R <em>(recommended)</em></a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="data.html"><a href="data.html#sql-manipulation"><i class="fa fa-check"></i><b>2.4.1</b> SQL manipulation</a></li>
 <li class="chapter" data-level="2.4.2" data-path="data.html"><a href="data.html#processing-multiple-files"><i class="fa fa-check"></i><b>2.4.2</b> Processing multiple files</a></li>
@@ -239,9 +239,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="bioconductor" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Bioconductor<a href="deploy.html#bioconductor" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Before deploying, you should specific the bioconductor repository (depending on updates, a very new version may be incompatible with <code>Shiny</code> briefly). You can also check which repositories have been set using <code>getOption("repos")</code>.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="deploy.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setRepositories</span>(<span class="at">addURLs =</span> <span class="fu">c</span>(<span class="at">BioC =</span> <span class="st">&quot;https://bioconductor.org/packages/3.16/bioc&quot;</span>)) <span class="co">#specify version here</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="deploy.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setRepositories</span>(<span class="at">addURLs =</span> <span class="fu">c</span>(<span class="at">BioC =</span> <span class="st">&quot;https://bioconductor.org/packages/3.16/bioc&quot;</span>)) <span class="co">#specify version here</span></span></code></pre></div>
 <p>And, DEPLOY! (this may take awhile). If you are using RStudio, you can also deploy using the blue icon in the top-right corner.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="deploy.html#cb46-1" aria-hidden="true" tabindex="-1"></a>rsconnect<span class="sc">::</span><span class="fu">deployApp</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="deploy.html#cb48-1" aria-hidden="true" tabindex="-1"></a>rsconnect<span class="sc">::</span><span class="fu">deployApp</span>()</span></code></pre></div>
 <p>Still not working? Check our troubleshooting guide (<a href="trouble.html#trouble">6</a>) for more help. It may be as simple as turning off your firewall.</p>
 
 </div>
