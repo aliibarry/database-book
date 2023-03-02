@@ -114,7 +114,8 @@ load("my_data.RData") # add to server
     if (include_count == TRUE){
       # query count datasets
       
-      # for database ## comment here for .RData file
+      ## comment here for .RData file
+      # for database 
       {
         if (species == "human") {
           sql = paste("SELECT * FROM", count_df, "WHERE mgi_symbol = ?")
@@ -126,9 +127,8 @@ load("my_data.RData") # add to server
         filt = as.data.frame(filt)
       }
      
-      
-      
-      # using R Data ## uncomment here for .RData file
+      ## uncomment here for .RData file
+      # using R Data 
       {
         # if (species == "human"){
         #   filt = count_df[count_df$mgi_symbol %in% genes(),]
