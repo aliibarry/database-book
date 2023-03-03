@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Troubleshooting | A simple database framework for hosting and visualising sequencing data through Shiny</title>
+  <title>Chapter 6 Troubleshooting | Sequencing databases in Shiny</title>
   <meta name="description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Troubleshooting | A simple database framework for hosting and visualising sequencing data through Shiny" />
+  <meta property="og:title" content="Chapter 6 Troubleshooting | Sequencing databases in Shiny" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   <meta name="github-repo" content="aliibarry/omics-database" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Troubleshooting | A simple database framework for hosting and visualising sequencing data through Shiny" />
+  <meta name="twitter:title" content="Chapter 6 Troubleshooting | Sequencing databases in Shiny" />
   
   <meta name="twitter:description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="AMB and NZ" />
 
 
-<meta name="date" content="2023-03-02" />
+<meta name="date" content="2023-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -222,7 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A simple database framework for hosting and visualising sequencing data through Shiny</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Sequencing databases in Shiny</a>
           </h1>
         </div>
 
@@ -707,16 +707,32 @@ Gnai3
 <span id="cb57-6"><a href="trouble.html#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="co"># example error 2: the URL is set but not sufficient to compile packages, may need to try another Bioconductor version, update packages, fix compiling, turn off a firewall, or update R</span></span>
 <span id="cb57-7"><a href="trouble.html#cb57-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-8"><a href="trouble.html#cb57-8" aria-hidden="true" tabindex="-1"></a>Unhandled Exception<span class="sc">:</span> Child Task <span class="dv">873781155</span> failed<span class="sc">:</span> Error parsing manifest<span class="sc">:</span> </span>
-<span id="cb57-9"><a href="trouble.html#cb57-9" aria-hidden="true" tabindex="-1"></a>Unable to determine package source <span class="cf">for</span> Bioconductor package</span></code></pre></div>
+<span id="cb57-9"><a href="trouble.html#cb57-9" aria-hidden="true" tabindex="-1"></a>Unable to determine package source <span class="cf">for</span> Bioconductor package</span>
+<span id="cb57-10"><a href="trouble.html#cb57-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-11"><a href="trouble.html#cb57-11" aria-hidden="true" tabindex="-1"></a><span class="co"># example error 3: you likely have a mismatch in versions across packages, which may be compatible locally by cause issues on shinyapp.io. Here, use BiocManager::valid() to ensure all packages are in agreement</span></span>
+<span id="cb57-12"><a href="trouble.html#cb57-12" aria-hidden="true" tabindex="-1"></a>Error<span class="sc">:</span> Unhandled Exception<span class="sc">:</span> Child Task <span class="dv">1278414280</span> failed<span class="sc">:</span> Error building image<span class="sc">:</span> Error fetching <span class="fu">GenomeInfoDbData</span> (<span class="dv">1</span>.<span class="fl">2.9</span>) source. Error downloading package source. Please update your BioConductor packages to the latest version and try again</span></code></pre></div>
+<p>Example (truncated) output from <code>BiocManager::valid()</code>. If you need to compile something by source to get the most recent version, make sure have installed the required packages (eg. <code>RTools</code> for Windows).</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="trouble.html#cb58-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">valid</span>()</span>
+<span id="cb58-2"><a href="trouble.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Bioconductor version &#39;3.16&#39;</span></span>
+<span id="cb58-3"><a href="trouble.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb58-4"><a href="trouble.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   * 1 packages out-of-date</span></span>
+<span id="cb58-5"><a href="trouble.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   * 0 packages too new</span></span>
+<span id="cb58-6"><a href="trouble.html#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb58-7"><a href="trouble.html#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create a valid installation with</span></span>
+<span id="cb58-8"><a href="trouble.html#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb58-9"><a href="trouble.html#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  BiocManager::install(&quot;sfheaders&quot;, update = TRUE, ask = FALSE, force = TRUE) ## run this part to fix</span></span>
+<span id="cb58-10"><a href="trouble.html#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb58-11"><a href="trouble.html#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="co"># more details: BiocManager::valid()$too_new, BiocManager::valid()$out_of_date</span></span>
+<span id="cb58-12"><a href="trouble.html#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span></code></pre></div>
 <p>You can specific the bioconductor repository here (depending on updates, a very new version may be incompatible with <code>Shiny</code> briefly). You can check which repositories have been set using <code>getOption("repos")</code>.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="trouble.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setRepositories</span>(<span class="at">addURLs =</span> <span class="fu">c</span>(<span class="at">BioC =</span> <span class="st">&quot;https://bioconductor.org/packages/3.16/bioc&quot;</span>)) <span class="co">#specify version here</span></span>
-<span id="cb58-2"><a href="trouble.html#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-3"><a href="trouble.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># alternatively, this can be run at the top of the UI and *may* help</span></span>
-<span id="cb58-4"><a href="trouble.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiocManager)</span>
-<span id="cb58-5"><a href="trouble.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repos =</span> BiocManager<span class="sc">::</span><span class="fu">repositories</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="trouble.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setRepositories</span>(<span class="at">addURLs =</span> <span class="fu">c</span>(<span class="at">BioC =</span> <span class="st">&quot;https://bioconductor.org/packages/3.16/bioc&quot;</span>)) <span class="co">#specify version here</span></span>
+<span id="cb59-2"><a href="trouble.html#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-3"><a href="trouble.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="co"># alternatively, this can be run at the top of the UI and *may* help</span></span>
+<span id="cb59-4"><a href="trouble.html#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiocManager)</span>
+<span id="cb59-5"><a href="trouble.html#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repos =</span> BiocManager<span class="sc">::</span><span class="fu">repositories</span>())</span></code></pre></div>
 <p>If there is a specific package referred to, check the installation to make sure it was successful (see above). You can force a new install using <code>force = TRUE</code>, but restart R before trying again.</p>
 <p>If you are planning to update many packages, you can check which are valid first.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="trouble.html#cb59-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">valid</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="trouble.html#cb60-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">valid</span>() </span></code></pre></div>
 <p>Still not working? A few other things to look for:</p>
 <ol style="list-style-type: decimal">
 <li>Package dependency mismatch between CRAN and Bioconductor (check <code>rsconnect::appDependencies()</code>)</li>
@@ -725,11 +741,11 @@ Gnai3
 </ol>
 <p>If all else fails, try posting on the community forum for help (&lt;<a href="https://community.rstudio.com/" class="uri">https://community.rstudio.com/</a>) and tag <em>Shiny</em> and <em>shinyapp.io</em> with a reproducible example (ie. <em>reprex</em>). See <a href="https://community.rstudio.com/t/faq-tips-for-writing-r-related-questions/6824" class="uri">https://community.rstudio.com/t/faq-tips-for-writing-r-related-questions/6824</a> for how to best format this.</p>
 <p>For reference, the following were used for our database.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="trouble.html#cb60-1" aria-hidden="true" tabindex="-1"></a>rsconnect<span class="sc">::</span><span class="fu">appDependencies</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="trouble.html#cb61-1" aria-hidden="true" tabindex="-1"></a>rsconnect<span class="sc">::</span><span class="fu">appDependencies</span>()</span></code></pre></div>
 <pre><code>##              package   version       source
 ## 1      AnnotationDbi    1.60.0 Bioconductor
 ## 2            Biobase    2.58.0 Bioconductor
-## 3      BiocFileCache     2.6.0 Bioconductor
+## 3      BiocFileCache     2.6.1 Bioconductor
 ## 4       BiocGenerics    0.44.0 Bioconductor
 ## 5         Biostrings    2.66.0 Bioconductor
 ## 6                DBI     1.1.3         CRAN
@@ -742,107 +758,106 @@ Gnai3
 ## 13                R6     2.5.1         CRAN
 ## 14      RColorBrewer     1.1-3         CRAN
 ## 15             RCurl 1.98-1.10         CRAN
-## 16           RSQLite    2.2.20         CRAN
-## 17              Rcpp   1.0.8.3         CRAN
-## 18         S4Vectors    0.36.1 Bioconductor
+## 16           RSQLite     2.3.0         CRAN
+## 17              Rcpp    1.0.10         CRAN
+## 18         S4Vectors    0.36.2 Bioconductor
 ## 19               XML 3.99-0.13         CRAN
 ## 20           XVector    0.38.0 Bioconductor
 ## 21           askpass       1.1         CRAN
-## 22        assertthat     0.2.1         CRAN
-## 23         base64enc     0.1-4         CRAN
-## 24           biomaRt    2.54.0 Bioconductor
-## 25               bit     4.0.5         CRAN
-## 26             bit64     4.0.5         CRAN
-## 27            bitops     1.0-7         CRAN
-## 28              blob     1.2.3         CRAN
-## 29          bookdown      0.32         CRAN
-## 30             bslib     0.4.2         CRAN
-## 31            cachem     1.0.6         CRAN
-## 32             callr     3.7.3         CRAN
-## 33               cli     3.6.0         CRAN
-## 34        colorspace     2.1-1         CRAN
-## 35             cpp11     0.4.3         CRAN
-## 36            crayon     1.5.2         CRAN
-## 37              curl     5.0.0         CRAN
-## 38            dbplyr     2.3.0         CRAN
-## 39            digest    0.6.31         CRAN
-## 40             dplyr     1.1.0         CRAN
-## 41          ellipsis     0.3.2         CRAN
-## 42          evaluate      0.20         CRAN
-## 43             fansi     1.0.4         CRAN
-## 44            farver     2.1.1         CRAN
-## 45           fastmap     1.1.0         CRAN
-## 46          filelock     1.0.2         CRAN
-## 47                fs     1.6.1         CRAN
-## 48          generics     0.1.3         CRAN
-## 49           ggplot2     3.4.1         CRAN
-## 50           ggrepel     0.9.3         CRAN
-## 51              glue     1.6.2         CRAN
-## 52         gridExtra       2.3         CRAN
-## 53            gtable     0.3.1         CRAN
-## 54             highr      0.10         CRAN
-## 55               hms     1.1.2         CRAN
-## 56         htmltools     0.5.4         CRAN
-## 57              httr     1.4.4         CRAN
-## 58           isoband     0.2.7         CRAN
-## 59         jquerylib     0.1.4         CRAN
-## 60          jsonlite     1.8.4         CRAN
-## 61        kableExtra     1.3.4         CRAN
-## 62             knitr      1.42         CRAN
-## 63          labeling     0.4.2         CRAN
-## 64           lattice   0.20-45         CRAN
-## 65         lifecycle     1.0.3         CRAN
-## 66          magrittr     2.0.3         CRAN
-## 67           memoise     2.0.1         CRAN
-## 68              mgcv    1.8-41         CRAN
-## 69              mime      0.12         CRAN
-## 70           munsell     0.5.0         CRAN
-## 71              nlme   3.1-162         CRAN
-## 72           openssl     2.0.5         CRAN
-## 73           packrat     0.9.0         CRAN
-## 74            pillar     1.8.1         CRAN
-## 75         pkgconfig     2.0.3         CRAN
-## 76             plogr     0.2.0         CRAN
-## 77               png     0.1-8         CRAN
-## 78       prettyunits     1.1.1         CRAN
-## 79          processx     3.8.0         CRAN
-## 80          progress     1.2.2         CRAN
-## 81                ps     1.7.2         CRAN
-## 82             purrr     1.0.1         CRAN
-## 83          rappdirs     0.3.3         CRAN
-## 84             rlang     1.0.6         CRAN
-## 85         rmarkdown      2.20         CRAN
-## 86         rsconnect    0.8.29         CRAN
-## 87        rstudioapi      0.14         CRAN
-## 88             rvest     1.0.3         CRAN
-## 89              sass     0.4.5         CRAN
-## 90            scales     1.2.1         CRAN
-## 91           selectr     0.4-2         CRAN
-## 92           stringi    1.7.12         CRAN
-## 93           stringr     1.5.0         CRAN
-## 94           svglite     2.1.1         CRAN
-## 95               sys     3.4.1         CRAN
-## 96       systemfonts     1.0.4         CRAN
-## 97            tibble     3.1.8         CRAN
-## 98             tidyr     1.3.0         CRAN
-## 99        tidyselect     1.2.0         CRAN
-## 100          tinytex      0.44         CRAN
-## 101             utf8     1.2.3         CRAN
-## 102            vctrs     0.5.2         CRAN
-## 103          viridis     0.6.2         CRAN
-## 104      viridisLite     0.4.1         CRAN
-## 105          webshot     0.5.4         CRAN
-## 106            withr     2.5.0         CRAN
-## 107             xfun      0.37         CRAN
-## 108             xml2     1.3.3         CRAN
-## 109             yaml     2.3.7         CRAN
-## 110         zlibbioc    1.44.0 Bioconductor</code></pre>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="trouble.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getOption</span>(<span class="st">&quot;repos&quot;</span>)</span></code></pre></div>
-<pre><code>##                        CRAN 
-## &quot;https://cran.rstudio.com/&quot; 
+## 22         base64enc     0.1-3         CRAN
+## 23           biomaRt    2.54.0 Bioconductor
+## 24               bit     4.0.5         CRAN
+## 25             bit64     4.0.5         CRAN
+## 26            bitops     1.0-7         CRAN
+## 27              blob     1.2.3         CRAN
+## 28          bookdown      0.32         CRAN
+## 29             bslib     0.4.2         CRAN
+## 30            cachem     1.0.7         CRAN
+## 31             callr     3.7.3         CRAN
+## 32               cli     3.6.0         CRAN
+## 33        colorspace     2.1-0         CRAN
+## 34             cpp11     0.4.3         CRAN
+## 35            crayon     1.5.2         CRAN
+## 36              curl     5.0.0         CRAN
+## 37            dbplyr     2.3.1         CRAN
+## 38            digest    0.6.31         CRAN
+## 39             dplyr     1.1.0         CRAN
+## 40          ellipsis     0.3.2         CRAN
+## 41          evaluate      0.20         CRAN
+## 42             fansi     1.0.4         CRAN
+## 43            farver     2.1.1         CRAN
+## 44           fastmap     1.1.1         CRAN
+## 45          filelock     1.0.2         CRAN
+## 46                fs     1.6.1         CRAN
+## 47          generics     0.1.3         CRAN
+## 48           ggplot2     3.4.1         CRAN
+## 49           ggrepel     0.9.3         CRAN
+## 50              glue     1.6.2         CRAN
+## 51         gridExtra       2.3         CRAN
+## 52            gtable     0.3.1         CRAN
+## 53             highr      0.10         CRAN
+## 54               hms     1.1.2         CRAN
+## 55         htmltools     0.5.4         CRAN
+## 56              httr     1.4.5         CRAN
+## 57           isoband     0.2.7         CRAN
+## 58         jquerylib     0.1.4         CRAN
+## 59          jsonlite     1.8.4         CRAN
+## 60        kableExtra     1.3.4         CRAN
+## 61             knitr      1.42         CRAN
+## 62          labeling     0.4.2         CRAN
+## 63           lattice   0.20-45         CRAN
+## 64         lifecycle     1.0.3         CRAN
+## 65          magrittr     2.0.3         CRAN
+## 66           memoise     2.0.1         CRAN
+## 67              mgcv    1.8-42         CRAN
+## 68              mime      0.12         CRAN
+## 69           munsell     0.5.0         CRAN
+## 70              nlme   3.1-162         CRAN
+## 71           openssl     2.0.5         CRAN
+## 72           packrat     0.9.1         CRAN
+## 73            pillar     1.8.1         CRAN
+## 74         pkgconfig     2.0.3         CRAN
+## 75             plogr     0.2.0         CRAN
+## 76               png     0.1-8         CRAN
+## 77       prettyunits     1.1.1         CRAN
+## 78          processx     3.8.0         CRAN
+## 79          progress     1.2.2         CRAN
+## 80                ps     1.7.2         CRAN
+## 81             purrr     1.0.1         CRAN
+## 82          rappdirs     0.3.3         CRAN
+## 83             rlang     1.0.6         CRAN
+## 84         rmarkdown      2.20         CRAN
+## 85         rsconnect    0.8.29         CRAN
+## 86        rstudioapi      0.14         CRAN
+## 87             rvest     1.0.3         CRAN
+## 88              sass     0.4.5         CRAN
+## 89            scales     1.2.1         CRAN
+## 90           selectr     0.4-2         CRAN
+## 91           stringi    1.7.12         CRAN
+## 92           stringr     1.5.0         CRAN
+## 93           svglite     2.1.1         CRAN
+## 94               sys     3.4.1         CRAN
+## 95       systemfonts     1.0.4         CRAN
+## 96            tibble     3.1.8         CRAN
+## 97             tidyr     1.3.0         CRAN
+## 98        tidyselect     1.2.0         CRAN
+## 99           tinytex      0.44         CRAN
+## 100             utf8     1.2.3         CRAN
+## 101            vctrs     0.5.2         CRAN
+## 102          viridis     0.6.2         CRAN
+## 103      viridisLite     0.4.1         CRAN
+## 104          webshot     0.5.4         CRAN
+## 105            withr     2.5.0         CRAN
+## 106             xfun      0.37         CRAN
+## 107             xml2     1.3.3         CRAN
+## 108             yaml     2.3.7         CRAN
+## 109         zlibbioc    1.44.0 Bioconductor</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="trouble.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getOption</span>(<span class="st">&quot;repos&quot;</span>)</span></code></pre></div>
+<pre><code>##                       CRAN 
+## &quot;http://cran.rstudio.com/&quot; 
 ## attr(,&quot;RStudio&quot;)
 ## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="trouble.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="trouble.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.2.0 (2022-04-22 ucrt)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
 ## Running under: Windows 10 x64 (build 22621)
@@ -850,32 +865,40 @@ Gnai3
 ## Matrix products: default
 ## 
 ## locale:
-## [1] LC_COLLATE=English_United Kingdom.utf8  LC_CTYPE=English_United Kingdom.utf8    LC_MONETARY=English_United Kingdom.utf8
-## [4] LC_NUMERIC=C                            LC_TIME=English_United Kingdom.utf8    
+## [1] LC_COLLATE=English_United Kingdom.utf8  LC_CTYPE=English_United Kingdom.utf8   
+## [3] LC_MONETARY=English_United Kingdom.utf8 LC_NUMERIC=C                           
+## [5] LC_TIME=English_United Kingdom.utf8    
 ## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] viridis_0.6.2     viridisLite_0.4.1 biomaRt_2.54.0    ggrepel_0.9.3     ggplot2_3.4.1     kableExtra_1.3.4  stringr_1.5.0     RSQLite_2.2.20   
-##  [9] tidyr_1.3.0       dplyr_1.1.0      
+##  [1] viridis_0.6.2     viridisLite_0.4.1 biomaRt_2.54.0    ggrepel_0.9.3     ggplot2_3.4.1    
+##  [6] kableExtra_1.3.4  stringr_1.5.0     RSQLite_2.3.0     tidyr_1.3.0       dplyr_1.1.0      
+## [11] bookdown_0.32    
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Biobase_2.58.0         httr_1.4.4             sass_0.4.5             bit64_4.0.5            jsonlite_1.8.4         bslib_0.4.2           
-##  [7] assertthat_0.2.1       BiocManager_1.30.19    highr_0.10             stats4_4.2.0           BiocFileCache_2.6.0    blob_1.2.3            
-## [13] GenomeInfoDbData_1.2.9 yaml_2.3.7             progress_1.2.2         pillar_1.8.1           glue_1.6.2             digest_0.6.31         
-## [19] XVector_0.38.0         rvest_1.0.3            colorspace_2.1-1       htmltools_0.5.4        XML_3.99-0.13          pkgconfig_2.0.3       
-## [25] bookdown_0.32          zlibbioc_1.44.0        purrr_1.0.1            scales_1.2.1           webshot_0.5.4          svglite_2.1.1         
-## [31] tibble_3.1.8           KEGGREST_1.38.0        farver_2.1.1           generics_0.1.3         IRanges_2.32.0         ellipsis_0.3.2        
-## [37] cachem_1.0.6           withr_2.5.0            BiocGenerics_0.44.0    cli_3.6.0              magrittr_2.0.3         crayon_1.5.2          
-## [43] memoise_2.0.1          evaluate_0.20          fansi_1.0.4            xml2_1.3.3             rsconnect_0.8.29       tools_4.2.0           
-## [49] prettyunits_1.1.1      hms_1.1.2              lifecycle_1.0.3        S4Vectors_0.36.1       munsell_0.5.0          packrat_0.9.0         
-## [55] AnnotationDbi_1.60.0   Biostrings_2.66.0      compiler_4.2.0         jquerylib_0.1.4        GenomeInfoDb_1.34.9    systemfonts_1.0.4     
-## [61] rlang_1.0.6            grid_4.2.0             RCurl_1.98-1.10        rstudioapi_0.14        rappdirs_0.3.3         labeling_0.4.2        
-## [67] bitops_1.0-7           rmarkdown_2.20         gtable_0.3.1           DBI_1.1.3              curl_5.0.0             R6_2.5.1              
-## [73] gridExtra_2.3          knitr_1.42             fastmap_1.1.0          bit_4.0.5              utf8_1.2.3             filelock_1.0.2        
-## [79] stringi_1.7.12         Rcpp_1.0.8.3           vctrs_0.5.2            png_0.1-8              dbplyr_2.3.0           tidyselect_1.2.0      
-## [85] xfun_0.37</code></pre>
+##  [1] Biobase_2.58.0         httr_1.4.5             sass_0.4.5             bit64_4.0.5           
+##  [5] jsonlite_1.8.4         bslib_0.4.2            BiocManager_1.30.20    highr_0.10            
+##  [9] stats4_4.2.0           BiocFileCache_2.6.1    blob_1.2.3             GenomeInfoDbData_1.2.9
+## [13] yaml_2.3.7             progress_1.2.2         pillar_1.8.1           glue_1.6.2            
+## [17] digest_0.6.31          XVector_0.38.0         rvest_1.0.3            colorspace_2.1-0      
+## [21] htmltools_0.5.4        XML_3.99-0.13          pkgconfig_2.0.3        zlibbioc_1.44.0       
+## [25] purrr_1.0.1            scales_1.2.1           webshot_0.5.4          svglite_2.1.1         
+## [29] tibble_3.1.8           KEGGREST_1.38.0        farver_2.1.1           generics_0.1.3        
+## [33] IRanges_2.32.0         ellipsis_0.3.2         cachem_1.0.7           withr_2.5.0           
+## [37] BiocGenerics_0.44.0    cli_3.6.0              magrittr_2.0.3         crayon_1.5.2          
+## [41] memoise_2.0.1          evaluate_0.20          fansi_1.0.4            xml2_1.3.3            
+## [45] rsconnect_0.8.29       tools_4.2.0            prettyunits_1.1.1      hms_1.1.2             
+## [49] lifecycle_1.0.3        S4Vectors_0.36.2       munsell_0.5.0          packrat_0.9.1         
+## [53] AnnotationDbi_1.60.0   Biostrings_2.66.0      compiler_4.2.0         jquerylib_0.1.4       
+## [57] GenomeInfoDb_1.34.9    systemfonts_1.0.4      rlang_1.0.6            grid_4.2.0            
+## [61] RCurl_1.98-1.10        rstudioapi_0.14        rappdirs_0.3.3         labeling_0.4.2        
+## [65] bitops_1.0-7           rmarkdown_2.20         gtable_0.3.1           DBI_1.1.3             
+## [69] curl_5.0.0             R6_2.5.1               gridExtra_2.3          knitr_1.42            
+## [73] fastmap_1.1.1          bit_4.0.5              utf8_1.2.3             filelock_1.0.2        
+## [77] stringi_1.7.12         Rcpp_1.0.10            vctrs_0.5.2            png_0.1-8             
+## [81] dbplyr_2.3.1           tidyselect_1.2.0       xfun_0.37</code></pre>
 <p>Happy building!</p>
 
 </div>

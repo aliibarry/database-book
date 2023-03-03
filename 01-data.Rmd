@@ -36,6 +36,13 @@ library(ggrepel)
 count   = read.csv("./data/CountTables/TPM_mouse.csv", header = TRUE)
 colData = read.csv(paste0("./data/colData/", "TPM_mouse_colData.csv"), header = TRUE)
 deg     = read.csv(paste("./data/DegData/b10d2.csv", sep=""), header = TRUE, row.names = 1)
+
+get_median <- function(df, sex, var, ...){
+  ifelse(sex=="Both", data <- df %>% dplyr::group_by(...) %>%
+           dplyr::summarise(expression=median(as.double({{var}}))), df <- tcounts %>% dplyr::group_by(..., Sex) %>%
+           dplyr::summarise(expression=median(as.double({{var}}))))
+  return(data)
+}
 ```
 
 To implement this app, you will need three types of data:

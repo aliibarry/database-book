@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Server | A simple database framework for hosting and visualising sequencing data through Shiny</title>
+  <title>Chapter 4 Server | Sequencing databases in Shiny</title>
   <meta name="description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Server | A simple database framework for hosting and visualising sequencing data through Shiny" />
+  <meta property="og:title" content="Chapter 4 Server | Sequencing databases in Shiny" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   <meta name="github-repo" content="aliibarry/omics-database" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Server | A simple database framework for hosting and visualising sequencing data through Shiny" />
+  <meta name="twitter:title" content="Chapter 4 Server | Sequencing databases in Shiny" />
   
   <meta name="twitter:description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="AMB and NZ" />
 
 
-<meta name="date" content="2023-03-02" />
+<meta name="date" content="2023-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -222,7 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A simple database framework for hosting and visualising sequencing data through Shiny</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Sequencing databases in Shiny</a>
           </h1>
         </div>
 
@@ -983,7 +983,7 @@ FALSE
 <span id="cb40-29"><a href="server.html#cb40-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-30"><a href="server.html#cb40-30" aria-hidden="true" tabindex="-1"></a>dotplot <span class="ot">=</span> <span class="fu">plot_dotplot</span>(tcounts_med, Population, symbol, expression, <span class="st">&quot;Dataset&quot;</span>, sex)</span>
 <span id="cb40-31"><a href="server.html#cb40-31" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dotplot)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
 </div>
 <div id="line-plots" class="section level3 hasAnchor" number="4.4.3">
 <h3><span class="header-section-number">4.4.3</span> Line plots<a href="server.html#line-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1025,7 +1025,7 @@ FALSE
 <span id="cb41-32"><a href="server.html#cb41-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-33"><a href="server.html#cb41-33" aria-hidden="true" tabindex="-1"></a>lineplot <span class="ot">=</span> <span class="fu">plot_lineplot</span>(tcounts_m, sex, Condition, expression, symbol, Timepoint, symbol, Timepoint)</span>
 <span id="cb41-34"><a href="server.html#cb41-34" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(lineplot) </span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 </div>
 <div id="a-differential-expression-dot-plot" class="section level3 hasAnchor" number="4.4.4">
 <h3><span class="header-section-number">4.4.4</span> A differential expression dot plot<a href="server.html#a-differential-expression-dot-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1061,7 +1061,7 @@ FALSE
 <span id="cb42-26"><a href="server.html#cb42-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-27"><a href="server.html#cb42-27" aria-hidden="true" tabindex="-1"></a>degplot <span class="ot">=</span> <span class="fu">plot_degplot</span>(deg_df, Population, symbol, log2FoldChange, sig)</span>
 <span id="cb42-28"><a href="server.html#cb42-28" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(degplot)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 </div>
 <div id="a-volcano-plot" class="section level3 hasAnchor" number="4.4.5">
 <h3><span class="header-section-number">4.4.5</span> A volcano plot<a href="server.html#a-volcano-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1106,7 +1106,7 @@ FALSE
 <span id="cb43-35"><a href="server.html#cb43-35" aria-hidden="true" tabindex="-1"></a>volcanoplot <span class="ot">=</span> <span class="fu">plot_volcanoplot</span>(res, volc_df, log2FoldChange, log10fdr, symbol)</span>
 <span id="cb43-36"><a href="server.html#cb43-36" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(volcanoplot)</span></code></pre></div>
 <pre><code>## Warning: Removed 31279 rows containing missing values (`geom_point()`).</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 </div>
 <div id="other" class="section level3 hasAnchor" number="4.4.6">
 <h3><span class="header-section-number">4.4.6</span> Other<a href="server.html#other" class="anchor-section" aria-label="Anchor link to header"></a></h3>
