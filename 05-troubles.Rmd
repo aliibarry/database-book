@@ -214,6 +214,26 @@ determine a repository URL for the source 'Bioconductor'.
 
 Unhandled Exception: Child Task 873781155 failed: Error parsing manifest: 
 Unable to determine package source for Bioconductor package
+
+# example error 3: you likely have a mismatch in versions across packages, which may be compatible locally by cause issues on shinyapp.io. Here, use BiocManager::valid() to ensure all packages are in agreement
+Error: Unhandled Exception: Child Task 1278414280 failed: Error building image: Error fetching GenomeInfoDbData (1.2.9) source. Error downloading package source. Please update your BioConductor packages to the latest version and try again
+```
+
+Example (truncated) output from `BiocManager::valid()`. If you need to compile something by source to get the most recent version, make sure have installed the required packages (eg. `RTools` for Windows).
+
+```{r eval=FALSE}
+BiocManager::valid()
+# Bioconductor version '3.16'
+# 
+#   * 1 packages out-of-date
+#   * 0 packages too new
+# 
+# create a valid installation with
+# 
+#  BiocManager::install("sfheaders", update = TRUE, ask = FALSE, force = TRUE) ## run this part to fix
+# 
+# more details: BiocManager::valid()$too_new, BiocManager::valid()$out_of_date
+#
 ```
 
 You can specific the bioconductor repository here (depending on updates, a very new version may be incompatible with `Shiny` briefly). You can check which repositories have been set using `getOption("repos")`.

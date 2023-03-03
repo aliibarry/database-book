@@ -126,7 +126,7 @@ load("my_data.RData") # add to server
         filt = RSQLite::dbGetPreparedQuery(conn, sql, bind.data=data.frame(symbol=genes()))
         filt = as.data.frame(filt)
       }
-     
+      
       ## uncomment here for .RData file
       # using R Data 
       {
