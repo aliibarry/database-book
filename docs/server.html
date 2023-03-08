@@ -623,7 +623,7 @@ FALSE
 <div id="grouped-comparisons-1" class="section level3 hasAnchor" number="4.2.3">
 <h3><span class="header-section-number">4.2.3</span> Grouped comparisons<a href="server.html#grouped-comparisons-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>By using the same visualization tools and methods across studies, it becomes easier to compare and integrate results from different studies.</p>
-<p><img src="data/Images/meta.png" width="4134" /></p>
+<p><img src="data/Images/meta.png" width="3614" /></p>
 <ol style="list-style-type: decimal">
 <li>Render a table for datasets included</li>
 </ol>
@@ -713,7 +713,7 @@ FALSE
 </div>
 <div id="individual-analysis-1" class="section level3 hasAnchor" number="4.2.4">
 <h3><span class="header-section-number">4.2.4</span> Individual Analysis<a href="server.html#individual-analysis-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><img src="data/Images/indiv.png" width="4134" /></p>
+<p><img src="data/Images/indiv.png" width="3453" /></p>
 <p>First, a table that contains dataset description is rendered at the top.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="server.html#cb32-1" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>dataset_table <span class="ot">=</span> DT<span class="sc">::</span><span class="fu">renderDataTable</span>({</span>
 <span id="cb32-2"><a href="server.html#cb32-2" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(</span>
@@ -785,7 +785,7 @@ FALSE
 <div id="network-analysis" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Network Analysis<a href="server.html#network-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Network integration can give context when working with large datasets, and provide a platform to integrate information from multiple sources.</p>
-<p><img src="data/Images/network.png" width="4134" /></p>
+<p><img src="data/Images/network.png" width="3312" /></p>
 <p>Here, networks are built using protein–protein interaction data taken from the STRING database. The network can be enriched in various ways. As an example, we have enriched the STRING networks in our example by:</p>
 <ol style="list-style-type: decimal">
 <li>An <em>Enrichment Score</em>, an integrated statistic using data from all experiments.</li>
@@ -982,7 +982,7 @@ FALSE
 <span id="cb39-29"><a href="server.html#cb39-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-30"><a href="server.html#cb39-30" aria-hidden="true" tabindex="-1"></a>dotplot <span class="ot">=</span> <span class="fu">plot_dotplot</span>(tcounts_med, Population, symbol, expression, <span class="st">&quot;Dataset&quot;</span>, sex)</span>
 <span id="cb39-31"><a href="server.html#cb39-31" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dotplot)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
 </div>
 <div id="line-plots" class="section level3 hasAnchor" number="4.4.3">
 <h3><span class="header-section-number">4.4.3</span> Line plots<a href="server.html#line-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1024,7 +1024,7 @@ FALSE
 <span id="cb40-32"><a href="server.html#cb40-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-33"><a href="server.html#cb40-33" aria-hidden="true" tabindex="-1"></a>lineplot <span class="ot">=</span> <span class="fu">plot_lineplot</span>(tcounts_m, sex, Condition, expression, symbol, Timepoint, symbol, Timepoint)</span>
 <span id="cb40-34"><a href="server.html#cb40-34" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(lineplot) </span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 </div>
 <div id="a-differential-expression-dot-plot" class="section level3 hasAnchor" number="4.4.4">
 <h3><span class="header-section-number">4.4.4</span> A differential expression dot plot<a href="server.html#a-differential-expression-dot-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1060,7 +1060,7 @@ FALSE
 <span id="cb41-26"><a href="server.html#cb41-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-27"><a href="server.html#cb41-27" aria-hidden="true" tabindex="-1"></a>degplot <span class="ot">=</span> <span class="fu">plot_degplot</span>(deg_df, Population, symbol, log2FoldChange, sig)</span>
 <span id="cb41-28"><a href="server.html#cb41-28" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(degplot)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 </div>
 <div id="a-volcano-plot" class="section level3 hasAnchor" number="4.4.5">
 <h3><span class="header-section-number">4.4.5</span> A volcano plot<a href="server.html#a-volcano-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1105,7 +1105,7 @@ FALSE
 <span id="cb42-35"><a href="server.html#cb42-35" aria-hidden="true" tabindex="-1"></a>volcanoplot <span class="ot">=</span> <span class="fu">plot_volcanoplot</span>(res, volc_df, log2FoldChange, log10fdr, symbol)</span>
 <span id="cb42-36"><a href="server.html#cb42-36" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(volcanoplot)</span></code></pre></div>
 <pre><code>## Warning: Removed 31279 rows containing missing values (`geom_point()`).</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 </div>
 <div id="other" class="section level3 hasAnchor" number="4.4.6">
 <h3><span class="header-section-number">4.4.6</span> Other<a href="server.html#other" class="anchor-section" aria-label="Anchor link to header"></a></h3>
