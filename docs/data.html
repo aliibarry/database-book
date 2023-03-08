@@ -243,11 +243,24 @@ img
 </style>
 <ol style="list-style-type: decimal">
 <li>Prepare data tables (minimum: count matrix, column data)</li>
-<li>Compile all data into an <code>.RData</code> or <code>.db</code> object.</li>
+<li>Compile all data into an <code>.RData</code> or <code>.db</code> object using <code>setup.R</code>.</li>
 </ol>
 <hr />
 <div id="preparation" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Preparation<a href="data.html#preparation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre><code>## 
+## Attaching package: &#39;kableExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     group_rows</code></pre>
 <p>To implement this app, you will need three types of data:</p>
 <ol style="list-style-type: decimal">
 <li>Count tables in <code>./data/CountTables/</code> folder</li>
@@ -1179,19 +1192,19 @@ b10d2
 <div id="species-optional" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Species <em>(optional)</em><a href="data.html#species-optional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If your data contains different species, you will also need datasets that allow you map gene symbols/IDs between species. We have provided an option using the <code>biomaRt</code> library.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;biomaRt&quot;</span>)</span>
-<span id="cb1-2"><a href="data.html#cb1-2" aria-hidden="true" tabindex="-1"></a>mouse <span class="ot">=</span> <span class="fu">useMart</span>(<span class="st">&quot;ensembl&quot;</span>, <span class="at">dataset =</span> <span class="st">&quot;mmusculus_gene_ensembl&quot;</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">host =</span> <span class="st">&quot;https://dec2021.archive.ensembl.org&quot;</span>)</span>
-<span id="cb1-3"><a href="data.html#cb1-3" aria-hidden="true" tabindex="-1"></a>human <span class="ot">=</span> <span class="fu">useMart</span>(<span class="st">&quot;ensembl&quot;</span>, <span class="at">dataset =</span> <span class="st">&quot;hsapiens_gene_ensembl&quot;</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">host =</span> <span class="st">&quot;https://dec2021.archive.ensembl.org&quot;</span>)</span>
-<span id="cb1-4"><a href="data.html#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="data.html#cb1-5" aria-hidden="true" tabindex="-1"></a>geneV1 <span class="ot">=</span> <span class="fu">getLDS</span>(<span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;mgi_symbol&quot;</span>,<span class="st">&quot;ensembl_gene_id&quot;</span>), </span>
-<span id="cb1-6"><a href="data.html#cb1-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">filters =</span> <span class="st">&quot;ensembl_gene_id&quot;</span>, </span>
-<span id="cb1-7"><a href="data.html#cb1-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">values =</span> count<span class="sc">$</span>X, </span>
-<span id="cb1-8"><a href="data.html#cb1-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">mart =</span> mouse, </span>
-<span id="cb1-9"><a href="data.html#cb1-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">attributesL =</span> <span class="fu">c</span>(<span class="st">&quot;hgnc_symbol&quot;</span>, <span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;description&quot;</span>), </span>
-<span id="cb1-10"><a href="data.html#cb1-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">martL =</span> human, </span>
-<span id="cb1-11"><a href="data.html#cb1-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">uniqueRows=</span>T)</span>
-<span id="cb1-12"><a href="data.html#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="data.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(geneV1) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;mgi_symbol&quot;</span>, <span class="st">&quot;mouse_gene_id&quot;</span>, <span class="st">&quot;hgnc_symbol&quot;</span>, <span class="st">&quot;human_gene_id&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;biomaRt&quot;</span>)</span>
+<span id="cb6-2"><a href="data.html#cb6-2" aria-hidden="true" tabindex="-1"></a>mouse <span class="ot">=</span> <span class="fu">useMart</span>(<span class="st">&quot;ensembl&quot;</span>, <span class="at">dataset =</span> <span class="st">&quot;mmusculus_gene_ensembl&quot;</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">host =</span> <span class="st">&quot;https://dec2021.archive.ensembl.org&quot;</span>)</span>
+<span id="cb6-3"><a href="data.html#cb6-3" aria-hidden="true" tabindex="-1"></a>human <span class="ot">=</span> <span class="fu">useMart</span>(<span class="st">&quot;ensembl&quot;</span>, <span class="at">dataset =</span> <span class="st">&quot;hsapiens_gene_ensembl&quot;</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">host =</span> <span class="st">&quot;https://dec2021.archive.ensembl.org&quot;</span>)</span>
+<span id="cb6-4"><a href="data.html#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="data.html#cb6-5" aria-hidden="true" tabindex="-1"></a>geneV1 <span class="ot">=</span> <span class="fu">getLDS</span>(<span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;mgi_symbol&quot;</span>,<span class="st">&quot;ensembl_gene_id&quot;</span>), </span>
+<span id="cb6-6"><a href="data.html#cb6-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">filters =</span> <span class="st">&quot;ensembl_gene_id&quot;</span>, </span>
+<span id="cb6-7"><a href="data.html#cb6-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">values =</span> count<span class="sc">$</span>X, </span>
+<span id="cb6-8"><a href="data.html#cb6-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">mart =</span> mouse, </span>
+<span id="cb6-9"><a href="data.html#cb6-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">attributesL =</span> <span class="fu">c</span>(<span class="st">&quot;hgnc_symbol&quot;</span>, <span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;description&quot;</span>), </span>
+<span id="cb6-10"><a href="data.html#cb6-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">martL =</span> human, </span>
+<span id="cb6-11"><a href="data.html#cb6-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">uniqueRows=</span>T)</span>
+<span id="cb6-12"><a href="data.html#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="data.html#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(geneV1) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;mgi_symbol&quot;</span>, <span class="st">&quot;mouse_gene_id&quot;</span>, <span class="st">&quot;hgnc_symbol&quot;</span>, <span class="st">&quot;human_gene_id&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:450px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1216,104 +1229,104 @@ NA
 <tbody>
 <tr>
 <td style="text-align:left;">
-mt-Nd4l
+mt-Nd4
 </td>
 <td style="text-align:left;">
-ENSMUSG00000065947
+ENSMUSG00000064363
 </td>
 <td style="text-align:left;">
-MT-ND4L
+MT-ND4
 </td>
 <td style="text-align:left;">
-ENSG00000212907
+ENSG00000198886
 </td>
 <td style="text-align:left;">
-mitochondrially encoded NADH:ubiquinone oxidoreductase core subunit 4L [Source:HGNC Symbol;Acc:HGNC:7460]
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-mt-Co1
-</td>
-<td style="text-align:left;">
-ENSMUSG00000064351
-</td>
-<td style="text-align:left;">
-MT-CO1
-</td>
-<td style="text-align:left;">
-ENSG00000198804
-</td>
-<td style="text-align:left;">
-mitochondrially encoded cytochrome c oxidase I [Source:HGNC Symbol;Acc:HGNC:7419]
+mitochondrially encoded NADH:ubiquinone oxidoreductase core subunit 4 [Source:HGNC Symbol;Acc:HGNC:7459]
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-mt-Nd5
+mt-Co2
 </td>
 <td style="text-align:left;">
-ENSMUSG00000064367
+ENSMUSG00000064354
 </td>
 <td style="text-align:left;">
-MT-ND5
+MT-CO2
 </td>
 <td style="text-align:left;">
-ENSG00000198786
+ENSG00000198712
 </td>
 <td style="text-align:left;">
-mitochondrially encoded NADH:ubiquinone oxidoreductase core subunit 5 [Source:HGNC Symbol;Acc:HGNC:7461]
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-mt-Co3
-</td>
-<td style="text-align:left;">
-ENSMUSG00000064358
-</td>
-<td style="text-align:left;">
-MT-CO3
-</td>
-<td style="text-align:left;">
-ENSG00000198938
-</td>
-<td style="text-align:left;">
-mitochondrially encoded cytochrome c oxidase III [Source:HGNC Symbol;Acc:HGNC:7422]
+mitochondrially encoded cytochrome c oxidase II [Source:HGNC Symbol;Acc:HGNC:7421]
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-mt-Nd1
+mt-Atp8
 </td>
 <td style="text-align:left;">
-ENSMUSG00000064341
+ENSMUSG00000064356
 </td>
 <td style="text-align:left;">
-MT-ND1
+MT-ATP8
 </td>
 <td style="text-align:left;">
-ENSG00000198888
+ENSG00000228253
 </td>
 <td style="text-align:left;">
-mitochondrially encoded NADH:ubiquinone oxidoreductase core subunit 1 [Source:HGNC Symbol;Acc:HGNC:7455]
+mitochondrially encoded ATP synthase membrane subunit 8 [Source:HGNC Symbol;Acc:HGNC:7415]
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-mt-Nd2
+mt-Nd3
 </td>
 <td style="text-align:left;">
-ENSMUSG00000064345
+ENSMUSG00000064360
 </td>
 <td style="text-align:left;">
-MT-ND2
+MT-ND3
 </td>
 <td style="text-align:left;">
-ENSG00000198763
+ENSG00000198840
 </td>
 <td style="text-align:left;">
-mitochondrially encoded NADH:ubiquinone oxidoreductase core subunit 2 [Source:HGNC Symbol;Acc:HGNC:7456]
+mitochondrially encoded NADH:ubiquinone oxidoreductase core subunit 3 [Source:HGNC Symbol;Acc:HGNC:7458]
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mt-Cytb
+</td>
+<td style="text-align:left;">
+ENSMUSG00000064370
+</td>
+<td style="text-align:left;">
+MT-CYB
+</td>
+<td style="text-align:left;">
+ENSG00000198727
+</td>
+<td style="text-align:left;">
+mitochondrially encoded cytochrome b [Source:HGNC Symbol;Acc:HGNC:7427]
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mt-Atp6
+</td>
+<td style="text-align:left;">
+ENSMUSG00000064357
+</td>
+<td style="text-align:left;">
+MT-ATP6
+</td>
+<td style="text-align:left;">
+ENSG00000198899
+</td>
+<td style="text-align:left;">
+mitochondrially encoded ATP synthase membrane subunit 6 [Source:HGNC Symbol;Acc:HGNC:7414]
 </td>
 </tr>
 </tbody>
@@ -1323,159 +1336,159 @@ mitochondrially encoded NADH:ubiquinone oxidoreductase core subunit 2 [Source:HG
 <div id="rdata-option-1" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> RData <em>(option 1)</em><a href="data.html#rdata-option-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>You can store data frames into .RData using the <code>save()</code> function. For example, we can use the save() function to save the <code>count</code> data frame to a file called <code>my_data.RData</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="data.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(count, <span class="at">file =</span> <span class="st">&quot;my_data.RData&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="data.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(count, <span class="at">file =</span> <span class="st">&quot;my_data.RData&quot;</span>)</span></code></pre></div>
 <p>To load the data frame from the <code>.RData</code> file later, you can use the <code>load()</code> function in your server. Y</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="data.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;my_data.RData&quot;</span>) <span class="co"># add to server</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="data.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;my_data.RData&quot;</span>) <span class="co"># add to server</span></span></code></pre></div>
 <p><em>NOTE</em>, some functions will need to be modified to read from a <code>.RData</code> instead. This can be done by uncommentng the relevant lines of code. For example:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="data.html#cb4-1" aria-hidden="true" tabindex="-1"></a>  shiny<span class="sc">::</span><span class="fu">observeEvent</span>(input<span class="sc">$</span>load, {</span>
-<span id="cb4-2"><a href="data.html#cb4-2" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-3"><a href="data.html#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (include_count <span class="sc">==</span> <span class="cn">TRUE</span>){</span>
-<span id="cb4-4"><a href="data.html#cb4-4" aria-hidden="true" tabindex="-1"></a>      <span class="co"># query count datasets</span></span>
-<span id="cb4-5"><a href="data.html#cb4-5" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb4-6"><a href="data.html#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="do">## comment here for .RData file</span></span>
-<span id="cb4-7"><a href="data.html#cb4-7" aria-hidden="true" tabindex="-1"></a>      <span class="co"># for database </span></span>
-<span id="cb4-8"><a href="data.html#cb4-8" aria-hidden="true" tabindex="-1"></a>      {</span>
-<span id="cb4-9"><a href="data.html#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (species <span class="sc">==</span> <span class="st">&quot;human&quot;</span>) {</span>
-<span id="cb4-10"><a href="data.html#cb4-10" aria-hidden="true" tabindex="-1"></a>          sql <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">&quot;SELECT * FROM&quot;</span>, count_df, <span class="st">&quot;WHERE mgi_symbol = ?&quot;</span>)</span>
-<span id="cb4-11"><a href="data.html#cb4-11" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb4-12"><a href="data.html#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>{</span>
-<span id="cb4-13"><a href="data.html#cb4-13" aria-hidden="true" tabindex="-1"></a>          sql <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">&quot;SELECT * FROM&quot;</span>, count_df, <span class="st">&quot;WHERE symbol = ?&quot;</span>)</span>
-<span id="cb4-14"><a href="data.html#cb4-14" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb4-15"><a href="data.html#cb4-15" aria-hidden="true" tabindex="-1"></a>        filt <span class="ot">=</span> RSQLite<span class="sc">::</span><span class="fu">dbGetPreparedQuery</span>(conn, sql, <span class="at">bind.data=</span><span class="fu">data.frame</span>(<span class="at">symbol=</span><span class="fu">genes</span>()))</span>
-<span id="cb4-16"><a href="data.html#cb4-16" aria-hidden="true" tabindex="-1"></a>        filt <span class="ot">=</span> <span class="fu">as.data.frame</span>(filt)</span>
-<span id="cb4-17"><a href="data.html#cb4-17" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb4-18"><a href="data.html#cb4-18" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb4-19"><a href="data.html#cb4-19" aria-hidden="true" tabindex="-1"></a>      <span class="do">## uncomment here for .RData file</span></span>
-<span id="cb4-20"><a href="data.html#cb4-20" aria-hidden="true" tabindex="-1"></a>      <span class="co"># using R Data </span></span>
-<span id="cb4-21"><a href="data.html#cb4-21" aria-hidden="true" tabindex="-1"></a>      {</span>
-<span id="cb4-22"><a href="data.html#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="co"># if (species == &quot;human&quot;){</span></span>
-<span id="cb4-23"><a href="data.html#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="co">#   filt = count_df[count_df$mgi_symbol %in% genes(),]</span></span>
-<span id="cb4-24"><a href="data.html#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="co">#   X = rownames(filt)</span></span>
-<span id="cb4-25"><a href="data.html#cb4-25" aria-hidden="true" tabindex="-1"></a>        <span class="co">#   filt = cbind(X, filt)</span></span>
-<span id="cb4-26"><a href="data.html#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="co">#   </span></span>
-<span id="cb4-27"><a href="data.html#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="co"># }</span></span>
-<span id="cb4-28"><a href="data.html#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># else {</span></span>
-<span id="cb4-29"><a href="data.html#cb4-29" aria-hidden="true" tabindex="-1"></a>        <span class="co">#   filt = count_df[count_df$symbol %in% genes(),]</span></span>
-<span id="cb4-30"><a href="data.html#cb4-30" aria-hidden="true" tabindex="-1"></a>        <span class="co">#   X = rownames(filt)</span></span>
-<span id="cb4-31"><a href="data.html#cb4-31" aria-hidden="true" tabindex="-1"></a>        <span class="co">#   filt = cbind(X, filt)</span></span>
-<span id="cb4-32"><a href="data.html#cb4-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># }</span></span>
-<span id="cb4-33"><a href="data.html#cb4-33" aria-hidden="true" tabindex="-1"></a>      }</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="data.html#cb9-1" aria-hidden="true" tabindex="-1"></a>  shiny<span class="sc">::</span><span class="fu">observeEvent</span>(input<span class="sc">$</span>load, {</span>
+<span id="cb9-2"><a href="data.html#cb9-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-3"><a href="data.html#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (include_count <span class="sc">==</span> <span class="cn">TRUE</span>){</span>
+<span id="cb9-4"><a href="data.html#cb9-4" aria-hidden="true" tabindex="-1"></a>      <span class="co"># query count datasets</span></span>
+<span id="cb9-5"><a href="data.html#cb9-5" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb9-6"><a href="data.html#cb9-6" aria-hidden="true" tabindex="-1"></a>      <span class="do">## comment here for .RData file</span></span>
+<span id="cb9-7"><a href="data.html#cb9-7" aria-hidden="true" tabindex="-1"></a>      <span class="co"># for database </span></span>
+<span id="cb9-8"><a href="data.html#cb9-8" aria-hidden="true" tabindex="-1"></a>      {</span>
+<span id="cb9-9"><a href="data.html#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (species <span class="sc">==</span> <span class="st">&quot;human&quot;</span>) {</span>
+<span id="cb9-10"><a href="data.html#cb9-10" aria-hidden="true" tabindex="-1"></a>          sql <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">&quot;SELECT * FROM&quot;</span>, count_df, <span class="st">&quot;WHERE mgi_symbol = ?&quot;</span>)</span>
+<span id="cb9-11"><a href="data.html#cb9-11" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb9-12"><a href="data.html#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>{</span>
+<span id="cb9-13"><a href="data.html#cb9-13" aria-hidden="true" tabindex="-1"></a>          sql <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">&quot;SELECT * FROM&quot;</span>, count_df, <span class="st">&quot;WHERE symbol = ?&quot;</span>)</span>
+<span id="cb9-14"><a href="data.html#cb9-14" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb9-15"><a href="data.html#cb9-15" aria-hidden="true" tabindex="-1"></a>        filt <span class="ot">=</span> RSQLite<span class="sc">::</span><span class="fu">dbGetPreparedQuery</span>(conn, sql, <span class="at">bind.data=</span><span class="fu">data.frame</span>(<span class="at">symbol=</span><span class="fu">genes</span>()))</span>
+<span id="cb9-16"><a href="data.html#cb9-16" aria-hidden="true" tabindex="-1"></a>        filt <span class="ot">=</span> <span class="fu">as.data.frame</span>(filt)</span>
+<span id="cb9-17"><a href="data.html#cb9-17" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb9-18"><a href="data.html#cb9-18" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb9-19"><a href="data.html#cb9-19" aria-hidden="true" tabindex="-1"></a>      <span class="do">## uncomment here for .RData file</span></span>
+<span id="cb9-20"><a href="data.html#cb9-20" aria-hidden="true" tabindex="-1"></a>      <span class="co"># using R Data </span></span>
+<span id="cb9-21"><a href="data.html#cb9-21" aria-hidden="true" tabindex="-1"></a>      {</span>
+<span id="cb9-22"><a href="data.html#cb9-22" aria-hidden="true" tabindex="-1"></a>        <span class="co"># if (species == &quot;human&quot;){</span></span>
+<span id="cb9-23"><a href="data.html#cb9-23" aria-hidden="true" tabindex="-1"></a>        <span class="co">#   filt = count_df[count_df$mgi_symbol %in% genes(),]</span></span>
+<span id="cb9-24"><a href="data.html#cb9-24" aria-hidden="true" tabindex="-1"></a>        <span class="co">#   X = rownames(filt)</span></span>
+<span id="cb9-25"><a href="data.html#cb9-25" aria-hidden="true" tabindex="-1"></a>        <span class="co">#   filt = cbind(X, filt)</span></span>
+<span id="cb9-26"><a href="data.html#cb9-26" aria-hidden="true" tabindex="-1"></a>        <span class="co">#   </span></span>
+<span id="cb9-27"><a href="data.html#cb9-27" aria-hidden="true" tabindex="-1"></a>        <span class="co"># }</span></span>
+<span id="cb9-28"><a href="data.html#cb9-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># else {</span></span>
+<span id="cb9-29"><a href="data.html#cb9-29" aria-hidden="true" tabindex="-1"></a>        <span class="co">#   filt = count_df[count_df$symbol %in% genes(),]</span></span>
+<span id="cb9-30"><a href="data.html#cb9-30" aria-hidden="true" tabindex="-1"></a>        <span class="co">#   X = rownames(filt)</span></span>
+<span id="cb9-31"><a href="data.html#cb9-31" aria-hidden="true" tabindex="-1"></a>        <span class="co">#   filt = cbind(X, filt)</span></span>
+<span id="cb9-32"><a href="data.html#cb9-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># }</span></span>
+<span id="cb9-33"><a href="data.html#cb9-33" aria-hidden="true" tabindex="-1"></a>      }</span></code></pre></div>
 <p>If you plan to store data this way, move to the <em>User Interface</em> section now. If you are working with larger amounts of data, you may find it useful to set up an SQL database (<em>recommended</em>, below).</p>
 </div>
 <div id="building-an-sql-database-via-r-recommended" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Building an SQL database via R <em>(recommended)</em><a href="data.html#building-an-sql-database-via-r-recommended" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>While <code>.RData</code> files can be useful small or medium-sized datasets in R, SQL databases provide a more powerful and flexible solution for managing large, complex datasets that need to be shared, queried, and analyzed by multiple users or integrated with other tools and applications.</p>
 <p>An SQLite database consists of one or more tables, which are composed of rows and columns. An RSQLite <code>.db</code> object is a database connection to a SQLite database file through R. The following functions will be useful in creating and updating the <code>.db</code> object in R.</p>
-<p>Here, we provide an overview for bulk count data. <code>Seurat</code> objects (for sc/snRNA-seq or ATAC-seq) are read in separately.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="data.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This function connects to a SQLite database file called `example_database.db`</span></span>
-<span id="cb5-2"><a href="data.html#cb5-2" aria-hidden="true" tabindex="-1"></a>db_dir <span class="ot">=</span> <span class="st">&quot;example_database.db&quot;</span> </span>
-<span id="cb5-3"><a href="data.html#cb5-3" aria-hidden="true" tabindex="-1"></a>conn  <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), db_dir)</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This function stores dataframe objects into `.db` object </span></span>
-<span id="cb6-2"><a href="data.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(conn, <span class="at">name =</span> <span class="st">&quot;count_df&quot;</span>, <span class="at">value =</span> count)</span></code></pre></div>
+<p>Here, we provide an overview for bulk count data (provided as <code>setup.R</code>). <code>Seurat</code> objects (for sc/snRNA-seq or ATAC-seq) are read in separately in our example.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This function connects to a SQLite database file called `example_database.db`</span></span>
+<span id="cb10-2"><a href="data.html#cb10-2" aria-hidden="true" tabindex="-1"></a>db_dir <span class="ot">=</span> <span class="st">&quot;example_database.db&quot;</span> </span>
+<span id="cb10-3"><a href="data.html#cb10-3" aria-hidden="true" tabindex="-1"></a>conn  <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), db_dir)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="data.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This function stores dataframe objects into `.db` object </span></span>
+<span id="cb11-2"><a href="data.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(conn, <span class="at">name =</span> <span class="st">&quot;count_df&quot;</span>, <span class="at">value =</span> count)</span></code></pre></div>
 <div id="sql-manipulation" class="section level3 hasAnchor" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> SQL manipulation<a href="data.html#sql-manipulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="data.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List table names that you have already stored  </span></span>
-<span id="cb7-2"><a href="data.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListTables</span>(conn)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="data.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List table names that you have already stored  </span></span>
+<span id="cb12-2"><a href="data.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListTables</span>(conn)</span></code></pre></div>
 <pre><code>## [1] &quot;count_df&quot;</code></pre>
 <p>Each table in a SQLite database has a schema that defines the columns in the table and their data types. In R, you can retrieve the schema of a table using the <code>dbListFields()</code> function, which returns a character vector of the column names.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="data.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the schema of the &quot;count_df&quot; table</span></span>
-<span id="cb9-2"><a href="data.html#cb9-2" aria-hidden="true" tabindex="-1"></a>fields <span class="ot">&lt;-</span> <span class="fu">dbListFields</span>(conn, <span class="st">&quot;count_df&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify a table by using &#39;overwrite&#39; argument </span></span>
-<span id="cb10-2"><a href="data.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(conn, <span class="at">name =</span> <span class="st">&quot;count_df&quot;</span>, <span class="at">value =</span> count_modified, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="data.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete a table </span></span>
-<span id="cb11-2"><a href="data.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbRemoveTable</span>(conn, <span class="st">&quot;count_df&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="data.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the schema of the &quot;count_df&quot; table</span></span>
+<span id="cb14-2"><a href="data.html#cb14-2" aria-hidden="true" tabindex="-1"></a>fields <span class="ot">&lt;-</span> <span class="fu">dbListFields</span>(conn, <span class="st">&quot;count_df&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="data.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify a table by using &#39;overwrite&#39; argument </span></span>
+<span id="cb15-2"><a href="data.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(conn, <span class="at">name =</span> <span class="st">&quot;count_df&quot;</span>, <span class="at">value =</span> count_modified, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="data.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete a table </span></span>
+<span id="cb16-2"><a href="data.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbRemoveTable</span>(conn, <span class="st">&quot;count_df&quot;</span>)</span></code></pre></div>
 <p>The <code>dbGetQuery()</code> function in RSQLite allows you to execute SQL queries and return the results as a data frame.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="data.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select all rows from the &quot;count_df&quot; table</span></span>
-<span id="cb12-2"><a href="data.html#cb12-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(conn, <span class="st">&quot;SELECT * FROM count_df&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="data.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Close the connection after you stored all tables</span></span>
-<span id="cb13-2"><a href="data.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(conn)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="data.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select all rows from the &quot;count_df&quot; table</span></span>
+<span id="cb17-2"><a href="data.html#cb17-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(conn, <span class="st">&quot;SELECT * FROM count_df&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="data.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Close the connection after you stored all tables</span></span>
+<span id="cb18-2"><a href="data.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(conn)</span></code></pre></div>
 <p>These functions are sufficient for users without prior knowledge in the RSQLite package. Further tutorials can be found at <a href="https://www.datacamp.com/tutorial/sqlite-in-r" class="uri">https://www.datacamp.com/tutorial/sqlite-in-r</a></p>
 </div>
 <div id="processing-multiple-files" class="section level3 hasAnchor" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> Processing multiple files<a href="data.html#processing-multiple-files" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If your experimental data contains multiple files, it can become labor intensive to write tables one by one. To reduce the burden, you can read files by folders.</p>
 <p>• Read all count tables in <code>./data/CountTables</code> folder into <code>.db</code> object, using their file names as table names.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="data.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># all file names </span></span>
-<span id="cb14-2"><a href="data.html#cb14-2" aria-hidden="true" tabindex="-1"></a>Counts <span class="ot">&lt;-</span> <span class="fu">str_sort</span>(<span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">&quot;./data/CountTables&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;*.csv&quot;</span>)) <span class="co"># names of the count tables</span></span>
-<span id="cb14-3"><a href="data.html#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="data.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># name each file as their file name without &quot;.csv&quot; suffix </span></span>
-<span id="cb14-5"><a href="data.html#cb14-5" aria-hidden="true" tabindex="-1"></a>names <span class="ot">=</span> <span class="fu">as.vector</span>(<span class="fu">substr</span>(Counts, <span class="dv">0</span>, <span class="fu">nchar</span>(Counts) <span class="sc">-</span> <span class="dv">4</span>))</span>
-<span id="cb14-6"><a href="data.html#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="data.html#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># read files into database, using their file names as table names </span></span>
-<span id="cb14-8"><a href="data.html#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(names)){</span>
-<span id="cb14-9"><a href="data.html#cb14-9" aria-hidden="true" tabindex="-1"></a>  name  <span class="ot">=</span> names[i]</span>
-<span id="cb14-10"><a href="data.html#cb14-10" aria-hidden="true" tabindex="-1"></a>  value <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(<span class="st">&quot;./data/CountTables/&quot;</span>, Counts[i]), <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb14-11"><a href="data.html#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dbWriteTable</span>(conn, name, value)</span>
-<span id="cb14-12"><a href="data.html#cb14-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="data.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># all file names </span></span>
+<span id="cb19-2"><a href="data.html#cb19-2" aria-hidden="true" tabindex="-1"></a>Counts <span class="ot">&lt;-</span> <span class="fu">str_sort</span>(<span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">&quot;./data/CountTables&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;*.csv&quot;</span>)) <span class="co"># names of the count tables</span></span>
+<span id="cb19-3"><a href="data.html#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="data.html#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># name each file as their file name without &quot;.csv&quot; suffix </span></span>
+<span id="cb19-5"><a href="data.html#cb19-5" aria-hidden="true" tabindex="-1"></a>names <span class="ot">=</span> <span class="fu">as.vector</span>(<span class="fu">substr</span>(Counts, <span class="dv">0</span>, <span class="fu">nchar</span>(Counts) <span class="sc">-</span> <span class="dv">4</span>))</span>
+<span id="cb19-6"><a href="data.html#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="data.html#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># read files into database, using their file names as table names </span></span>
+<span id="cb19-8"><a href="data.html#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(names)){</span>
+<span id="cb19-9"><a href="data.html#cb19-9" aria-hidden="true" tabindex="-1"></a>  name  <span class="ot">=</span> names[i]</span>
+<span id="cb19-10"><a href="data.html#cb19-10" aria-hidden="true" tabindex="-1"></a>  value <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(<span class="st">&quot;./data/CountTables/&quot;</span>, Counts[i]), <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-11"><a href="data.html#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dbWriteTable</span>(conn, name, value)</span>
+<span id="cb19-12"><a href="data.html#cb19-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>• Read ColDatas files in <code>./data/ColDatas</code> directory into tables.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="data.html#cb15-1" aria-hidden="true" tabindex="-1"></a>CDs <span class="ot">&lt;-</span> <span class="fu">str_sort</span>(<span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">&quot;./data/ColDatas&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;*.csv&quot;</span>)) <span class="co"># names of colDatas </span></span>
-<span id="cb15-2"><a href="data.html#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="data.html#cb15-3" aria-hidden="true" tabindex="-1"></a>names <span class="ot">&lt;-</span> <span class="fu">substr</span>(CDs, <span class="dv">0</span>, <span class="fu">nchar</span>(CDs) <span class="sc">-</span> <span class="dv">4</span>)<span class="co"># assign name </span></span>
-<span id="cb15-4"><a href="data.html#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="data.html#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># read in colData</span></span>
-<span id="cb15-6"><a href="data.html#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(names)) {</span>
-<span id="cb15-7"><a href="data.html#cb15-7" aria-hidden="true" tabindex="-1"></a>  name  <span class="ot">=</span> names[i]</span>
-<span id="cb15-8"><a href="data.html#cb15-8" aria-hidden="true" tabindex="-1"></a>  value <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(<span class="st">&quot;./data/ColDatas/&quot;</span>, CDs[i]), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
-<span id="cb15-9"><a href="data.html#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dbWriteTable</span>(conn, name, value, <span class="at">row.names =</span> <span class="cn">TRUE</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-10"><a href="data.html#cb15-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="data.html#cb20-1" aria-hidden="true" tabindex="-1"></a>CDs <span class="ot">&lt;-</span> <span class="fu">str_sort</span>(<span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">&quot;./data/ColDatas&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;*.csv&quot;</span>)) <span class="co"># names of colDatas </span></span>
+<span id="cb20-2"><a href="data.html#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="data.html#cb20-3" aria-hidden="true" tabindex="-1"></a>names <span class="ot">&lt;-</span> <span class="fu">substr</span>(CDs, <span class="dv">0</span>, <span class="fu">nchar</span>(CDs) <span class="sc">-</span> <span class="dv">4</span>)<span class="co"># assign name </span></span>
+<span id="cb20-4"><a href="data.html#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="data.html#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># read in colData</span></span>
+<span id="cb20-6"><a href="data.html#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(names)) {</span>
+<span id="cb20-7"><a href="data.html#cb20-7" aria-hidden="true" tabindex="-1"></a>  name  <span class="ot">=</span> names[i]</span>
+<span id="cb20-8"><a href="data.html#cb20-8" aria-hidden="true" tabindex="-1"></a>  value <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(<span class="st">&quot;./data/ColDatas/&quot;</span>, CDs[i]), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb20-9"><a href="data.html#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dbWriteTable</span>(conn, name, value, <span class="at">row.names =</span> <span class="cn">TRUE</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-10"><a href="data.html#cb20-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Reading in differential expression files in <code>./data/DegData/</code> directory: You can store them into different sub-directories based on species, as illustrated here. A combined <code>deg_df</code> for each species is generated and stored, which makes meta-analysis and cross-species comparison easier.</p>
 <p>In addition, since some experiments contain more than one differential expression analysis file, they are combined into one for each experiment, as illustrated below. To do this, you will need to store multiples into a folder for each study. A schematic illustration is shown below:</p>
 <p><img src="data/Images/data_format.png" width="625" /></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="data.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># table names for files </span></span>
-<span id="cb16-2"><a href="data.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="do">## assign names here</span></span>
-<span id="cb16-3"><a href="data.html#cb16-3" aria-hidden="true" tabindex="-1"></a>deg_df_names <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;subtype_deg_df&quot;</span>, <span class="st">&quot;mouse_deg_df&quot;</span>, <span class="st">&quot;rat_deg_df&quot;</span>, <span class="st">&quot;ipsc_deg_df&quot;</span>, <span class="st">&quot;db_deg_df&quot;</span>, <span class="st">&quot;cts_deg_df&quot;</span>)</span>
-<span id="cb16-4"><a href="data.html#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="data.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># you need to specify the names of the dataset (experiments) and store them in the list below</span></span>
-<span id="cb16-6"><a href="data.html#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="do">## assign names here</span></span>
-<span id="cb16-7"><a href="data.html#cb16-7" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;mouse/Subtype DRG (Barry)/&quot;</span>, <span class="st">&quot;mouse/Mouse DRG Bulk/&quot;</span>, <span class="st">&quot;rat/Rat DRG Bulk/&quot;</span>,</span>
-<span id="cb16-8"><a href="data.html#cb16-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;human/Human iPSC HSN1/&quot;</span>, <span class="st">&quot;human/Human skin Diabetes/&quot;</span>, <span class="st">&quot;human/Human skin Carpal Tunnel (CTS)/&quot;</span>)</span>
-<span id="cb16-9"><a href="data.html#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="data.html#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="do">## just run this</span></span>
-<span id="cb16-11"><a href="data.html#cb16-11" aria-hidden="true" tabindex="-1"></a>human_deg_df <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
-<span id="cb16-12"><a href="data.html#cb16-12" aria-hidden="true" tabindex="-1"></a>mouse_deg_df <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
-<span id="cb16-13"><a href="data.html#cb16-13" aria-hidden="true" tabindex="-1"></a>rat_deg_df   <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
-<span id="cb16-14"><a href="data.html#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-15"><a href="data.html#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># for each experiment</span></span>
-<span id="cb16-16"><a href="data.html#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(Dataset)) {</span>
-<span id="cb16-17"><a href="data.html#cb16-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-18"><a href="data.html#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># name of experiment</span></span>
-<span id="cb16-19"><a href="data.html#cb16-19" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">=</span> Dataset[j] </span>
-<span id="cb16-20"><a href="data.html#cb16-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-21"><a href="data.html#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># species  </span></span>
-<span id="cb16-22"><a href="data.html#cb16-22" aria-hidden="true" tabindex="-1"></a>  species <span class="ot">=</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(name, <span class="at">split =</span> <span class="st">&quot;/&quot;</span>))[[<span class="dv">1</span>]]</span>
-<span id="cb16-23"><a href="data.html#cb16-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-24"><a href="data.html#cb16-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># DEs are a list of datasets in this experiment </span></span>
-<span id="cb16-25"><a href="data.html#cb16-25" aria-hidden="true" tabindex="-1"></a>  DEs <span class="ot">=</span> <span class="fu">str_sort</span>(<span class="fu">list.files</span>(<span class="at">path =</span> <span class="fu">paste</span>(<span class="st">&quot;./data/DegData/&quot;</span>, name, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), <span class="at">pattern =</span> <span class="st">&quot;*.csv&quot;</span>))</span>
-<span id="cb16-26"><a href="data.html#cb16-26" aria-hidden="true" tabindex="-1"></a>  DE_names <span class="ot">&lt;-</span> <span class="fu">substr</span>(DEs, <span class="dv">0</span>, <span class="fu">nchar</span>(DEs) <span class="sc">-</span> <span class="dv">4</span>)<span class="co"># assign name to each population</span></span>
-<span id="cb16-27"><a href="data.html#cb16-27" aria-hidden="true" tabindex="-1"></a>  deg_list <span class="ot">=</span> <span class="fu">list</span>()</span>
-<span id="cb16-28"><a href="data.html#cb16-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-29"><a href="data.html#cb16-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># read in those datasets into one dataframes for each experiment</span></span>
-<span id="cb16-30"><a href="data.html#cb16-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(DE_names)) {</span>
-<span id="cb16-31"><a href="data.html#cb16-31" aria-hidden="true" tabindex="-1"></a>    df_name <span class="ot">=</span> DE_names[i]</span>
-<span id="cb16-32"><a href="data.html#cb16-32" aria-hidden="true" tabindex="-1"></a>    value   <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="fu">paste</span>(<span class="st">&quot;./data/DegData/&quot;</span>, name, DEs[i], <span class="at">sep=</span><span class="st">&quot;&quot;</span>), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
-<span id="cb16-33"><a href="data.html#cb16-33" aria-hidden="true" tabindex="-1"></a>    deg_list <span class="ot">=</span> <span class="fu">append</span>(deg_list, <span class="fu">list</span>(value))</span>
-<span id="cb16-34"><a href="data.html#cb16-34" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb16-35"><a href="data.html#cb16-35" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-36"><a href="data.html#cb16-36" aria-hidden="true" tabindex="-1"></a>  dataset_combine_deg <span class="ot">=</span> <span class="fu">generate_degdf</span>(deg_list, DE_names, <span class="fu">unlist</span>(<span class="fu">strsplit</span>(name, <span class="at">split =</span> <span class="st">&quot;/&quot;</span>))[[<span class="dv">2</span>]])</span>
-<span id="cb16-37"><a href="data.html#cb16-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dbWriteTable</span>(conn, deg_df_names[j], dataset_combine_deg)</span>
-<span id="cb16-38"><a href="data.html#cb16-38" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-39"><a href="data.html#cb16-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add to species-specific lists of data frames </span></span>
-<span id="cb16-40"><a href="data.html#cb16-40" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (species <span class="sc">==</span> <span class="st">&quot;human&quot;</span>){</span>
-<span id="cb16-41"><a href="data.html#cb16-41" aria-hidden="true" tabindex="-1"></a>    human_deg_df <span class="ot">=</span> <span class="fu">rbind</span>(human_deg_df, dataset_combine_deg)</span>
-<span id="cb16-42"><a href="data.html#cb16-42" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb16-43"><a href="data.html#cb16-43" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (species <span class="sc">==</span> <span class="st">&quot;mouse&quot;</span>){</span>
-<span id="cb16-44"><a href="data.html#cb16-44" aria-hidden="true" tabindex="-1"></a>    mouse_deg_df <span class="ot">=</span> <span class="fu">rbind</span>(mouse_deg_df, dataset_combine_deg)</span>
-<span id="cb16-45"><a href="data.html#cb16-45" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb16-46"><a href="data.html#cb16-46" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (species <span class="sc">==</span> <span class="st">&quot;rat&quot;</span>){</span>
-<span id="cb16-47"><a href="data.html#cb16-47" aria-hidden="true" tabindex="-1"></a>    rat_deg_df <span class="ot">=</span> <span class="fu">rbind</span>(rat_deg_df, dataset_combine_deg)</span>
-<span id="cb16-48"><a href="data.html#cb16-48" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb16-49"><a href="data.html#cb16-49" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-50"><a href="data.html#cb16-50" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-51"><a href="data.html#cb16-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-52"><a href="data.html#cb16-52" aria-hidden="true" tabindex="-1"></a><span class="co"># write species deg_df into table</span></span>
-<span id="cb16-53"><a href="data.html#cb16-53" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(conn, <span class="st">&quot;mouse_all_deg_df&quot;</span>, mouse_deg_df)</span>
-<span id="cb16-54"><a href="data.html#cb16-54" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(conn, <span class="st">&quot;human_deg_df&quot;</span>, human_deg_df)</span>
-<span id="cb16-55"><a href="data.html#cb16-55" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(conn, <span class="st">&quot;rat_deg_df&quot;</span>, rat_deg_df)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="data.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># table names for files </span></span>
+<span id="cb21-2"><a href="data.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="do">## assign names here</span></span>
+<span id="cb21-3"><a href="data.html#cb21-3" aria-hidden="true" tabindex="-1"></a>deg_df_names <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;subtype_deg_df&quot;</span>, <span class="st">&quot;mouse_deg_df&quot;</span>, <span class="st">&quot;rat_deg_df&quot;</span>, <span class="st">&quot;ipsc_deg_df&quot;</span>, <span class="st">&quot;db_deg_df&quot;</span>, <span class="st">&quot;cts_deg_df&quot;</span>)</span>
+<span id="cb21-4"><a href="data.html#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="data.html#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># you need to specify the names of the dataset (experiments) and store them in the list below</span></span>
+<span id="cb21-6"><a href="data.html#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="do">## assign names here</span></span>
+<span id="cb21-7"><a href="data.html#cb21-7" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;mouse/Subtype DRG (Barry)/&quot;</span>, <span class="st">&quot;mouse/Mouse DRG Bulk/&quot;</span>, <span class="st">&quot;rat/Rat DRG Bulk/&quot;</span>,</span>
+<span id="cb21-8"><a href="data.html#cb21-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;human/Human iPSC HSN1/&quot;</span>, <span class="st">&quot;human/Human skin Diabetes/&quot;</span>, <span class="st">&quot;human/Human skin Carpal Tunnel (CTS)/&quot;</span>)</span>
+<span id="cb21-9"><a href="data.html#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="data.html#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="do">## just run this</span></span>
+<span id="cb21-11"><a href="data.html#cb21-11" aria-hidden="true" tabindex="-1"></a>human_deg_df <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
+<span id="cb21-12"><a href="data.html#cb21-12" aria-hidden="true" tabindex="-1"></a>mouse_deg_df <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
+<span id="cb21-13"><a href="data.html#cb21-13" aria-hidden="true" tabindex="-1"></a>rat_deg_df   <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
+<span id="cb21-14"><a href="data.html#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="data.html#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co"># for each experiment</span></span>
+<span id="cb21-16"><a href="data.html#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(Dataset)) {</span>
+<span id="cb21-17"><a href="data.html#cb21-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-18"><a href="data.html#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># name of experiment</span></span>
+<span id="cb21-19"><a href="data.html#cb21-19" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">=</span> Dataset[j] </span>
+<span id="cb21-20"><a href="data.html#cb21-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-21"><a href="data.html#cb21-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># species  </span></span>
+<span id="cb21-22"><a href="data.html#cb21-22" aria-hidden="true" tabindex="-1"></a>  species <span class="ot">=</span> <span class="fu">unlist</span>(<span class="fu">strsplit</span>(name, <span class="at">split =</span> <span class="st">&quot;/&quot;</span>))[[<span class="dv">1</span>]]</span>
+<span id="cb21-23"><a href="data.html#cb21-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-24"><a href="data.html#cb21-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># DEs are a list of datasets in this experiment </span></span>
+<span id="cb21-25"><a href="data.html#cb21-25" aria-hidden="true" tabindex="-1"></a>  DEs <span class="ot">=</span> <span class="fu">str_sort</span>(<span class="fu">list.files</span>(<span class="at">path =</span> <span class="fu">paste</span>(<span class="st">&quot;./data/DegData/&quot;</span>, name, <span class="at">sep=</span><span class="st">&quot;&quot;</span>), <span class="at">pattern =</span> <span class="st">&quot;*.csv&quot;</span>))</span>
+<span id="cb21-26"><a href="data.html#cb21-26" aria-hidden="true" tabindex="-1"></a>  DE_names <span class="ot">&lt;-</span> <span class="fu">substr</span>(DEs, <span class="dv">0</span>, <span class="fu">nchar</span>(DEs) <span class="sc">-</span> <span class="dv">4</span>)<span class="co"># assign name to each population</span></span>
+<span id="cb21-27"><a href="data.html#cb21-27" aria-hidden="true" tabindex="-1"></a>  deg_list <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb21-28"><a href="data.html#cb21-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-29"><a href="data.html#cb21-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># read in those datasets into one dataframes for each experiment</span></span>
+<span id="cb21-30"><a href="data.html#cb21-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(DE_names)) {</span>
+<span id="cb21-31"><a href="data.html#cb21-31" aria-hidden="true" tabindex="-1"></a>    df_name <span class="ot">=</span> DE_names[i]</span>
+<span id="cb21-32"><a href="data.html#cb21-32" aria-hidden="true" tabindex="-1"></a>    value   <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="fu">paste</span>(<span class="st">&quot;./data/DegData/&quot;</span>, name, DEs[i], <span class="at">sep=</span><span class="st">&quot;&quot;</span>), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb21-33"><a href="data.html#cb21-33" aria-hidden="true" tabindex="-1"></a>    deg_list <span class="ot">=</span> <span class="fu">append</span>(deg_list, <span class="fu">list</span>(value))</span>
+<span id="cb21-34"><a href="data.html#cb21-34" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-35"><a href="data.html#cb21-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-36"><a href="data.html#cb21-36" aria-hidden="true" tabindex="-1"></a>  dataset_combine_deg <span class="ot">=</span> <span class="fu">generate_degdf</span>(deg_list, DE_names, <span class="fu">unlist</span>(<span class="fu">strsplit</span>(name, <span class="at">split =</span> <span class="st">&quot;/&quot;</span>))[[<span class="dv">2</span>]])</span>
+<span id="cb21-37"><a href="data.html#cb21-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dbWriteTable</span>(conn, deg_df_names[j], dataset_combine_deg)</span>
+<span id="cb21-38"><a href="data.html#cb21-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-39"><a href="data.html#cb21-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add to species-specific lists of data frames </span></span>
+<span id="cb21-40"><a href="data.html#cb21-40" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (species <span class="sc">==</span> <span class="st">&quot;human&quot;</span>){</span>
+<span id="cb21-41"><a href="data.html#cb21-41" aria-hidden="true" tabindex="-1"></a>    human_deg_df <span class="ot">=</span> <span class="fu">rbind</span>(human_deg_df, dataset_combine_deg)</span>
+<span id="cb21-42"><a href="data.html#cb21-42" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-43"><a href="data.html#cb21-43" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (species <span class="sc">==</span> <span class="st">&quot;mouse&quot;</span>){</span>
+<span id="cb21-44"><a href="data.html#cb21-44" aria-hidden="true" tabindex="-1"></a>    mouse_deg_df <span class="ot">=</span> <span class="fu">rbind</span>(mouse_deg_df, dataset_combine_deg)</span>
+<span id="cb21-45"><a href="data.html#cb21-45" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-46"><a href="data.html#cb21-46" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (species <span class="sc">==</span> <span class="st">&quot;rat&quot;</span>){</span>
+<span id="cb21-47"><a href="data.html#cb21-47" aria-hidden="true" tabindex="-1"></a>    rat_deg_df <span class="ot">=</span> <span class="fu">rbind</span>(rat_deg_df, dataset_combine_deg)</span>
+<span id="cb21-48"><a href="data.html#cb21-48" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-49"><a href="data.html#cb21-49" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-50"><a href="data.html#cb21-50" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-51"><a href="data.html#cb21-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-52"><a href="data.html#cb21-52" aria-hidden="true" tabindex="-1"></a><span class="co"># write species deg_df into table</span></span>
+<span id="cb21-53"><a href="data.html#cb21-53" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(conn, <span class="st">&quot;mouse_all_deg_df&quot;</span>, mouse_deg_df)</span>
+<span id="cb21-54"><a href="data.html#cb21-54" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(conn, <span class="st">&quot;human_deg_df&quot;</span>, human_deg_df)</span>
+<span id="cb21-55"><a href="data.html#cb21-55" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(conn, <span class="st">&quot;rat_deg_df&quot;</span>, rat_deg_df)</span></code></pre></div>
 <p>Now, the <code>.db</code> object should contain all data required to run your app.</p>
 
 </div>

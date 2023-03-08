@@ -15,7 +15,7 @@ img
 
 
 1. Prepare data tables (minimum: count matrix, column data)
-2. Compile all data into an `.RData` or `.db` object.
+2. Compile all data into an `.RData` or `.db` object using `setup.R`.
 
 ---
 
@@ -159,7 +159,7 @@ While `.RData` files can be useful small or medium-sized datasets in R, SQL data
 
 An SQLite database consists of one or more tables, which are composed of rows and columns. An RSQLite `.db` object is a database connection to a SQLite database file through R. The following functions will be useful in creating and updating the `.db` object in R. 
 
-Here, we provide an overview for bulk count data. `Seurat` objects (for sc/snRNA-seq or ATAC-seq) are read in separately.
+Here, we provide an overview for bulk count data (provided as `setup.R`). `Seurat` objects (for sc/snRNA-seq or ATAC-seq) are read in separately in our example.
 
 ```{r}
 # This function connects to a SQLite database file called `example_database.db`

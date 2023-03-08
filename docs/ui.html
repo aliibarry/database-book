@@ -246,9 +246,9 @@ img
 <li>Modify titles and descriptions</li>
 </ol>
 <p>At the most basic level, no changes are <em>needed</em> here, although customization is recommended (eg. choose a title, add descriptions). Throughout this app, description files for each page are loaded in as <code>.Rhtml</code> or <code>.Rmd</code> files, which can be rendered in R.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="ui.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example descriptions</span></span>
-<span id="cb17-2"><a href="ui.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">includeHTML</span>(<span class="st">&quot;network.Rhtml&quot;</span>)</span>
-<span id="cb17-3"><a href="ui.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">includeMarkdown</span>(<span class="st">&quot;userguide.Rmd&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="ui.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example descriptions</span></span>
+<span id="cb22-2"><a href="ui.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">includeHTML</span>(<span class="st">&quot;network.Rhtml&quot;</span>)</span>
+<span id="cb22-3"><a href="ui.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">includeMarkdown</span>(<span class="st">&quot;userguide.Rmd&quot;</span>)</span></code></pre></div>
 <p>Details are below, and basic UI tutorials can be found at <a href="https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/" class="uri">https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/</a>.</p>
 <div id="basic-structure" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Basic structure<a href="ui.html#basic-structure" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -262,105 +262,105 @@ img
 </div>
 <div id="header" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Header<a href="ui.html#header" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="ui.html#cb18-1" aria-hidden="true" tabindex="-1"></a>shinydashboard<span class="sc">::</span><span class="fu">dashboardHeader</span>(<span class="at">title=</span> <span class="st">&quot;The Database&quot;</span>, <span class="do">## Customise title</span></span>
-<span id="cb18-2"><a href="ui.html#cb18-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">titleWidth =</span> <span class="dv">225</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="ui.html#cb23-1" aria-hidden="true" tabindex="-1"></a>shinydashboard<span class="sc">::</span><span class="fu">dashboardHeader</span>(<span class="at">title=</span> <span class="st">&quot;The Database&quot;</span>, <span class="do">## Customise title</span></span>
+<span id="cb23-2"><a href="ui.html#cb23-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">titleWidth =</span> <span class="dv">225</span>)</span></code></pre></div>
 </div>
 <div id="sidebar" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Sidebar<a href="ui.html#sidebar" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The sidebar contains a gene search input and tabs, which allow you to switch between different pages. The names of each tab can be customised by changing the label.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="ui.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">### this doesn&#39;t need to be altered, unless you want a footer or to change labels</span></span>
-<span id="cb19-2"><a href="ui.html#cb19-2" aria-hidden="true" tabindex="-1"></a>shinydashboard<span class="sc">::</span><span class="fu">dashboardSidebar</span>(<span class="at">width =</span> <span class="dv">225</span>,</span>
-<span id="cb19-3"><a href="ui.html#cb19-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">sidebarMenu</span>(</span>
-<span id="cb19-4"><a href="ui.html#cb19-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">id =</span> <span class="st">&quot;tabs&quot;</span>,</span>
-<span id="cb19-5"><a href="ui.html#cb19-5" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb19-6"><a href="ui.html#cb19-6" aria-hidden="true" tabindex="-1"></a>       <span class="co"># gene search  </span></span>
-<span id="cb19-7"><a href="ui.html#cb19-7" aria-hidden="true" tabindex="-1"></a>       shiny<span class="sc">::</span><span class="fu">selectizeInput</span>(</span>
-<span id="cb19-8"><a href="ui.html#cb19-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">inputId =</span> <span class="st">&quot;geneid&quot;</span>,</span>
-<span id="cb19-9"><a href="ui.html#cb19-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">label =</span> <span class="st">&quot;Search Genes:&quot;</span>,</span>
-<span id="cb19-10"><a href="ui.html#cb19-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">multiple =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb19-11"><a href="ui.html#cb19-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">choices =</span> <span class="cn">NULL</span></span>
-<span id="cb19-12"><a href="ui.html#cb19-12" aria-hidden="true" tabindex="-1"></a>       ),</span>
-<span id="cb19-13"><a href="ui.html#cb19-13" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb19-14"><a href="ui.html#cb19-14" aria-hidden="true" tabindex="-1"></a>       <span class="co"># file upload </span></span>
-<span id="cb19-15"><a href="ui.html#cb19-15" aria-hidden="true" tabindex="-1"></a>       shiny<span class="sc">::</span><span class="fu">fileInput</span>(<span class="st">&quot;file&quot;</span>,</span>
-<span id="cb19-16"><a href="ui.html#cb19-16" aria-hidden="true" tabindex="-1"></a>                        <span class="at">label =</span> <span class="st">&quot;Upload File:&quot;</span>,</span>
-<span id="cb19-17"><a href="ui.html#cb19-17" aria-hidden="true" tabindex="-1"></a>                        <span class="at">accept =</span> <span class="fu">c</span>(</span>
-<span id="cb19-18"><a href="ui.html#cb19-18" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;text/csv&#39;</span>,</span>
-<span id="cb19-19"><a href="ui.html#cb19-19" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;text/comma-separated-values&#39;</span>,</span>
-<span id="cb19-20"><a href="ui.html#cb19-20" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;text/tab-separated-values&#39;</span>,</span>
-<span id="cb19-21"><a href="ui.html#cb19-21" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;text/plain&#39;</span>,</span>
-<span id="cb19-22"><a href="ui.html#cb19-22" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;.csv&#39;</span>, <span class="st">&#39;.txt&#39;</span>,</span>
-<span id="cb19-23"><a href="ui.html#cb19-23" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;.tsv&#39;</span>)),</span>
-<span id="cb19-24"><a href="ui.html#cb19-24" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb19-25"><a href="ui.html#cb19-25" aria-hidden="true" tabindex="-1"></a>       <span class="co"># clear button </span></span>
-<span id="cb19-26"><a href="ui.html#cb19-26" aria-hidden="true" tabindex="-1"></a>       <span class="fu">actionButton</span>(<span class="st">&quot;reset&quot;</span>, <span class="st">&quot;Clear&quot;</span>),</span>
-<span id="cb19-27"><a href="ui.html#cb19-27" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb19-28"><a href="ui.html#cb19-28" aria-hidden="true" tabindex="-1"></a>       <span class="co"># Filters for dataset </span></span>
-<span id="cb19-29"><a href="ui.html#cb19-29" aria-hidden="true" tabindex="-1"></a>       shiny<span class="sc">::</span><span class="fu">selectizeInput</span>(</span>
-<span id="cb19-30"><a href="ui.html#cb19-30" aria-hidden="true" tabindex="-1"></a>         <span class="at">inputId =</span> <span class="st">&quot;sex&quot;</span>,</span>
-<span id="cb19-31"><a href="ui.html#cb19-31" aria-hidden="true" tabindex="-1"></a>         <span class="at">label =</span> <span class="st">&quot;Select Sex:&quot;</span>,</span>
-<span id="cb19-32"><a href="ui.html#cb19-32" aria-hidden="true" tabindex="-1"></a>         <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&#39;Both&#39;</span>, <span class="st">&#39;Separate&#39;</span>),</span>
-<span id="cb19-33"><a href="ui.html#cb19-33" aria-hidden="true" tabindex="-1"></a>         <span class="at">selected =</span> <span class="st">&#39;Both&#39;</span>),</span>
-<span id="cb19-34"><a href="ui.html#cb19-34" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb19-35"><a href="ui.html#cb19-35" aria-hidden="true" tabindex="-1"></a>       <span class="co"># Sidebar menu for tabs (pages)</span></span>
-<span id="cb19-36"><a href="ui.html#cb19-36" aria-hidden="true" tabindex="-1"></a>       shinydashboard<span class="sc">::</span><span class="fu">menuItem</span>(<span class="st">&quot;Home&quot;</span>, <span class="at">tabName =</span> <span class="st">&quot;tabhome&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;home&quot;</span>), <span class="at">badgeLabel =</span> <span class="st">&quot;Start Here!&quot;</span>, <span class="at">badgeColor =</span> <span class="st">&quot;green&quot;</span>),</span>
-<span id="cb19-37"><a href="ui.html#cb19-37" aria-hidden="true" tabindex="-1"></a>       shinydashboard<span class="sc">::</span><span class="fu">menuItem</span>(<span class="st">&quot;Grouped Analysis&quot;</span>, <span class="at">tabName =</span> <span class="st">&quot;tabmeta&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;dashboard&quot;</span>)),</span>
-<span id="cb19-38"><a href="ui.html#cb19-38" aria-hidden="true" tabindex="-1"></a>       shinydashboard<span class="sc">::</span><span class="fu">menuItem</span>(<span class="st">&quot;Individual Analysis&quot;</span>, <span class="at">tabName =</span> <span class="st">&quot;tabdata&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;database&quot;</span>)),</span>
-<span id="cb19-39"><a href="ui.html#cb19-39" aria-hidden="true" tabindex="-1"></a>       shinydashboard<span class="sc">::</span><span class="fu">menuItem</span>(<span class="st">&quot;Network Analysis&quot;</span>, <span class="at">tabName =</span> <span class="st">&quot;tabnet&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;circle-nodes&quot;</span>)),</span>
-<span id="cb19-40"><a href="ui.html#cb19-40" aria-hidden="true" tabindex="-1"></a>       shinydashboard<span class="sc">::</span><span class="fu">menuItem</span>(<span class="st">&quot;User Guide&quot;</span>, <span class="at">tabName =</span> <span class="st">&quot;tabcode&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;folder-open&quot;</span>)),</span>
-<span id="cb19-41"><a href="ui.html#cb19-41" aria-hidden="true" tabindex="-1"></a>       shinydashboard<span class="sc">::</span><span class="fu">menuItem</span>(<span class="st">&quot;Contact&quot;</span>, <span class="at">tabName =</span> <span class="st">&quot;tabguide&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;circle-nodes&quot;</span>)),</span>
-<span id="cb19-42"><a href="ui.html#cb19-42" aria-hidden="true" tabindex="-1"></a>       <span class="fu">br</span>(),</span>
-<span id="cb19-43"><a href="ui.html#cb19-43" aria-hidden="true" tabindex="-1"></a>       <span class="fu">br</span>()</span>
-<span id="cb19-44"><a href="ui.html#cb19-44" aria-hidden="true" tabindex="-1"></a>     ),</span>
-<span id="cb19-45"><a href="ui.html#cb19-45" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb19-46"><a href="ui.html#cb19-46" aria-hidden="true" tabindex="-1"></a>    <span class="do">## Footer can be added </span></span>
-<span id="cb19-47"><a href="ui.html#cb19-47" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb19-48"><a href="ui.html#cb19-48" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="ui.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">### this doesn&#39;t need to be altered, unless you want a footer or to change labels</span></span>
+<span id="cb24-2"><a href="ui.html#cb24-2" aria-hidden="true" tabindex="-1"></a>shinydashboard<span class="sc">::</span><span class="fu">dashboardSidebar</span>(<span class="at">width =</span> <span class="dv">225</span>,</span>
+<span id="cb24-3"><a href="ui.html#cb24-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">sidebarMenu</span>(</span>
+<span id="cb24-4"><a href="ui.html#cb24-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">id =</span> <span class="st">&quot;tabs&quot;</span>,</span>
+<span id="cb24-5"><a href="ui.html#cb24-5" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb24-6"><a href="ui.html#cb24-6" aria-hidden="true" tabindex="-1"></a>       <span class="co"># gene search  </span></span>
+<span id="cb24-7"><a href="ui.html#cb24-7" aria-hidden="true" tabindex="-1"></a>       shiny<span class="sc">::</span><span class="fu">selectizeInput</span>(</span>
+<span id="cb24-8"><a href="ui.html#cb24-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">inputId =</span> <span class="st">&quot;geneid&quot;</span>,</span>
+<span id="cb24-9"><a href="ui.html#cb24-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">label =</span> <span class="st">&quot;Search Genes:&quot;</span>,</span>
+<span id="cb24-10"><a href="ui.html#cb24-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">multiple =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb24-11"><a href="ui.html#cb24-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">choices =</span> <span class="cn">NULL</span></span>
+<span id="cb24-12"><a href="ui.html#cb24-12" aria-hidden="true" tabindex="-1"></a>       ),</span>
+<span id="cb24-13"><a href="ui.html#cb24-13" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb24-14"><a href="ui.html#cb24-14" aria-hidden="true" tabindex="-1"></a>       <span class="co"># file upload </span></span>
+<span id="cb24-15"><a href="ui.html#cb24-15" aria-hidden="true" tabindex="-1"></a>       shiny<span class="sc">::</span><span class="fu">fileInput</span>(<span class="st">&quot;file&quot;</span>,</span>
+<span id="cb24-16"><a href="ui.html#cb24-16" aria-hidden="true" tabindex="-1"></a>                        <span class="at">label =</span> <span class="st">&quot;Upload File:&quot;</span>,</span>
+<span id="cb24-17"><a href="ui.html#cb24-17" aria-hidden="true" tabindex="-1"></a>                        <span class="at">accept =</span> <span class="fu">c</span>(</span>
+<span id="cb24-18"><a href="ui.html#cb24-18" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;text/csv&#39;</span>,</span>
+<span id="cb24-19"><a href="ui.html#cb24-19" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;text/comma-separated-values&#39;</span>,</span>
+<span id="cb24-20"><a href="ui.html#cb24-20" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;text/tab-separated-values&#39;</span>,</span>
+<span id="cb24-21"><a href="ui.html#cb24-21" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;text/plain&#39;</span>,</span>
+<span id="cb24-22"><a href="ui.html#cb24-22" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;.csv&#39;</span>, <span class="st">&#39;.txt&#39;</span>,</span>
+<span id="cb24-23"><a href="ui.html#cb24-23" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&#39;.tsv&#39;</span>)),</span>
+<span id="cb24-24"><a href="ui.html#cb24-24" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb24-25"><a href="ui.html#cb24-25" aria-hidden="true" tabindex="-1"></a>       <span class="co"># clear button </span></span>
+<span id="cb24-26"><a href="ui.html#cb24-26" aria-hidden="true" tabindex="-1"></a>       <span class="fu">actionButton</span>(<span class="st">&quot;reset&quot;</span>, <span class="st">&quot;Clear&quot;</span>),</span>
+<span id="cb24-27"><a href="ui.html#cb24-27" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb24-28"><a href="ui.html#cb24-28" aria-hidden="true" tabindex="-1"></a>       <span class="co"># Filters for dataset </span></span>
+<span id="cb24-29"><a href="ui.html#cb24-29" aria-hidden="true" tabindex="-1"></a>       shiny<span class="sc">::</span><span class="fu">selectizeInput</span>(</span>
+<span id="cb24-30"><a href="ui.html#cb24-30" aria-hidden="true" tabindex="-1"></a>         <span class="at">inputId =</span> <span class="st">&quot;sex&quot;</span>,</span>
+<span id="cb24-31"><a href="ui.html#cb24-31" aria-hidden="true" tabindex="-1"></a>         <span class="at">label =</span> <span class="st">&quot;Select Sex:&quot;</span>,</span>
+<span id="cb24-32"><a href="ui.html#cb24-32" aria-hidden="true" tabindex="-1"></a>         <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&#39;Both&#39;</span>, <span class="st">&#39;Separate&#39;</span>),</span>
+<span id="cb24-33"><a href="ui.html#cb24-33" aria-hidden="true" tabindex="-1"></a>         <span class="at">selected =</span> <span class="st">&#39;Both&#39;</span>),</span>
+<span id="cb24-34"><a href="ui.html#cb24-34" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb24-35"><a href="ui.html#cb24-35" aria-hidden="true" tabindex="-1"></a>       <span class="co"># Sidebar menu for tabs (pages)</span></span>
+<span id="cb24-36"><a href="ui.html#cb24-36" aria-hidden="true" tabindex="-1"></a>       shinydashboard<span class="sc">::</span><span class="fu">menuItem</span>(<span class="st">&quot;Home&quot;</span>, <span class="at">tabName =</span> <span class="st">&quot;tabhome&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;home&quot;</span>), <span class="at">badgeLabel =</span> <span class="st">&quot;Start Here!&quot;</span>, <span class="at">badgeColor =</span> <span class="st">&quot;green&quot;</span>),</span>
+<span id="cb24-37"><a href="ui.html#cb24-37" aria-hidden="true" tabindex="-1"></a>       shinydashboard<span class="sc">::</span><span class="fu">menuItem</span>(<span class="st">&quot;Grouped Analysis&quot;</span>, <span class="at">tabName =</span> <span class="st">&quot;tabmeta&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;dashboard&quot;</span>)),</span>
+<span id="cb24-38"><a href="ui.html#cb24-38" aria-hidden="true" tabindex="-1"></a>       shinydashboard<span class="sc">::</span><span class="fu">menuItem</span>(<span class="st">&quot;Individual Analysis&quot;</span>, <span class="at">tabName =</span> <span class="st">&quot;tabdata&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;database&quot;</span>)),</span>
+<span id="cb24-39"><a href="ui.html#cb24-39" aria-hidden="true" tabindex="-1"></a>       shinydashboard<span class="sc">::</span><span class="fu">menuItem</span>(<span class="st">&quot;Network Analysis&quot;</span>, <span class="at">tabName =</span> <span class="st">&quot;tabnet&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;circle-nodes&quot;</span>)),</span>
+<span id="cb24-40"><a href="ui.html#cb24-40" aria-hidden="true" tabindex="-1"></a>       shinydashboard<span class="sc">::</span><span class="fu">menuItem</span>(<span class="st">&quot;User Guide&quot;</span>, <span class="at">tabName =</span> <span class="st">&quot;tabcode&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;folder-open&quot;</span>)),</span>
+<span id="cb24-41"><a href="ui.html#cb24-41" aria-hidden="true" tabindex="-1"></a>       shinydashboard<span class="sc">::</span><span class="fu">menuItem</span>(<span class="st">&quot;Contact&quot;</span>, <span class="at">tabName =</span> <span class="st">&quot;tabguide&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;circle-nodes&quot;</span>)),</span>
+<span id="cb24-42"><a href="ui.html#cb24-42" aria-hidden="true" tabindex="-1"></a>       <span class="fu">br</span>(),</span>
+<span id="cb24-43"><a href="ui.html#cb24-43" aria-hidden="true" tabindex="-1"></a>       <span class="fu">br</span>()</span>
+<span id="cb24-44"><a href="ui.html#cb24-44" aria-hidden="true" tabindex="-1"></a>     ),</span>
+<span id="cb24-45"><a href="ui.html#cb24-45" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-46"><a href="ui.html#cb24-46" aria-hidden="true" tabindex="-1"></a>    <span class="do">## Footer can be added </span></span>
+<span id="cb24-47"><a href="ui.html#cb24-47" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-48"><a href="ui.html#cb24-48" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 </div>
 <div id="body" class="section level2 hasAnchor" number="3.4">
 <h2><span class="header-section-number">3.4</span> Body<a href="ui.html#body" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In the body, the <code>tabItems</code> with corresponding values for <code>tabName</code>:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="ui.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">### structure overview, each tab described below </span></span>
-<span id="cb20-2"><a href="ui.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dashboardBody</span>(</span>
-<span id="cb20-3"><a href="ui.html#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tabItems</span>(</span>
-<span id="cb20-4"><a href="ui.html#cb20-4" aria-hidden="true" tabindex="-1"></a>      <span class="co"># First tab content</span></span>
-<span id="cb20-5"><a href="ui.html#cb20-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tabItem</span>(<span class="at">tabName =</span> <span class="st">&quot;tabhome&quot;</span>,</span>
-<span id="cb20-6"><a href="ui.html#cb20-6" aria-hidden="true" tabindex="-1"></a>          <span class="co"># content </span></span>
-<span id="cb20-7"><a href="ui.html#cb20-7" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb20-8"><a href="ui.html#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-9"><a href="ui.html#cb20-9" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Second tab content</span></span>
-<span id="cb20-10"><a href="ui.html#cb20-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tabItem</span>(<span class="at">tabName =</span> <span class="st">&quot;tabmeta&quot;</span>,</span>
-<span id="cb20-11"><a href="ui.html#cb20-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># content </span></span>
-<span id="cb20-12"><a href="ui.html#cb20-12" aria-hidden="true" tabindex="-1"></a>      ),</span>
-<span id="cb20-13"><a href="ui.html#cb20-13" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb20-14"><a href="ui.html#cb20-14" aria-hidden="true" tabindex="-1"></a>      <span class="co"># other tabs </span></span>
-<span id="cb20-15"><a href="ui.html#cb20-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb20-16"><a href="ui.html#cb20-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="ui.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">### structure overview, each tab described below </span></span>
+<span id="cb25-2"><a href="ui.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dashboardBody</span>(</span>
+<span id="cb25-3"><a href="ui.html#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tabItems</span>(</span>
+<span id="cb25-4"><a href="ui.html#cb25-4" aria-hidden="true" tabindex="-1"></a>      <span class="co"># First tab content</span></span>
+<span id="cb25-5"><a href="ui.html#cb25-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tabItem</span>(<span class="at">tabName =</span> <span class="st">&quot;tabhome&quot;</span>,</span>
+<span id="cb25-6"><a href="ui.html#cb25-6" aria-hidden="true" tabindex="-1"></a>          <span class="co"># content </span></span>
+<span id="cb25-7"><a href="ui.html#cb25-7" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb25-8"><a href="ui.html#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="ui.html#cb25-9" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Second tab content</span></span>
+<span id="cb25-10"><a href="ui.html#cb25-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tabItem</span>(<span class="at">tabName =</span> <span class="st">&quot;tabmeta&quot;</span>,</span>
+<span id="cb25-11"><a href="ui.html#cb25-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># content </span></span>
+<span id="cb25-12"><a href="ui.html#cb25-12" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb25-13"><a href="ui.html#cb25-13" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb25-14"><a href="ui.html#cb25-14" aria-hidden="true" tabindex="-1"></a>      <span class="co"># other tabs </span></span>
+<span id="cb25-15"><a href="ui.html#cb25-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-16"><a href="ui.html#cb25-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <div id="homepage" class="section level3 hasAnchor" number="3.4.1">
 <h3><span class="header-section-number">3.4.1</span> Homepage<a href="ui.html#homepage" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The homepage displays the title and general description of the app, which can be customised by the user at places commented in red text.</p>
 <p><img src="data/Images/skeleton.png" width="1329" /></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="ui.html#cb21-1" aria-hidden="true" tabindex="-1"></a>shinydashboard<span class="sc">::</span><span class="fu">tabItem</span>(<span class="at">tabName =</span> <span class="st">&quot;tabhome&quot;</span>, </span>
-<span id="cb21-2"><a href="ui.html#cb21-2" aria-hidden="true" tabindex="-1"></a>        shinydashboard<span class="sc">::</span><span class="fu">box</span>(</span>
-<span id="cb21-3"><a href="ui.html#cb21-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="cb21-4"><a href="ui.html#cb21-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb21-5"><a href="ui.html#cb21-5" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">6</span>, <span class="at">offset =</span> <span class="dv">4</span>,</span>
-<span id="cb21-6"><a href="ui.html#cb21-6" aria-hidden="true" tabindex="-1"></a>                 </span>
-<span id="cb21-7"><a href="ui.html#cb21-7" aria-hidden="true" tabindex="-1"></a>                 <span class="do">## place for adding titles </span></span>
-<span id="cb21-8"><a href="ui.html#cb21-8" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">h1</span>(<span class="fu">strong</span>(<span class="st">&quot;Title&quot;</span>))), <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">8</span>, <span class="at">offset =</span> <span class="dv">2</span>,</span>
-<span id="cb21-9"><a href="ui.html#cb21-9" aria-hidden="true" tabindex="-1"></a>                 </span>
-<span id="cb21-10"><a href="ui.html#cb21-10" aria-hidden="true" tabindex="-1"></a>                 <span class="do">## place for customising descriptions </span></span>
-<span id="cb21-11"><a href="ui.html#cb21-11" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">h4</span>(<span class="st">&quot;ADD TEXT&quot;</span>)</span>
-<span id="cb21-12"><a href="ui.html#cb21-12" aria-hidden="true" tabindex="-1"></a>          ),</span>
-<span id="cb21-13"><a href="ui.html#cb21-13" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb21-14"><a href="ui.html#cb21-14" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">4</span>, <span class="at">offset =</span> <span class="dv">4</span>, </span>
-<span id="cb21-15"><a href="ui.html#cb21-15" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">actionButton</span>(<span class="st">&quot;metaa&quot;</span>,<span class="st">&quot;Meta Analysis&quot;</span>, <span class="at">class =</span> <span class="st">&quot;btn-success btn-lg btn-block&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;dashboard&quot;</span>)),</span>
-<span id="cb21-16"><a href="ui.html#cb21-16" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">actionButton</span>(<span class="st">&quot;inda&quot;</span>,<span class="st">&quot;Individual Analysis&quot;</span>, <span class="at">class =</span> <span class="st">&quot;btn-success btn-lg btn-block&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;database&quot;</span>)),</span>
-<span id="cb21-17"><a href="ui.html#cb21-17" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">actionButton</span>(<span class="st">&quot;neta&quot;</span>,<span class="st">&quot;Network Analysis&quot;</span>, <span class="at">class =</span> <span class="st">&quot;btn-success btn-lg btn-block&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;circle-nodes&quot;</span>)),</span>
-<span id="cb21-18"><a href="ui.html#cb21-18" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">br</span>(),<span class="fu">br</span>()</span>
-<span id="cb21-19"><a href="ui.html#cb21-19" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="cb21-20"><a href="ui.html#cb21-20" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb21-21"><a href="ui.html#cb21-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="ui.html#cb26-1" aria-hidden="true" tabindex="-1"></a>shinydashboard<span class="sc">::</span><span class="fu">tabItem</span>(<span class="at">tabName =</span> <span class="st">&quot;tabhome&quot;</span>, </span>
+<span id="cb26-2"><a href="ui.html#cb26-2" aria-hidden="true" tabindex="-1"></a>        shinydashboard<span class="sc">::</span><span class="fu">box</span>(</span>
+<span id="cb26-3"><a href="ui.html#cb26-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb26-4"><a href="ui.html#cb26-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb26-5"><a href="ui.html#cb26-5" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">6</span>, <span class="at">offset =</span> <span class="dv">4</span>,</span>
+<span id="cb26-6"><a href="ui.html#cb26-6" aria-hidden="true" tabindex="-1"></a>                 </span>
+<span id="cb26-7"><a href="ui.html#cb26-7" aria-hidden="true" tabindex="-1"></a>                 <span class="do">## place for adding titles </span></span>
+<span id="cb26-8"><a href="ui.html#cb26-8" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">h1</span>(<span class="fu">strong</span>(<span class="st">&quot;Title&quot;</span>))), <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">8</span>, <span class="at">offset =</span> <span class="dv">2</span>,</span>
+<span id="cb26-9"><a href="ui.html#cb26-9" aria-hidden="true" tabindex="-1"></a>                 </span>
+<span id="cb26-10"><a href="ui.html#cb26-10" aria-hidden="true" tabindex="-1"></a>                 <span class="do">## place for customising descriptions </span></span>
+<span id="cb26-11"><a href="ui.html#cb26-11" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">h4</span>(<span class="st">&quot;ADD TEXT&quot;</span>)</span>
+<span id="cb26-12"><a href="ui.html#cb26-12" aria-hidden="true" tabindex="-1"></a>          ),</span>
+<span id="cb26-13"><a href="ui.html#cb26-13" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb26-14"><a href="ui.html#cb26-14" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">4</span>, <span class="at">offset =</span> <span class="dv">4</span>, </span>
+<span id="cb26-15"><a href="ui.html#cb26-15" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">actionButton</span>(<span class="st">&quot;metaa&quot;</span>,<span class="st">&quot;Meta Analysis&quot;</span>, <span class="at">class =</span> <span class="st">&quot;btn-success btn-lg btn-block&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;dashboard&quot;</span>)),</span>
+<span id="cb26-16"><a href="ui.html#cb26-16" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">actionButton</span>(<span class="st">&quot;inda&quot;</span>,<span class="st">&quot;Individual Analysis&quot;</span>, <span class="at">class =</span> <span class="st">&quot;btn-success btn-lg btn-block&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;database&quot;</span>)),</span>
+<span id="cb26-17"><a href="ui.html#cb26-17" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">actionButton</span>(<span class="st">&quot;neta&quot;</span>,<span class="st">&quot;Network Analysis&quot;</span>, <span class="at">class =</span> <span class="st">&quot;btn-success btn-lg btn-block&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;circle-nodes&quot;</span>)),</span>
+<span id="cb26-18"><a href="ui.html#cb26-18" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">br</span>(),<span class="fu">br</span>()</span>
+<span id="cb26-19"><a href="ui.html#cb26-19" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb26-20"><a href="ui.html#cb26-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-21"><a href="ui.html#cb26-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="grouped-comparisons" class="section level3 hasAnchor" number="3.4.2">
 <h3><span class="header-section-number">3.4.2</span> Grouped comparisons<a href="ui.html#grouped-comparisons" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -372,205 +372,205 @@ img
 <li>Dot plot showing scRNA gene expression.</li>
 <li>Dot plot showing differential gene expression of genes.</li>
 </ol>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="ui.html#cb22-1" aria-hidden="true" tabindex="-1"></a>shinydashboard<span class="sc">::</span><span class="fu">tabItem</span>(<span class="at">tabName=</span><span class="st">&quot;tabmeta&quot;</span>,</span>
-<span id="cb22-2"><a href="ui.html#cb22-2" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">br</span>(),</span>
-<span id="cb22-3"><a href="ui.html#cb22-3" aria-hidden="true" tabindex="-1"></a>                                </span>
-<span id="cb22-4"><a href="ui.html#cb22-4" aria-hidden="true" tabindex="-1"></a>        shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
-<span id="cb22-5"><a href="ui.html#cb22-5" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb22-6"><a href="ui.html#cb22-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="cb22-7"><a href="ui.html#cb22-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">title =</span> <span class="st">&quot;Choose Datasets for Meta-Analysis&quot;</span>,</span>
-<span id="cb22-8"><a href="ui.html#cb22-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb22-9"><a href="ui.html#cb22-9" aria-hidden="true" tabindex="-1"></a>                              </span>
-<span id="cb22-10"><a href="ui.html#cb22-10" aria-hidden="true" tabindex="-1"></a>                              <span class="do">## description </span></span>
-<span id="cb22-11"><a href="ui.html#cb22-11" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">p</span>(<span class="st">&quot;ADD TEXT HERE&quot;</span>),</span>
-<span id="cb22-12"><a href="ui.html#cb22-12" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">hr</span>(),</span>
-<span id="cb22-13"><a href="ui.html#cb22-13" aria-hidden="true" tabindex="-1"></a>                             </span>
-<span id="cb22-14"><a href="ui.html#cb22-14" aria-hidden="true" tabindex="-1"></a>                              <span class="co"># table containing information of datasets </span></span>
-<span id="cb22-15"><a href="ui.html#cb22-15" aria-hidden="true" tabindex="-1"></a>                              DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;meta_table&quot;</span>),</span>
-<span id="cb22-16"><a href="ui.html#cb22-16" aria-hidden="true" tabindex="-1"></a>                              <span class="at">collapsible =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb22-17"><a href="ui.html#cb22-17" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb22-18"><a href="ui.html#cb22-18" aria-hidden="true" tabindex="-1"></a>        ), <span class="fu">br</span>(),</span>
-<span id="cb22-19"><a href="ui.html#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-20"><a href="ui.html#cb22-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># buttons </span></span>
-<span id="cb22-21"><a href="ui.html#cb22-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="cb22-22"><a href="ui.html#cb22-22" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(<span class="dv">12</span>,<span class="at">offset =</span> <span class="dv">0</span>,</span>
-<span id="cb22-23"><a href="ui.html#cb22-23" aria-hidden="true" tabindex="-1"></a>                 shiny<span class="sc">::</span><span class="fu">actionButton</span>(<span class="st">&quot;load&quot;</span>, <span class="st">&quot;Plot Graphs&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;play-circle&quot;</span>)),</span>
-<span id="cb22-24"><a href="ui.html#cb22-24" aria-hidden="true" tabindex="-1"></a>                 shiny<span class="sc">::</span><span class="fu">downloadButton</span>(<span class="st">&quot;combineplot&quot;</span>, <span class="st">&quot;Generate code&quot;</span>),</span>
-<span id="cb22-25"><a href="ui.html#cb22-25" aria-hidden="true" tabindex="-1"></a>                 shiny<span class="sc">::</span><span class="fu">downloadButton</span>(<span class="st">&quot;combineplots&quot;</span>, <span class="st">&quot;Download Plots&quot;</span>)</span>
-<span id="cb22-26"><a href="ui.html#cb22-26" aria-hidden="true" tabindex="-1"></a>                 </span>
-<span id="cb22-27"><a href="ui.html#cb22-27" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="cb22-28"><a href="ui.html#cb22-28" aria-hidden="true" tabindex="-1"></a>        ), <span class="fu">br</span>(),</span>
-<span id="cb22-29"><a href="ui.html#cb22-29" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb22-30"><a href="ui.html#cb22-30" aria-hidden="true" tabindex="-1"></a>        shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
-<span id="cb22-31"><a href="ui.html#cb22-31" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb22-32"><a href="ui.html#cb22-32" aria-hidden="true" tabindex="-1"></a>          <span class="co"># dot plots for bulk and single RNA sequencing </span></span>
-<span id="cb22-33"><a href="ui.html#cb22-33" aria-hidden="true" tabindex="-1"></a>          <span class="do">## comment out plots that you don&#39;t need</span></span>
-<span id="cb22-34"><a href="ui.html#cb22-34" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="cb22-35"><a href="ui.html#cb22-35" aria-hidden="true" tabindex="-1"></a>                              <span class="at">title =</span> <span class="st">&quot;Naive&quot;</span>,</span>
-<span id="cb22-36"><a href="ui.html#cb22-36" aria-hidden="true" tabindex="-1"></a>                              <span class="at">collapsible =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb22-37"><a href="ui.html#cb22-37" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb22-38"><a href="ui.html#cb22-38" aria-hidden="true" tabindex="-1"></a>                              <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb22-39"><a href="ui.html#cb22-39" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">plotcombine_ui</span>(<span class="st">&quot;dot&quot;</span>),</span>
-<span id="cb22-40"><a href="ui.html#cb22-40" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">plothomescdot_ui</span>(<span class="st">&quot;homespat&quot;</span>)</span>
-<span id="cb22-41"><a href="ui.html#cb22-41" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="cb22-42"><a href="ui.html#cb22-42" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb22-43"><a href="ui.html#cb22-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-44"><a href="ui.html#cb22-44" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="cb22-45"><a href="ui.html#cb22-45" aria-hidden="true" tabindex="-1"></a>          <span class="co"># DEG plots</span></span>
-<span id="cb22-46"><a href="ui.html#cb22-46" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="cb22-47"><a href="ui.html#cb22-47" aria-hidden="true" tabindex="-1"></a>                              <span class="at">title =</span> <span class="st">&quot;Differential Gene Analysis&quot;</span>,</span>
-<span id="cb22-48"><a href="ui.html#cb22-48" aria-hidden="true" tabindex="-1"></a>                              <span class="at">collapsible =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb22-49"><a href="ui.html#cb22-49" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb22-50"><a href="ui.html#cb22-50" aria-hidden="true" tabindex="-1"></a>                              <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb22-51"><a href="ui.html#cb22-51" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">deg_combine_ui</span>(<span class="st">&quot;deg_plot&quot;</span>))</span>
-<span id="cb22-52"><a href="ui.html#cb22-52" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb22-53"><a href="ui.html#cb22-53" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="ui.html#cb27-1" aria-hidden="true" tabindex="-1"></a>shinydashboard<span class="sc">::</span><span class="fu">tabItem</span>(<span class="at">tabName=</span><span class="st">&quot;tabmeta&quot;</span>,</span>
+<span id="cb27-2"><a href="ui.html#cb27-2" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">br</span>(),</span>
+<span id="cb27-3"><a href="ui.html#cb27-3" aria-hidden="true" tabindex="-1"></a>                                </span>
+<span id="cb27-4"><a href="ui.html#cb27-4" aria-hidden="true" tabindex="-1"></a>        shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
+<span id="cb27-5"><a href="ui.html#cb27-5" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb27-6"><a href="ui.html#cb27-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb27-7"><a href="ui.html#cb27-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">title =</span> <span class="st">&quot;Choose Datasets for Meta-Analysis&quot;</span>,</span>
+<span id="cb27-8"><a href="ui.html#cb27-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-9"><a href="ui.html#cb27-9" aria-hidden="true" tabindex="-1"></a>                              </span>
+<span id="cb27-10"><a href="ui.html#cb27-10" aria-hidden="true" tabindex="-1"></a>                              <span class="do">## description </span></span>
+<span id="cb27-11"><a href="ui.html#cb27-11" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">p</span>(<span class="st">&quot;ADD TEXT HERE&quot;</span>),</span>
+<span id="cb27-12"><a href="ui.html#cb27-12" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">hr</span>(),</span>
+<span id="cb27-13"><a href="ui.html#cb27-13" aria-hidden="true" tabindex="-1"></a>                             </span>
+<span id="cb27-14"><a href="ui.html#cb27-14" aria-hidden="true" tabindex="-1"></a>                              <span class="co"># table containing information of datasets </span></span>
+<span id="cb27-15"><a href="ui.html#cb27-15" aria-hidden="true" tabindex="-1"></a>                              DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;meta_table&quot;</span>),</span>
+<span id="cb27-16"><a href="ui.html#cb27-16" aria-hidden="true" tabindex="-1"></a>                              <span class="at">collapsible =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb27-17"><a href="ui.html#cb27-17" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb27-18"><a href="ui.html#cb27-18" aria-hidden="true" tabindex="-1"></a>        ), <span class="fu">br</span>(),</span>
+<span id="cb27-19"><a href="ui.html#cb27-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-20"><a href="ui.html#cb27-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># buttons </span></span>
+<span id="cb27-21"><a href="ui.html#cb27-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="cb27-22"><a href="ui.html#cb27-22" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(<span class="dv">12</span>,<span class="at">offset =</span> <span class="dv">0</span>,</span>
+<span id="cb27-23"><a href="ui.html#cb27-23" aria-hidden="true" tabindex="-1"></a>                 shiny<span class="sc">::</span><span class="fu">actionButton</span>(<span class="st">&quot;load&quot;</span>, <span class="st">&quot;Plot Graphs&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;play-circle&quot;</span>)),</span>
+<span id="cb27-24"><a href="ui.html#cb27-24" aria-hidden="true" tabindex="-1"></a>                 shiny<span class="sc">::</span><span class="fu">downloadButton</span>(<span class="st">&quot;combineplot&quot;</span>, <span class="st">&quot;Generate code&quot;</span>),</span>
+<span id="cb27-25"><a href="ui.html#cb27-25" aria-hidden="true" tabindex="-1"></a>                 shiny<span class="sc">::</span><span class="fu">downloadButton</span>(<span class="st">&quot;combineplots&quot;</span>, <span class="st">&quot;Download Plots&quot;</span>)</span>
+<span id="cb27-26"><a href="ui.html#cb27-26" aria-hidden="true" tabindex="-1"></a>                 </span>
+<span id="cb27-27"><a href="ui.html#cb27-27" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb27-28"><a href="ui.html#cb27-28" aria-hidden="true" tabindex="-1"></a>        ), <span class="fu">br</span>(),</span>
+<span id="cb27-29"><a href="ui.html#cb27-29" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb27-30"><a href="ui.html#cb27-30" aria-hidden="true" tabindex="-1"></a>        shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
+<span id="cb27-31"><a href="ui.html#cb27-31" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb27-32"><a href="ui.html#cb27-32" aria-hidden="true" tabindex="-1"></a>          <span class="co"># dot plots for bulk and single RNA sequencing </span></span>
+<span id="cb27-33"><a href="ui.html#cb27-33" aria-hidden="true" tabindex="-1"></a>          <span class="do">## comment out plots that you don&#39;t need</span></span>
+<span id="cb27-34"><a href="ui.html#cb27-34" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb27-35"><a href="ui.html#cb27-35" aria-hidden="true" tabindex="-1"></a>                              <span class="at">title =</span> <span class="st">&quot;Naive&quot;</span>,</span>
+<span id="cb27-36"><a href="ui.html#cb27-36" aria-hidden="true" tabindex="-1"></a>                              <span class="at">collapsible =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-37"><a href="ui.html#cb27-37" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-38"><a href="ui.html#cb27-38" aria-hidden="true" tabindex="-1"></a>                              <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb27-39"><a href="ui.html#cb27-39" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">plotcombine_ui</span>(<span class="st">&quot;dot&quot;</span>),</span>
+<span id="cb27-40"><a href="ui.html#cb27-40" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">plothomescdot_ui</span>(<span class="st">&quot;homespat&quot;</span>)</span>
+<span id="cb27-41"><a href="ui.html#cb27-41" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb27-42"><a href="ui.html#cb27-42" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb27-43"><a href="ui.html#cb27-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-44"><a href="ui.html#cb27-44" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="cb27-45"><a href="ui.html#cb27-45" aria-hidden="true" tabindex="-1"></a>          <span class="co"># DEG plots</span></span>
+<span id="cb27-46"><a href="ui.html#cb27-46" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb27-47"><a href="ui.html#cb27-47" aria-hidden="true" tabindex="-1"></a>                              <span class="at">title =</span> <span class="st">&quot;Differential Gene Analysis&quot;</span>,</span>
+<span id="cb27-48"><a href="ui.html#cb27-48" aria-hidden="true" tabindex="-1"></a>                              <span class="at">collapsible =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-49"><a href="ui.html#cb27-49" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-50"><a href="ui.html#cb27-50" aria-hidden="true" tabindex="-1"></a>                              <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb27-51"><a href="ui.html#cb27-51" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">deg_combine_ui</span>(<span class="st">&quot;deg_plot&quot;</span>))</span>
+<span id="cb27-52"><a href="ui.html#cb27-52" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb27-53"><a href="ui.html#cb27-53" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="individual-analysis" class="section level3 hasAnchor" number="3.4.3">
 <h3><span class="header-section-number">3.4.3</span> Individual Analysis<a href="ui.html#individual-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The information and plots for a dataset can be displayed after selection. Different from previous pages, this page contains a dynamic UI that reacts to the user input (i.e. the dataset that users clicked in the table). This is achieved by the <code>uiOutput()</code> function, which tells Shiny when the pages should be rendered. The UI for each indiviual page is stored in a function <code>shinypageUI()</code>, which is called with different parameters in response to different datasets selected.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="ui.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">### this doesn&#39;t need to be altered</span></span>
-<span id="cb23-2"><a href="ui.html#cb23-2" aria-hidden="true" tabindex="-1"></a>shinydashboard<span class="sc">::</span><span class="fu">tabItem</span>(<span class="at">tabName =</span> <span class="st">&quot;tabdata&quot;</span>,</span>
-<span id="cb23-3"><a href="ui.html#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="cb23-4"><a href="ui.html#cb23-4" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb23-5"><a href="ui.html#cb23-5" aria-hidden="true" tabindex="-1"></a>          <span class="co"># a table that allows selection of a single dataset for visualisation </span></span>
-<span id="cb23-6"><a href="ui.html#cb23-6" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb23-7"><a href="ui.html#cb23-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb23-8"><a href="ui.html#cb23-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="cb23-9"><a href="ui.html#cb23-9" aria-hidden="true" tabindex="-1"></a>                              <span class="at">title =</span> <span class="st">&quot;Choose A Dataset for Individual Analysis&quot;</span>,</span>
-<span id="cb23-10"><a href="ui.html#cb23-10" aria-hidden="true" tabindex="-1"></a>                              DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;dataset_table&quot;</span>),</span>
-<span id="cb23-11"><a href="ui.html#cb23-11" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">helpText</span>(<span class="st">&quot;Select one dataset for meta-analysis by clicking on rows. Click again to deselect a dataset.&quot;</span>),</span>
-<span id="cb23-12"><a href="ui.html#cb23-12" aria-hidden="true" tabindex="-1"></a>                              <span class="at">collapsible =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb23-13"><a href="ui.html#cb23-13" aria-hidden="true" tabindex="-1"></a>        ),  <span class="fu">br</span>(), </span>
-<span id="cb23-14"><a href="ui.html#cb23-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="cb23-15"><a href="ui.html#cb23-15" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb23-16"><a href="ui.html#cb23-16" aria-hidden="true" tabindex="-1"></a>          <span class="co"># a ui that is responsive to dataset selected </span></span>
-<span id="cb23-17"><a href="ui.html#cb23-17" aria-hidden="true" tabindex="-1"></a>          <span class="fu">uiOutput</span>(<span class="st">&quot;shinypages&quot;</span>) </span>
-<span id="cb23-18"><a href="ui.html#cb23-18" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb23-19"><a href="ui.html#cb23-19" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="ui.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">### this doesn&#39;t need to be altered</span></span>
+<span id="cb28-2"><a href="ui.html#cb28-2" aria-hidden="true" tabindex="-1"></a>shinydashboard<span class="sc">::</span><span class="fu">tabItem</span>(<span class="at">tabName =</span> <span class="st">&quot;tabdata&quot;</span>,</span>
+<span id="cb28-3"><a href="ui.html#cb28-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="cb28-4"><a href="ui.html#cb28-4" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb28-5"><a href="ui.html#cb28-5" aria-hidden="true" tabindex="-1"></a>          <span class="co"># a table that allows selection of a single dataset for visualisation </span></span>
+<span id="cb28-6"><a href="ui.html#cb28-6" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb28-7"><a href="ui.html#cb28-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb28-8"><a href="ui.html#cb28-8" aria-hidden="true" tabindex="-1"></a>                              <span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb28-9"><a href="ui.html#cb28-9" aria-hidden="true" tabindex="-1"></a>                              <span class="at">title =</span> <span class="st">&quot;Choose A Dataset for Individual Analysis&quot;</span>,</span>
+<span id="cb28-10"><a href="ui.html#cb28-10" aria-hidden="true" tabindex="-1"></a>                              DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;dataset_table&quot;</span>),</span>
+<span id="cb28-11"><a href="ui.html#cb28-11" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">helpText</span>(<span class="st">&quot;Select one dataset for meta-analysis by clicking on rows. Click again to deselect a dataset.&quot;</span>),</span>
+<span id="cb28-12"><a href="ui.html#cb28-12" aria-hidden="true" tabindex="-1"></a>                              <span class="at">collapsible =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-13"><a href="ui.html#cb28-13" aria-hidden="true" tabindex="-1"></a>        ),  <span class="fu">br</span>(), </span>
+<span id="cb28-14"><a href="ui.html#cb28-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="cb28-15"><a href="ui.html#cb28-15" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb28-16"><a href="ui.html#cb28-16" aria-hidden="true" tabindex="-1"></a>          <span class="co"># a ui that is responsive to dataset selected </span></span>
+<span id="cb28-17"><a href="ui.html#cb28-17" aria-hidden="true" tabindex="-1"></a>          <span class="fu">uiOutput</span>(<span class="st">&quot;shinypages&quot;</span>) </span>
+<span id="cb28-18"><a href="ui.html#cb28-18" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb28-19"><a href="ui.html#cb28-19" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div>
 <p>The components included in each dataset are shown below. The code for each component is shown after, but <em>does not need to be altered, other than changing title for control and condition boxes</em>.</p>
 <p>The <code>shinypageUI()</code> function:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="ui.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; The UI function for each individual dataset page</span></span>
-<span id="cb24-2"><a href="ui.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb24-3"><a href="ui.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param datasetTitle The title for the page </span></span>
-<span id="cb24-4"><a href="ui.html#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param includedeg A Boolean value stating whether to include differential expression plots and tables </span></span>
-<span id="cb24-5"><a href="ui.html#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param volc_title The title for volcano plots </span></span>
-<span id="cb24-6"><a href="ui.html#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param include_subtype A Boolean value stating whether to include plots for different sub-populations. </span></span>
-<span id="cb24-7"><a href="ui.html#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param des_dir A directory for the description files. Default = NULL. </span></span>
-<span id="cb24-8"><a href="ui.html#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param image_dir A directory for any images. Default = NULL.</span></span>
-<span id="cb24-9"><a href="ui.html#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param includegoi A Boolean stating whether to include result count table for selected genes. </span></span>
-<span id="cb24-10"><a href="ui.html#cb24-10" aria-hidden="true" tabindex="-1"></a>shinypageUI <span class="ot">&lt;-</span> <span class="cf">function</span>(id, datasetTitle, <span class="at">includedeg =</span> <span class="cn">FALSE</span>, <span class="at">volc_title =</span> <span class="cn">NULL</span>,</span>
-<span id="cb24-11"><a href="ui.html#cb24-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">include_subtype =</span> <span class="cn">FALSE</span>, <span class="at">des_dir =</span> <span class="cn">NULL</span>, <span class="at">image_dir =</span> <span class="cn">NULL</span>, <span class="at">includegoi =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb24-12"><a href="ui.html#cb24-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">include_count =</span> <span class="cn">TRUE</span>) {</span>
-<span id="cb24-13"><a href="ui.html#cb24-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-14"><a href="ui.html#cb24-14" aria-hidden="true" tabindex="-1"></a>  shiny<span class="sc">::</span><span class="fu">fluidPage</span>(</span>
-<span id="cb24-15"><a href="ui.html#cb24-15" aria-hidden="true" tabindex="-1"></a>    shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
-<span id="cb24-16"><a href="ui.html#cb24-16" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Description for dataset </span></span>
-<span id="cb24-17"><a href="ui.html#cb24-17" aria-hidden="true" tabindex="-1"></a>      shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">title =</span> datasetTitle,</span>
-<span id="cb24-18"><a href="ui.html#cb24-18" aria-hidden="true" tabindex="-1"></a>                          <span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="cb24-19"><a href="ui.html#cb24-19" aria-hidden="true" tabindex="-1"></a>                          <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb24-20"><a href="ui.html#cb24-20" aria-hidden="true" tabindex="-1"></a>                          <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb24-21"><a href="ui.html#cb24-21" aria-hidden="true" tabindex="-1"></a>                          <span class="cf">if</span> (<span class="fu">is.null</span>(des_dir) <span class="sc">==</span> <span class="cn">FALSE</span>) {<span class="fu">includeHTML</span>(des_dir)}, <span class="do">## links description files</span></span>
-<span id="cb24-22"><a href="ui.html#cb24-22" aria-hidden="true" tabindex="-1"></a>                          <span class="cf">if</span> (<span class="fu">is.null</span>(image_dir) <span class="sc">==</span> <span class="cn">FALSE</span>) {<span class="fu">img</span>(<span class="at">src =</span> image_dir, <span class="at">height =</span> <span class="dv">150</span>, <span class="at">width =</span> <span class="dv">400</span>)}</span>
-<span id="cb24-23"><a href="ui.html#cb24-23" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb24-24"><a href="ui.html#cb24-24" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb24-25"><a href="ui.html#cb24-25" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-26"><a href="ui.html#cb24-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">br</span>(), </span>
-<span id="cb24-27"><a href="ui.html#cb24-27" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-28"><a href="ui.html#cb24-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># buttons </span></span>
-<span id="cb24-29"><a href="ui.html#cb24-29" aria-hidden="true" tabindex="-1"></a>    shiny<span class="sc">::</span><span class="fu">actionButton</span>(<span class="fu">NS</span>(id, <span class="st">&quot;load&quot;</span>), <span class="st">&quot;Plot Graphs&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;play-circle&quot;</span>)),</span>
-<span id="cb24-30"><a href="ui.html#cb24-30" aria-hidden="true" tabindex="-1"></a>    shiny<span class="sc">::</span><span class="fu">downloadButton</span>(<span class="fu">NS</span>(id,<span class="st">&quot;report&quot;</span>), <span class="st">&quot;Generate Code&quot;</span>),</span>
-<span id="cb24-31"><a href="ui.html#cb24-31" aria-hidden="true" tabindex="-1"></a>    shiny<span class="sc">::</span><span class="fu">downloadButton</span>(<span class="fu">NS</span>(id,<span class="st">&quot;plots&quot;</span>), <span class="st">&quot;Download Data&quot;</span>),</span>
-<span id="cb24-32"><a href="ui.html#cb24-32" aria-hidden="true" tabindex="-1"></a>    shiny<span class="sc">::</span><span class="fu">helpText</span>(<span class="fu">em</span>(<span class="st">&quot;Load data before plotting.&quot;</span>)),</span>
-<span id="cb24-33"><a href="ui.html#cb24-33" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-34"><a href="ui.html#cb24-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plots using count data </span></span>
-<span id="cb24-35"><a href="ui.html#cb24-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (include_count <span class="sc">==</span> <span class="cn">TRUE</span>){</span>
-<span id="cb24-36"><a href="ui.html#cb24-36" aria-hidden="true" tabindex="-1"></a>      shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
-<span id="cb24-37"><a href="ui.html#cb24-37" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb24-38"><a href="ui.html#cb24-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># gene expression dotplot </span></span>
-<span id="cb24-39"><a href="ui.html#cb24-39" aria-hidden="true" tabindex="-1"></a>        shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">title =</span> <span class="st">&quot;Control&quot;</span>, <span class="do">## change title </span></span>
-<span id="cb24-40"><a href="ui.html#cb24-40" aria-hidden="true" tabindex="-1"></a>                            <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb24-41"><a href="ui.html#cb24-41" aria-hidden="true" tabindex="-1"></a>                            <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb24-42"><a href="ui.html#cb24-42" aria-hidden="true" tabindex="-1"></a>                            plotly<span class="sc">::</span><span class="fu">plotlyOutput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;bulkseq_dots&quot;</span>)),</span>
-<span id="cb24-43"><a href="ui.html#cb24-43" aria-hidden="true" tabindex="-1"></a>                            <span class="at">height =</span> <span class="st">&quot;36em&quot;</span></span>
-<span id="cb24-44"><a href="ui.html#cb24-44" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb24-45"><a href="ui.html#cb24-45" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb24-46"><a href="ui.html#cb24-46" aria-hidden="true" tabindex="-1"></a>        <span class="co"># line plot showing differential expression in different treatment groups</span></span>
-<span id="cb24-47"><a href="ui.html#cb24-47" aria-hidden="true" tabindex="-1"></a>        shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">title =</span> <span class="st">&quot;Condition&quot;</span>, <span class="do">## change title </span></span>
-<span id="cb24-48"><a href="ui.html#cb24-48" aria-hidden="true" tabindex="-1"></a>                            <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>, <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb24-49"><a href="ui.html#cb24-49" aria-hidden="true" tabindex="-1"></a>                            shiny<span class="sc">::</span><span class="fu">plotOutput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;bulkseq_lines&quot;</span>)),</span>
-<span id="cb24-50"><a href="ui.html#cb24-50" aria-hidden="true" tabindex="-1"></a>                            <span class="at">height =</span> <span class="st">&quot;36em&quot;</span></span>
-<span id="cb24-51"><a href="ui.html#cb24-51" aria-hidden="true" tabindex="-1"></a>        ), <span class="fu">br</span>(), <span class="fu">br</span>()</span>
-<span id="cb24-52"><a href="ui.html#cb24-52" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb24-53"><a href="ui.html#cb24-53" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb24-54"><a href="ui.html#cb24-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">br</span>(),</span>
-<span id="cb24-55"><a href="ui.html#cb24-55" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-56"><a href="ui.html#cb24-56" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plots for experiments which divide samples into different groups e.g. different cell subtypes </span></span>
-<span id="cb24-57"><a href="ui.html#cb24-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (include_subtype <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
-<span id="cb24-58"><a href="ui.html#cb24-58" aria-hidden="true" tabindex="-1"></a>      <span class="co"># line plots showing differential gene expression in different experiment groups in response to treatment </span></span>
-<span id="cb24-59"><a href="ui.html#cb24-59" aria-hidden="true" tabindex="-1"></a>      shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
-<span id="cb24-60"><a href="ui.html#cb24-60" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="cb24-61"><a href="ui.html#cb24-61" aria-hidden="true" tabindex="-1"></a>                              <span class="at">title =</span> <span class="st">&quot;Subtype Results&quot;</span>, <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb24-62"><a href="ui.html#cb24-62" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb24-63"><a href="ui.html#cb24-63" aria-hidden="true" tabindex="-1"></a>                              shiny<span class="sc">::</span><span class="fu">plotOutput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;bulkseq_lines_subtype&quot;</span>))</span>
-<span id="cb24-64"><a href="ui.html#cb24-64" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="cb24-65"><a href="ui.html#cb24-65" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb24-66"><a href="ui.html#cb24-66" aria-hidden="true" tabindex="-1"></a>    },<span class="fu">br</span>(),</span>
-<span id="cb24-67"><a href="ui.html#cb24-67" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-68"><a href="ui.html#cb24-68" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plots using differential expression data </span></span>
-<span id="cb24-69"><a href="ui.html#cb24-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (includedeg <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
-<span id="cb24-70"><a href="ui.html#cb24-70" aria-hidden="true" tabindex="-1"></a>      shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
-<span id="cb24-71"><a href="ui.html#cb24-71" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb24-72"><a href="ui.html#cb24-72" aria-hidden="true" tabindex="-1"></a>        shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">6</span>,</span>
-<span id="cb24-73"><a href="ui.html#cb24-73" aria-hidden="true" tabindex="-1"></a>                            <span class="at">title =</span> <span class="st">&quot;Differential Gene Analysis&quot;</span>,</span>
-<span id="cb24-74"><a href="ui.html#cb24-74" aria-hidden="true" tabindex="-1"></a>                            <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb24-75"><a href="ui.html#cb24-75" aria-hidden="true" tabindex="-1"></a>                            <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb24-76"><a href="ui.html#cb24-76" aria-hidden="true" tabindex="-1"></a>                            plotly<span class="sc">::</span><span class="fu">plotlyOutput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;deg_plot&quot;</span>)),</span>
-<span id="cb24-77"><a href="ui.html#cb24-77" aria-hidden="true" tabindex="-1"></a>                            </span>
-<span id="cb24-78"><a href="ui.html#cb24-78" aria-hidden="true" tabindex="-1"></a>                            <span class="at">height =</span> <span class="st">&quot;38em&quot;</span>),</span>
-<span id="cb24-79"><a href="ui.html#cb24-79" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb24-80"><a href="ui.html#cb24-80" aria-hidden="true" tabindex="-1"></a>        <span class="co"># volcano plots </span></span>
-<span id="cb24-81"><a href="ui.html#cb24-81" aria-hidden="true" tabindex="-1"></a>        shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">6</span>,</span>
-<span id="cb24-82"><a href="ui.html#cb24-82" aria-hidden="true" tabindex="-1"></a>                            <span class="at">title =</span> volc_title, <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb24-83"><a href="ui.html#cb24-83" aria-hidden="true" tabindex="-1"></a>                            <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb24-84"><a href="ui.html#cb24-84" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">actionButton</span>(<span class="fu">NS</span>(id, <span class="st">&quot;plotvolc&quot;</span>), <span class="st">&quot;Plot Volcano Graphs&quot;</span>),</span>
-<span id="cb24-85"><a href="ui.html#cb24-85" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">selectInput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;volc_pop&quot;</span>), <span class="st">&quot;&quot;</span>,</span>
-<span id="cb24-86"><a href="ui.html#cb24-86" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">choices =</span> <span class="cn">NULL</span>,</span>
-<span id="cb24-87"><a href="ui.html#cb24-87" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">selected =</span> <span class="st">&quot;&quot;</span>),</span>
-<span id="cb24-88"><a href="ui.html#cb24-88" aria-hidden="true" tabindex="-1"></a>                            shiny<span class="sc">::</span><span class="fu">plotOutput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;volcanoplot&quot;</span>), <span class="at">height =</span> <span class="st">&quot;26em&quot;</span>), <span class="at">height =</span> <span class="st">&quot;38em&quot;</span></span>
-<span id="cb24-89"><a href="ui.html#cb24-89" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb24-90"><a href="ui.html#cb24-90" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb24-91"><a href="ui.html#cb24-91" aria-hidden="true" tabindex="-1"></a>    },<span class="fu">br</span>(),</span>
-<span id="cb24-92"><a href="ui.html#cb24-92" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-93"><a href="ui.html#cb24-93" aria-hidden="true" tabindex="-1"></a>    <span class="co"># for displaying count data for genes selected </span></span>
-<span id="cb24-94"><a href="ui.html#cb24-94" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(includegoi <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
-<span id="cb24-95"><a href="ui.html#cb24-95" aria-hidden="true" tabindex="-1"></a>      shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
-<span id="cb24-96"><a href="ui.html#cb24-96" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(</span>
-<span id="cb24-97"><a href="ui.html#cb24-97" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="cb24-98"><a href="ui.html#cb24-98" aria-hidden="true" tabindex="-1"></a>            <span class="at">title =</span> <span class="st">&quot;Result Table&quot;</span>,</span>
-<span id="cb24-99"><a href="ui.html#cb24-99" aria-hidden="true" tabindex="-1"></a>            <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb24-100"><a href="ui.html#cb24-100" aria-hidden="true" tabindex="-1"></a>            <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb24-101"><a href="ui.html#cb24-101" aria-hidden="true" tabindex="-1"></a>            DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="fu">NS</span>(id,<span class="st">&quot;goi_table&quot;</span>))</span>
-<span id="cb24-102"><a href="ui.html#cb24-102" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="cb24-103"><a href="ui.html#cb24-103" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb24-104"><a href="ui.html#cb24-104" aria-hidden="true" tabindex="-1"></a>    },<span class="fu">br</span>(),</span>
-<span id="cb24-105"><a href="ui.html#cb24-105" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-106"><a href="ui.html#cb24-106" aria-hidden="true" tabindex="-1"></a>    <span class="co"># for displaying differential expression data </span></span>
-<span id="cb24-107"><a href="ui.html#cb24-107" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(includedeg <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
-<span id="cb24-108"><a href="ui.html#cb24-108" aria-hidden="true" tabindex="-1"></a>      shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
-<span id="cb24-109"><a href="ui.html#cb24-109" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="cb24-110"><a href="ui.html#cb24-110" aria-hidden="true" tabindex="-1"></a>                              <span class="at">title =</span> <span class="st">&quot;Differential Analysis Table&quot;</span>,</span>
-<span id="cb24-111"><a href="ui.html#cb24-111" aria-hidden="true" tabindex="-1"></a>                              <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb24-112"><a href="ui.html#cb24-112" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb24-113"><a href="ui.html#cb24-113" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">selectInput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;contrast&quot;</span>), <span class="st">&quot;&quot;</span>,</span>
-<span id="cb24-114"><a href="ui.html#cb24-114" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">choices =</span> <span class="cn">NULL</span>,</span>
-<span id="cb24-115"><a href="ui.html#cb24-115" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">selected =</span> <span class="st">&quot;&quot;</span>),</span>
-<span id="cb24-116"><a href="ui.html#cb24-116" aria-hidden="true" tabindex="-1"></a>                              DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;contrast_table&quot;</span>))</span>
-<span id="cb24-117"><a href="ui.html#cb24-117" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="cb24-118"><a href="ui.html#cb24-118" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb24-119"><a href="ui.html#cb24-119" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb24-120"><a href="ui.html#cb24-120" aria-hidden="true" tabindex="-1"></a>  ) </span>
-<span id="cb24-121"><a href="ui.html#cb24-121" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="ui.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; The UI function for each individual dataset page</span></span>
+<span id="cb29-2"><a href="ui.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb29-3"><a href="ui.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param datasetTitle The title for the page </span></span>
+<span id="cb29-4"><a href="ui.html#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param includedeg A Boolean value stating whether to include differential expression plots and tables </span></span>
+<span id="cb29-5"><a href="ui.html#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param volc_title The title for volcano plots </span></span>
+<span id="cb29-6"><a href="ui.html#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param include_subtype A Boolean value stating whether to include plots for different sub-populations. </span></span>
+<span id="cb29-7"><a href="ui.html#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param des_dir A directory for the description files. Default = NULL. </span></span>
+<span id="cb29-8"><a href="ui.html#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param image_dir A directory for any images. Default = NULL.</span></span>
+<span id="cb29-9"><a href="ui.html#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param includegoi A Boolean stating whether to include result count table for selected genes. </span></span>
+<span id="cb29-10"><a href="ui.html#cb29-10" aria-hidden="true" tabindex="-1"></a>shinypageUI <span class="ot">&lt;-</span> <span class="cf">function</span>(id, datasetTitle, <span class="at">includedeg =</span> <span class="cn">FALSE</span>, <span class="at">volc_title =</span> <span class="cn">NULL</span>,</span>
+<span id="cb29-11"><a href="ui.html#cb29-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">include_subtype =</span> <span class="cn">FALSE</span>, <span class="at">des_dir =</span> <span class="cn">NULL</span>, <span class="at">image_dir =</span> <span class="cn">NULL</span>, <span class="at">includegoi =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb29-12"><a href="ui.html#cb29-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">include_count =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb29-13"><a href="ui.html#cb29-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-14"><a href="ui.html#cb29-14" aria-hidden="true" tabindex="-1"></a>  shiny<span class="sc">::</span><span class="fu">fluidPage</span>(</span>
+<span id="cb29-15"><a href="ui.html#cb29-15" aria-hidden="true" tabindex="-1"></a>    shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
+<span id="cb29-16"><a href="ui.html#cb29-16" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Description for dataset </span></span>
+<span id="cb29-17"><a href="ui.html#cb29-17" aria-hidden="true" tabindex="-1"></a>      shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">title =</span> datasetTitle,</span>
+<span id="cb29-18"><a href="ui.html#cb29-18" aria-hidden="true" tabindex="-1"></a>                          <span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb29-19"><a href="ui.html#cb29-19" aria-hidden="true" tabindex="-1"></a>                          <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb29-20"><a href="ui.html#cb29-20" aria-hidden="true" tabindex="-1"></a>                          <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-21"><a href="ui.html#cb29-21" aria-hidden="true" tabindex="-1"></a>                          <span class="cf">if</span> (<span class="fu">is.null</span>(des_dir) <span class="sc">==</span> <span class="cn">FALSE</span>) {<span class="fu">includeHTML</span>(des_dir)}, <span class="do">## links description files</span></span>
+<span id="cb29-22"><a href="ui.html#cb29-22" aria-hidden="true" tabindex="-1"></a>                          <span class="cf">if</span> (<span class="fu">is.null</span>(image_dir) <span class="sc">==</span> <span class="cn">FALSE</span>) {<span class="fu">img</span>(<span class="at">src =</span> image_dir, <span class="at">height =</span> <span class="dv">150</span>, <span class="at">width =</span> <span class="dv">400</span>)}</span>
+<span id="cb29-23"><a href="ui.html#cb29-23" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb29-24"><a href="ui.html#cb29-24" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb29-25"><a href="ui.html#cb29-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-26"><a href="ui.html#cb29-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">br</span>(), </span>
+<span id="cb29-27"><a href="ui.html#cb29-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-28"><a href="ui.html#cb29-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># buttons </span></span>
+<span id="cb29-29"><a href="ui.html#cb29-29" aria-hidden="true" tabindex="-1"></a>    shiny<span class="sc">::</span><span class="fu">actionButton</span>(<span class="fu">NS</span>(id, <span class="st">&quot;load&quot;</span>), <span class="st">&quot;Plot Graphs&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;play-circle&quot;</span>)),</span>
+<span id="cb29-30"><a href="ui.html#cb29-30" aria-hidden="true" tabindex="-1"></a>    shiny<span class="sc">::</span><span class="fu">downloadButton</span>(<span class="fu">NS</span>(id,<span class="st">&quot;report&quot;</span>), <span class="st">&quot;Generate Code&quot;</span>),</span>
+<span id="cb29-31"><a href="ui.html#cb29-31" aria-hidden="true" tabindex="-1"></a>    shiny<span class="sc">::</span><span class="fu">downloadButton</span>(<span class="fu">NS</span>(id,<span class="st">&quot;plots&quot;</span>), <span class="st">&quot;Download Data&quot;</span>),</span>
+<span id="cb29-32"><a href="ui.html#cb29-32" aria-hidden="true" tabindex="-1"></a>    shiny<span class="sc">::</span><span class="fu">helpText</span>(<span class="fu">em</span>(<span class="st">&quot;Load data before plotting.&quot;</span>)),</span>
+<span id="cb29-33"><a href="ui.html#cb29-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-34"><a href="ui.html#cb29-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plots using count data </span></span>
+<span id="cb29-35"><a href="ui.html#cb29-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (include_count <span class="sc">==</span> <span class="cn">TRUE</span>){</span>
+<span id="cb29-36"><a href="ui.html#cb29-36" aria-hidden="true" tabindex="-1"></a>      shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
+<span id="cb29-37"><a href="ui.html#cb29-37" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb29-38"><a href="ui.html#cb29-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># gene expression dotplot </span></span>
+<span id="cb29-39"><a href="ui.html#cb29-39" aria-hidden="true" tabindex="-1"></a>        shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">title =</span> <span class="st">&quot;Control&quot;</span>, <span class="do">## change title </span></span>
+<span id="cb29-40"><a href="ui.html#cb29-40" aria-hidden="true" tabindex="-1"></a>                            <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb29-41"><a href="ui.html#cb29-41" aria-hidden="true" tabindex="-1"></a>                            <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-42"><a href="ui.html#cb29-42" aria-hidden="true" tabindex="-1"></a>                            plotly<span class="sc">::</span><span class="fu">plotlyOutput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;bulkseq_dots&quot;</span>)),</span>
+<span id="cb29-43"><a href="ui.html#cb29-43" aria-hidden="true" tabindex="-1"></a>                            <span class="at">height =</span> <span class="st">&quot;36em&quot;</span></span>
+<span id="cb29-44"><a href="ui.html#cb29-44" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb29-45"><a href="ui.html#cb29-45" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb29-46"><a href="ui.html#cb29-46" aria-hidden="true" tabindex="-1"></a>        <span class="co"># line plot showing differential expression in different treatment groups</span></span>
+<span id="cb29-47"><a href="ui.html#cb29-47" aria-hidden="true" tabindex="-1"></a>        shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">title =</span> <span class="st">&quot;Condition&quot;</span>, <span class="do">## change title </span></span>
+<span id="cb29-48"><a href="ui.html#cb29-48" aria-hidden="true" tabindex="-1"></a>                            <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>, <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-49"><a href="ui.html#cb29-49" aria-hidden="true" tabindex="-1"></a>                            shiny<span class="sc">::</span><span class="fu">plotOutput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;bulkseq_lines&quot;</span>)),</span>
+<span id="cb29-50"><a href="ui.html#cb29-50" aria-hidden="true" tabindex="-1"></a>                            <span class="at">height =</span> <span class="st">&quot;36em&quot;</span></span>
+<span id="cb29-51"><a href="ui.html#cb29-51" aria-hidden="true" tabindex="-1"></a>        ), <span class="fu">br</span>(), <span class="fu">br</span>()</span>
+<span id="cb29-52"><a href="ui.html#cb29-52" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb29-53"><a href="ui.html#cb29-53" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb29-54"><a href="ui.html#cb29-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">br</span>(),</span>
+<span id="cb29-55"><a href="ui.html#cb29-55" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-56"><a href="ui.html#cb29-56" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plots for experiments which divide samples into different groups e.g. different cell subtypes </span></span>
+<span id="cb29-57"><a href="ui.html#cb29-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (include_subtype <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb29-58"><a href="ui.html#cb29-58" aria-hidden="true" tabindex="-1"></a>      <span class="co"># line plots showing differential gene expression in different experiment groups in response to treatment </span></span>
+<span id="cb29-59"><a href="ui.html#cb29-59" aria-hidden="true" tabindex="-1"></a>      shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
+<span id="cb29-60"><a href="ui.html#cb29-60" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb29-61"><a href="ui.html#cb29-61" aria-hidden="true" tabindex="-1"></a>                              <span class="at">title =</span> <span class="st">&quot;Subtype Results&quot;</span>, <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb29-62"><a href="ui.html#cb29-62" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-63"><a href="ui.html#cb29-63" aria-hidden="true" tabindex="-1"></a>                              shiny<span class="sc">::</span><span class="fu">plotOutput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;bulkseq_lines_subtype&quot;</span>))</span>
+<span id="cb29-64"><a href="ui.html#cb29-64" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb29-65"><a href="ui.html#cb29-65" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb29-66"><a href="ui.html#cb29-66" aria-hidden="true" tabindex="-1"></a>    },<span class="fu">br</span>(),</span>
+<span id="cb29-67"><a href="ui.html#cb29-67" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-68"><a href="ui.html#cb29-68" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plots using differential expression data </span></span>
+<span id="cb29-69"><a href="ui.html#cb29-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (includedeg <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb29-70"><a href="ui.html#cb29-70" aria-hidden="true" tabindex="-1"></a>      shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
+<span id="cb29-71"><a href="ui.html#cb29-71" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb29-72"><a href="ui.html#cb29-72" aria-hidden="true" tabindex="-1"></a>        shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">6</span>,</span>
+<span id="cb29-73"><a href="ui.html#cb29-73" aria-hidden="true" tabindex="-1"></a>                            <span class="at">title =</span> <span class="st">&quot;Differential Gene Analysis&quot;</span>,</span>
+<span id="cb29-74"><a href="ui.html#cb29-74" aria-hidden="true" tabindex="-1"></a>                            <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb29-75"><a href="ui.html#cb29-75" aria-hidden="true" tabindex="-1"></a>                            <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-76"><a href="ui.html#cb29-76" aria-hidden="true" tabindex="-1"></a>                            plotly<span class="sc">::</span><span class="fu">plotlyOutput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;deg_plot&quot;</span>)),</span>
+<span id="cb29-77"><a href="ui.html#cb29-77" aria-hidden="true" tabindex="-1"></a>                            </span>
+<span id="cb29-78"><a href="ui.html#cb29-78" aria-hidden="true" tabindex="-1"></a>                            <span class="at">height =</span> <span class="st">&quot;38em&quot;</span>),</span>
+<span id="cb29-79"><a href="ui.html#cb29-79" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb29-80"><a href="ui.html#cb29-80" aria-hidden="true" tabindex="-1"></a>        <span class="co"># volcano plots </span></span>
+<span id="cb29-81"><a href="ui.html#cb29-81" aria-hidden="true" tabindex="-1"></a>        shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">6</span>,</span>
+<span id="cb29-82"><a href="ui.html#cb29-82" aria-hidden="true" tabindex="-1"></a>                            <span class="at">title =</span> volc_title, <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb29-83"><a href="ui.html#cb29-83" aria-hidden="true" tabindex="-1"></a>                            <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-84"><a href="ui.html#cb29-84" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">actionButton</span>(<span class="fu">NS</span>(id, <span class="st">&quot;plotvolc&quot;</span>), <span class="st">&quot;Plot Volcano Graphs&quot;</span>),</span>
+<span id="cb29-85"><a href="ui.html#cb29-85" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">selectInput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;volc_pop&quot;</span>), <span class="st">&quot;&quot;</span>,</span>
+<span id="cb29-86"><a href="ui.html#cb29-86" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">choices =</span> <span class="cn">NULL</span>,</span>
+<span id="cb29-87"><a href="ui.html#cb29-87" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">selected =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb29-88"><a href="ui.html#cb29-88" aria-hidden="true" tabindex="-1"></a>                            shiny<span class="sc">::</span><span class="fu">plotOutput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;volcanoplot&quot;</span>), <span class="at">height =</span> <span class="st">&quot;26em&quot;</span>), <span class="at">height =</span> <span class="st">&quot;38em&quot;</span></span>
+<span id="cb29-89"><a href="ui.html#cb29-89" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb29-90"><a href="ui.html#cb29-90" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb29-91"><a href="ui.html#cb29-91" aria-hidden="true" tabindex="-1"></a>    },<span class="fu">br</span>(),</span>
+<span id="cb29-92"><a href="ui.html#cb29-92" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-93"><a href="ui.html#cb29-93" aria-hidden="true" tabindex="-1"></a>    <span class="co"># for displaying count data for genes selected </span></span>
+<span id="cb29-94"><a href="ui.html#cb29-94" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(includegoi <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb29-95"><a href="ui.html#cb29-95" aria-hidden="true" tabindex="-1"></a>      shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
+<span id="cb29-96"><a href="ui.html#cb29-96" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(</span>
+<span id="cb29-97"><a href="ui.html#cb29-97" aria-hidden="true" tabindex="-1"></a>            <span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb29-98"><a href="ui.html#cb29-98" aria-hidden="true" tabindex="-1"></a>            <span class="at">title =</span> <span class="st">&quot;Result Table&quot;</span>,</span>
+<span id="cb29-99"><a href="ui.html#cb29-99" aria-hidden="true" tabindex="-1"></a>            <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb29-100"><a href="ui.html#cb29-100" aria-hidden="true" tabindex="-1"></a>            <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-101"><a href="ui.html#cb29-101" aria-hidden="true" tabindex="-1"></a>            DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="fu">NS</span>(id,<span class="st">&quot;goi_table&quot;</span>))</span>
+<span id="cb29-102"><a href="ui.html#cb29-102" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb29-103"><a href="ui.html#cb29-103" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb29-104"><a href="ui.html#cb29-104" aria-hidden="true" tabindex="-1"></a>    },<span class="fu">br</span>(),</span>
+<span id="cb29-105"><a href="ui.html#cb29-105" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-106"><a href="ui.html#cb29-106" aria-hidden="true" tabindex="-1"></a>    <span class="co"># for displaying differential expression data </span></span>
+<span id="cb29-107"><a href="ui.html#cb29-107" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(includedeg <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb29-108"><a href="ui.html#cb29-108" aria-hidden="true" tabindex="-1"></a>      shiny<span class="sc">::</span><span class="fu">fluidRow</span>(</span>
+<span id="cb29-109"><a href="ui.html#cb29-109" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb29-110"><a href="ui.html#cb29-110" aria-hidden="true" tabindex="-1"></a>                              <span class="at">title =</span> <span class="st">&quot;Differential Analysis Table&quot;</span>,</span>
+<span id="cb29-111"><a href="ui.html#cb29-111" aria-hidden="true" tabindex="-1"></a>                              <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb29-112"><a href="ui.html#cb29-112" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-113"><a href="ui.html#cb29-113" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">selectInput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;contrast&quot;</span>), <span class="st">&quot;&quot;</span>,</span>
+<span id="cb29-114"><a href="ui.html#cb29-114" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">choices =</span> <span class="cn">NULL</span>,</span>
+<span id="cb29-115"><a href="ui.html#cb29-115" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">selected =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb29-116"><a href="ui.html#cb29-116" aria-hidden="true" tabindex="-1"></a>                              DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="fu">NS</span>(id, <span class="st">&quot;contrast_table&quot;</span>))</span>
+<span id="cb29-117"><a href="ui.html#cb29-117" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb29-118"><a href="ui.html#cb29-118" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-119"><a href="ui.html#cb29-119" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb29-120"><a href="ui.html#cb29-120" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb29-121"><a href="ui.html#cb29-121" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><img src="data/Images/indiv.png" width="3453" /></p>
 </div>
 <div id="network-page" class="section level3 hasAnchor" number="3.4.4">
@@ -578,87 +578,87 @@ img
 <p>We also provide an option for basic network analyses. The network tab contains a description box, a gene search bar, a network, a result table containing differential expression values, and a table containing information for datasets from RNA-seq and microarray studies.</p>
 <p>On the server-side, this network is generated from STRING DB and reconstructed with <code>visNetwork</code>. In this app, users can also colour/annotate the network based on experimental results.</p>
 <p><img src="data/Images/network.png" width="3312" /></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="ui.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># UI for the network page</span></span>
-<span id="cb25-2"><a href="ui.html#cb25-2" aria-hidden="true" tabindex="-1"></a>shinydashboard<span class="sc">::</span><span class="fu">tabItem</span>(<span class="at">tabName =</span> <span class="st">&quot;tabnet&quot;</span>,</span>
-<span id="cb25-3"><a href="ui.html#cb25-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="cb25-4"><a href="ui.html#cb25-4" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">title =</span> <span class="st">&quot;Network Analysis&quot;</span>, <span class="do">## modify title as needed</span></span>
-<span id="cb25-5"><a href="ui.html#cb25-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="cb25-6"><a href="ui.html#cb25-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb25-7"><a href="ui.html#cb25-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb25-8"><a href="ui.html#cb25-8" aria-hidden="true" tabindex="-1"></a>                              </span>
-<span id="cb25-9"><a href="ui.html#cb25-9" aria-hidden="true" tabindex="-1"></a>                              <span class="do">## insert description files </span></span>
-<span id="cb25-10"><a href="ui.html#cb25-10" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">includeHTML</span>(<span class="st">&quot;des/network.Rhtml&quot;</span>)</span>
-<span id="cb25-11"><a href="ui.html#cb25-11" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="cb25-12"><a href="ui.html#cb25-12" aria-hidden="true" tabindex="-1"></a>        ),<span class="fu">br</span>(),</span>
-<span id="cb25-13"><a href="ui.html#cb25-13" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb25-14"><a href="ui.html#cb25-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># gene search bar and filter bar </span></span>
-<span id="cb25-15"><a href="ui.html#cb25-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="cb25-16"><a href="ui.html#cb25-16" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">3</span>,</span>
-<span id="cb25-17"><a href="ui.html#cb25-17" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">selectizeInput</span>(</span>
-<span id="cb25-18"><a href="ui.html#cb25-18" aria-hidden="true" tabindex="-1"></a>                   <span class="at">inputId =</span> <span class="st">&quot;gene_symbols&quot;</span>,</span>
-<span id="cb25-19"><a href="ui.html#cb25-19" aria-hidden="true" tabindex="-1"></a>                   <span class="at">label =</span> <span class="st">&quot;Enter Query Gene Symbols:&quot;</span>,</span>
-<span id="cb25-20"><a href="ui.html#cb25-20" aria-hidden="true" tabindex="-1"></a>                   <span class="at">multiple =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb25-21"><a href="ui.html#cb25-21" aria-hidden="true" tabindex="-1"></a>                   <span class="at">choices =</span> <span class="cn">NULL</span></span>
-<span id="cb25-22"><a href="ui.html#cb25-22" aria-hidden="true" tabindex="-1"></a>                 )</span>
-<span id="cb25-23"><a href="ui.html#cb25-23" aria-hidden="true" tabindex="-1"></a>          ),</span>
-<span id="cb25-24"><a href="ui.html#cb25-24" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">3</span>,</span>
-<span id="cb25-25"><a href="ui.html#cb25-25" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">selectInput</span>(<span class="st">&quot;pop&quot;</span>, <span class="st">&quot;Select Experiment:&quot;</span>,</span>
-<span id="cb25-26"><a href="ui.html#cb25-26" aria-hidden="true" tabindex="-1"></a>                             </span>
-<span id="cb25-27"><a href="ui.html#cb25-27" aria-hidden="true" tabindex="-1"></a>                             <span class="do">## customize choices of datasets for different modes of annotation </span></span>
-<span id="cb25-28"><a href="ui.html#cb25-28" aria-hidden="true" tabindex="-1"></a>                             <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;Pain Enrichment Score&quot;</span>, <span class="fu">unique</span>(data<span class="sc">$</span>experiment_id)),</span>
-<span id="cb25-29"><a href="ui.html#cb25-29" aria-hidden="true" tabindex="-1"></a>                             <span class="at">selected =</span> <span class="st">&quot;Diabetes&quot;</span>) <span class="do">## choose one of your datasets</span></span>
-<span id="cb25-30"><a href="ui.html#cb25-30" aria-hidden="true" tabindex="-1"></a>                 </span>
-<span id="cb25-31"><a href="ui.html#cb25-31" aria-hidden="true" tabindex="-1"></a>          ),</span>
-<span id="cb25-32"><a href="ui.html#cb25-32" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">3</span>,<span class="fu">br</span>(),</span>
-<span id="cb25-33"><a href="ui.html#cb25-33" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">actionButton</span>(<span class="st">&quot;submit&quot;</span>, <span class="st">&quot;Construct Network&quot;</span>)), <span class="at">style =</span> <span class="st">&quot;margin-top:20px;&quot;</span></span>
-<span id="cb25-34"><a href="ui.html#cb25-34" aria-hidden="true" tabindex="-1"></a>        ), </span>
-<span id="cb25-35"><a href="ui.html#cb25-35" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb25-36"><a href="ui.html#cb25-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># render network </span></span>
-<span id="cb25-37"><a href="ui.html#cb25-37" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="cb25-38"><a href="ui.html#cb25-38" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>, <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb25-39"><a href="ui.html#cb25-39" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>, <span class="at">title =</span> <span class="st">&quot;Network&quot;</span>,</span>
-<span id="cb25-40"><a href="ui.html#cb25-40" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">10</span>,</span>
-<span id="cb25-41"><a href="ui.html#cb25-41" aria-hidden="true" tabindex="-1"></a>                                     visNetwork<span class="sc">::</span><span class="fu">visNetworkOutput</span>(<span class="st">&quot;network&quot;</span>, <span class="at">height =</span> <span class="st">&quot;435px&quot;</span>)</span>
-<span id="cb25-42"><a href="ui.html#cb25-42" aria-hidden="true" tabindex="-1"></a>                              ), <span class="at">height =</span> <span class="st">&quot;38em&quot;</span>,</span>
-<span id="cb25-43"><a href="ui.html#cb25-43" aria-hidden="true" tabindex="-1"></a>                              </span>
-<span id="cb25-44"><a href="ui.html#cb25-44" aria-hidden="true" tabindex="-1"></a>                              <span class="co"># legends</span></span>
-<span id="cb25-45"><a href="ui.html#cb25-45" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">2</span>,</span>
-<span id="cb25-46"><a href="ui.html#cb25-46" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">uiOutput</span>(<span class="st">&quot;netlegend&quot;</span>)</span>
-<span id="cb25-47"><a href="ui.html#cb25-47" aria-hidden="true" tabindex="-1"></a>                              )</span>
-<span id="cb25-48"><a href="ui.html#cb25-48" aria-hidden="true" tabindex="-1"></a>                              </span>
-<span id="cb25-49"><a href="ui.html#cb25-49" aria-hidden="true" tabindex="-1"></a>          ),</span>
-<span id="cb25-50"><a href="ui.html#cb25-50" aria-hidden="true" tabindex="-1"></a>        ), <span class="fu">br</span>(),</span>
-<span id="cb25-51"><a href="ui.html#cb25-51" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb25-52"><a href="ui.html#cb25-52" aria-hidden="true" tabindex="-1"></a>        <span class="co"># result table </span></span>
-<span id="cb25-53"><a href="ui.html#cb25-53" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="cb25-54"><a href="ui.html#cb25-54" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>, <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb25-55"><a href="ui.html#cb25-55" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>, <span class="at">title =</span> <span class="st">&quot;Result Table&quot;</span>,</span>
-<span id="cb25-56"><a href="ui.html#cb25-56" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">tabsetPanel</span>(</span>
-<span id="cb25-57"><a href="ui.html#cb25-57" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">tabPanel</span>( <span class="st">&quot;DEG Table&quot;</span>,</span>
-<span id="cb25-58"><a href="ui.html#cb25-58" aria-hidden="true" tabindex="-1"></a>                                          DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;contrast_table&quot;</span>)</span>
-<span id="cb25-59"><a href="ui.html#cb25-59" aria-hidden="true" tabindex="-1"></a>                                ),</span>
-<span id="cb25-60"><a href="ui.html#cb25-60" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">tabPanel</span>(<span class="st">&quot;Nodes&quot;</span>,</span>
-<span id="cb25-61"><a href="ui.html#cb25-61" aria-hidden="true" tabindex="-1"></a>                                         DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;protein_table&quot;</span>)</span>
-<span id="cb25-62"><a href="ui.html#cb25-62" aria-hidden="true" tabindex="-1"></a>                                )</span>
-<span id="cb25-63"><a href="ui.html#cb25-63" aria-hidden="true" tabindex="-1"></a>                              ),</span>
-<span id="cb25-64"><a href="ui.html#cb25-64" aria-hidden="true" tabindex="-1"></a>                              <span class="at">height =</span> <span class="st">&quot;38em&quot;</span></span>
-<span id="cb25-65"><a href="ui.html#cb25-65" aria-hidden="true" tabindex="-1"></a>          )</span>
-<span id="cb25-66"><a href="ui.html#cb25-66" aria-hidden="true" tabindex="-1"></a>        ),<span class="fu">br</span>(),</span>
-<span id="cb25-67"><a href="ui.html#cb25-67" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb25-68"><a href="ui.html#cb25-68" aria-hidden="true" tabindex="-1"></a>        <span class="co"># a table containing descriptions of experiments involved, their methods and treatment groups</span></span>
-<span id="cb25-69"><a href="ui.html#cb25-69" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
-<span id="cb25-70"><a href="ui.html#cb25-70" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
-<span id="cb25-71"><a href="ui.html#cb25-71" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb25-72"><a href="ui.html#cb25-72" aria-hidden="true" tabindex="-1"></a>                              <span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="cb25-73"><a href="ui.html#cb25-73" aria-hidden="true" tabindex="-1"></a>                              <span class="at">title =</span> <span class="st">&quot;Datasets&quot;</span>,</span>
-<span id="cb25-74"><a href="ui.html#cb25-74" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">12</span>,</span>
-<span id="cb25-75"><a href="ui.html#cb25-75" aria-hidden="true" tabindex="-1"></a>                                     </span>
-<span id="cb25-76"><a href="ui.html#cb25-76" aria-hidden="true" tabindex="-1"></a>                                     <span class="do">## Insert table html files </span></span>
-<span id="cb25-77"><a href="ui.html#cb25-77" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">includeHTML</span>(<span class="st">&quot;des/datatable.html&quot;</span>)</span>
-<span id="cb25-78"><a href="ui.html#cb25-78" aria-hidden="true" tabindex="-1"></a>                              ),</span>
-<span id="cb25-79"><a href="ui.html#cb25-79" aria-hidden="true" tabindex="-1"></a>                              <span class="at">collapsible =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb25-80"><a href="ui.html#cb25-80" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb25-81"><a href="ui.html#cb25-81" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="ui.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># UI for the network page</span></span>
+<span id="cb30-2"><a href="ui.html#cb30-2" aria-hidden="true" tabindex="-1"></a>shinydashboard<span class="sc">::</span><span class="fu">tabItem</span>(<span class="at">tabName =</span> <span class="st">&quot;tabnet&quot;</span>,</span>
+<span id="cb30-3"><a href="ui.html#cb30-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="cb30-4"><a href="ui.html#cb30-4" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">title =</span> <span class="st">&quot;Network Analysis&quot;</span>, <span class="do">## modify title as needed</span></span>
+<span id="cb30-5"><a href="ui.html#cb30-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb30-6"><a href="ui.html#cb30-6" aria-hidden="true" tabindex="-1"></a>                              <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb30-7"><a href="ui.html#cb30-7" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb30-8"><a href="ui.html#cb30-8" aria-hidden="true" tabindex="-1"></a>                              </span>
+<span id="cb30-9"><a href="ui.html#cb30-9" aria-hidden="true" tabindex="-1"></a>                              <span class="do">## insert description files </span></span>
+<span id="cb30-10"><a href="ui.html#cb30-10" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">includeHTML</span>(<span class="st">&quot;des/network.Rhtml&quot;</span>)</span>
+<span id="cb30-11"><a href="ui.html#cb30-11" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb30-12"><a href="ui.html#cb30-12" aria-hidden="true" tabindex="-1"></a>        ),<span class="fu">br</span>(),</span>
+<span id="cb30-13"><a href="ui.html#cb30-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb30-14"><a href="ui.html#cb30-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># gene search bar and filter bar </span></span>
+<span id="cb30-15"><a href="ui.html#cb30-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="cb30-16"><a href="ui.html#cb30-16" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">3</span>,</span>
+<span id="cb30-17"><a href="ui.html#cb30-17" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">selectizeInput</span>(</span>
+<span id="cb30-18"><a href="ui.html#cb30-18" aria-hidden="true" tabindex="-1"></a>                   <span class="at">inputId =</span> <span class="st">&quot;gene_symbols&quot;</span>,</span>
+<span id="cb30-19"><a href="ui.html#cb30-19" aria-hidden="true" tabindex="-1"></a>                   <span class="at">label =</span> <span class="st">&quot;Enter Query Gene Symbols:&quot;</span>,</span>
+<span id="cb30-20"><a href="ui.html#cb30-20" aria-hidden="true" tabindex="-1"></a>                   <span class="at">multiple =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb30-21"><a href="ui.html#cb30-21" aria-hidden="true" tabindex="-1"></a>                   <span class="at">choices =</span> <span class="cn">NULL</span></span>
+<span id="cb30-22"><a href="ui.html#cb30-22" aria-hidden="true" tabindex="-1"></a>                 )</span>
+<span id="cb30-23"><a href="ui.html#cb30-23" aria-hidden="true" tabindex="-1"></a>          ),</span>
+<span id="cb30-24"><a href="ui.html#cb30-24" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">3</span>,</span>
+<span id="cb30-25"><a href="ui.html#cb30-25" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">selectInput</span>(<span class="st">&quot;pop&quot;</span>, <span class="st">&quot;Select Experiment:&quot;</span>,</span>
+<span id="cb30-26"><a href="ui.html#cb30-26" aria-hidden="true" tabindex="-1"></a>                             </span>
+<span id="cb30-27"><a href="ui.html#cb30-27" aria-hidden="true" tabindex="-1"></a>                             <span class="do">## customize choices of datasets for different modes of annotation </span></span>
+<span id="cb30-28"><a href="ui.html#cb30-28" aria-hidden="true" tabindex="-1"></a>                             <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;Pain Enrichment Score&quot;</span>, <span class="fu">unique</span>(data<span class="sc">$</span>experiment_id)),</span>
+<span id="cb30-29"><a href="ui.html#cb30-29" aria-hidden="true" tabindex="-1"></a>                             <span class="at">selected =</span> <span class="st">&quot;Diabetes&quot;</span>) <span class="do">## choose one of your datasets</span></span>
+<span id="cb30-30"><a href="ui.html#cb30-30" aria-hidden="true" tabindex="-1"></a>                 </span>
+<span id="cb30-31"><a href="ui.html#cb30-31" aria-hidden="true" tabindex="-1"></a>          ),</span>
+<span id="cb30-32"><a href="ui.html#cb30-32" aria-hidden="true" tabindex="-1"></a>          <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">3</span>,<span class="fu">br</span>(),</span>
+<span id="cb30-33"><a href="ui.html#cb30-33" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">actionButton</span>(<span class="st">&quot;submit&quot;</span>, <span class="st">&quot;Construct Network&quot;</span>)), <span class="at">style =</span> <span class="st">&quot;margin-top:20px;&quot;</span></span>
+<span id="cb30-34"><a href="ui.html#cb30-34" aria-hidden="true" tabindex="-1"></a>        ), </span>
+<span id="cb30-35"><a href="ui.html#cb30-35" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb30-36"><a href="ui.html#cb30-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># render network </span></span>
+<span id="cb30-37"><a href="ui.html#cb30-37" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="cb30-38"><a href="ui.html#cb30-38" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>, <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb30-39"><a href="ui.html#cb30-39" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>, <span class="at">title =</span> <span class="st">&quot;Network&quot;</span>,</span>
+<span id="cb30-40"><a href="ui.html#cb30-40" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">10</span>,</span>
+<span id="cb30-41"><a href="ui.html#cb30-41" aria-hidden="true" tabindex="-1"></a>                                     visNetwork<span class="sc">::</span><span class="fu">visNetworkOutput</span>(<span class="st">&quot;network&quot;</span>, <span class="at">height =</span> <span class="st">&quot;435px&quot;</span>)</span>
+<span id="cb30-42"><a href="ui.html#cb30-42" aria-hidden="true" tabindex="-1"></a>                              ), <span class="at">height =</span> <span class="st">&quot;38em&quot;</span>,</span>
+<span id="cb30-43"><a href="ui.html#cb30-43" aria-hidden="true" tabindex="-1"></a>                              </span>
+<span id="cb30-44"><a href="ui.html#cb30-44" aria-hidden="true" tabindex="-1"></a>                              <span class="co"># legends</span></span>
+<span id="cb30-45"><a href="ui.html#cb30-45" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">2</span>,</span>
+<span id="cb30-46"><a href="ui.html#cb30-46" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">uiOutput</span>(<span class="st">&quot;netlegend&quot;</span>)</span>
+<span id="cb30-47"><a href="ui.html#cb30-47" aria-hidden="true" tabindex="-1"></a>                              )</span>
+<span id="cb30-48"><a href="ui.html#cb30-48" aria-hidden="true" tabindex="-1"></a>                              </span>
+<span id="cb30-49"><a href="ui.html#cb30-49" aria-hidden="true" tabindex="-1"></a>          ),</span>
+<span id="cb30-50"><a href="ui.html#cb30-50" aria-hidden="true" tabindex="-1"></a>        ), <span class="fu">br</span>(),</span>
+<span id="cb30-51"><a href="ui.html#cb30-51" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb30-52"><a href="ui.html#cb30-52" aria-hidden="true" tabindex="-1"></a>        <span class="co"># result table </span></span>
+<span id="cb30-53"><a href="ui.html#cb30-53" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="cb30-54"><a href="ui.html#cb30-54" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">width =</span> <span class="dv">12</span>, <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb30-55"><a href="ui.html#cb30-55" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>, <span class="at">title =</span> <span class="st">&quot;Result Table&quot;</span>,</span>
+<span id="cb30-56"><a href="ui.html#cb30-56" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">tabsetPanel</span>(</span>
+<span id="cb30-57"><a href="ui.html#cb30-57" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">tabPanel</span>( <span class="st">&quot;DEG Table&quot;</span>,</span>
+<span id="cb30-58"><a href="ui.html#cb30-58" aria-hidden="true" tabindex="-1"></a>                                          DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;contrast_table&quot;</span>)</span>
+<span id="cb30-59"><a href="ui.html#cb30-59" aria-hidden="true" tabindex="-1"></a>                                ),</span>
+<span id="cb30-60"><a href="ui.html#cb30-60" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">tabPanel</span>(<span class="st">&quot;Nodes&quot;</span>,</span>
+<span id="cb30-61"><a href="ui.html#cb30-61" aria-hidden="true" tabindex="-1"></a>                                         DT<span class="sc">::</span><span class="fu">dataTableOutput</span>(<span class="st">&quot;protein_table&quot;</span>)</span>
+<span id="cb30-62"><a href="ui.html#cb30-62" aria-hidden="true" tabindex="-1"></a>                                )</span>
+<span id="cb30-63"><a href="ui.html#cb30-63" aria-hidden="true" tabindex="-1"></a>                              ),</span>
+<span id="cb30-64"><a href="ui.html#cb30-64" aria-hidden="true" tabindex="-1"></a>                              <span class="at">height =</span> <span class="st">&quot;38em&quot;</span></span>
+<span id="cb30-65"><a href="ui.html#cb30-65" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb30-66"><a href="ui.html#cb30-66" aria-hidden="true" tabindex="-1"></a>        ),<span class="fu">br</span>(),</span>
+<span id="cb30-67"><a href="ui.html#cb30-67" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb30-68"><a href="ui.html#cb30-68" aria-hidden="true" tabindex="-1"></a>        <span class="co"># a table containing descriptions of experiments involved, their methods and treatment groups</span></span>
+<span id="cb30-69"><a href="ui.html#cb30-69" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(</span>
+<span id="cb30-70"><a href="ui.html#cb30-70" aria-hidden="true" tabindex="-1"></a>          shinydashboard<span class="sc">::</span><span class="fu">box</span>(<span class="at">status =</span> <span class="st">&quot;primary&quot;</span>,</span>
+<span id="cb30-71"><a href="ui.html#cb30-71" aria-hidden="true" tabindex="-1"></a>                              <span class="at">solidHeader =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb30-72"><a href="ui.html#cb30-72" aria-hidden="true" tabindex="-1"></a>                              <span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb30-73"><a href="ui.html#cb30-73" aria-hidden="true" tabindex="-1"></a>                              <span class="at">title =</span> <span class="st">&quot;Datasets&quot;</span>,</span>
+<span id="cb30-74"><a href="ui.html#cb30-74" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">column</span>(<span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb30-75"><a href="ui.html#cb30-75" aria-hidden="true" tabindex="-1"></a>                                     </span>
+<span id="cb30-76"><a href="ui.html#cb30-76" aria-hidden="true" tabindex="-1"></a>                                     <span class="do">## Insert table html files </span></span>
+<span id="cb30-77"><a href="ui.html#cb30-77" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">includeHTML</span>(<span class="st">&quot;des/datatable.html&quot;</span>)</span>
+<span id="cb30-78"><a href="ui.html#cb30-78" aria-hidden="true" tabindex="-1"></a>                              ),</span>
+<span id="cb30-79"><a href="ui.html#cb30-79" aria-hidden="true" tabindex="-1"></a>                              <span class="at">collapsible =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-80"><a href="ui.html#cb30-80" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb30-81"><a href="ui.html#cb30-81" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 
 </div>
 </div>
