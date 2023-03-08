@@ -23,7 +23,7 @@
 <meta name="author" content="AMB and NZ" />
 
 
-<meta name="date" content="2023-03-03" />
+<meta name="date" content="2023-03-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -236,8 +236,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.1</span> Package installation<a href="trouble.html#package-installation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Most packages are installed from CRAN using <code>install.packages</code> or bioconductor using <code>BiocManager::install()</code>. Make sure to also install dependencies, and check to see which functions are masked by other packages if you change the order of loading libraries.</p>
 <p>Some require installation from github, using <code>devtools</code>. For example, <code>dict</code> installation:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="trouble.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;devtools&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
-<span id="cb49-2"><a href="trouble.html#cb49-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;mkuhn/dict&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="trouble.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;devtools&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
+<span id="cb48-2"><a href="trouble.html#cb48-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;mkuhn/dict&quot;</span>)</span></code></pre></div>
 <p>If you are using Windows and struggling with compilation, make sure <code>RTools</code> is installed properly (<a href="https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html" class="uri">https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html</a>). If you don’t have write permissions to update packages, this may require administrator access.</p>
 </div>
 <div id="file-setup" class="section level2 hasAnchor" number="6.2">
@@ -248,55 +248,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.3</span> Styling<a href="trouble.html#styling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If you are using a style sheet (<code>style.css</code>), first make sure it’s in the correct repository. Are default options from <code>Shiny</code> overriding the options in your style sheet? Check options for each function. For more help, see
 <a href="https://shiny.rstudio.com/articles/css.html" class="uri">https://shiny.rstudio.com/articles/css.html</a>.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="trouble.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example fluidRow</span></span>
-<span id="cb50-2"><a href="trouble.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tabItem</span>(<span class="at">tabName =</span> tabName,</span>
-<span id="cb50-3"><a href="trouble.html#cb50-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(<span class="fu">box</span>(<span class="at">title =</span> datasetTitle,</span>
-<span id="cb50-4"><a href="trouble.html#cb50-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>, <span class="co"># these with affect styling</span></span>
-<span id="cb50-5"><a href="trouble.html#cb50-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">solidHeader =</span> <span class="cn">TRUE</span>, <span class="co"># these with affect styling</span></span>
-<span id="cb50-6"><a href="trouble.html#cb50-6" aria-hidden="true" tabindex="-1"></a>                     <span class="cf">if</span> (<span class="fu">is.null</span>(des_dir) <span class="sc">==</span> <span class="cn">FALSE</span>) {<span class="fu">includeHTML</span>(des_dir)},</span>
-<span id="cb50-7"><a href="trouble.html#cb50-7" aria-hidden="true" tabindex="-1"></a>                     <span class="cf">if</span> (<span class="fu">is.null</span>(image_dir) <span class="sc">==</span> <span class="cn">FALSE</span>) {<span class="fu">img</span>(<span class="at">src =</span> image_dir, <span class="at">height =</span> <span class="dv">150</span>, <span class="at">width =</span> <span class="dv">400</span>)}</span>
-<span id="cb50-8"><a href="trouble.html#cb50-8" aria-hidden="true" tabindex="-1"></a>        )),<span class="fu">br</span>(),</span>
-<span id="cb50-9"><a href="trouble.html#cb50-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">actionLink</span>(<span class="fu">NS</span>(id, <span class="st">&quot;link_to_home&quot;</span>), <span class="st">&quot;Home&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;home&quot;</span>)),<span class="fu">br</span>(),<span class="fu">br</span>(),</span>
-<span id="cb50-10"><a href="trouble.html#cb50-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">actionButton</span>(<span class="fu">NS</span>(id, <span class="st">&quot;load&quot;</span>), <span class="st">&quot;Plot Graphs&quot;</span>)</span>
-<span id="cb50-11"><a href="trouble.html#cb50-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="trouble.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example fluidRow</span></span>
+<span id="cb49-2"><a href="trouble.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tabItem</span>(<span class="at">tabName =</span> tabName,</span>
+<span id="cb49-3"><a href="trouble.html#cb49-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fluidRow</span>(<span class="fu">box</span>(<span class="at">title =</span> datasetTitle,</span>
+<span id="cb49-4"><a href="trouble.html#cb49-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">status =</span> <span class="st">&quot;primary&quot;</span>, <span class="co"># these with affect styling</span></span>
+<span id="cb49-5"><a href="trouble.html#cb49-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">solidHeader =</span> <span class="cn">TRUE</span>, <span class="co"># these with affect styling</span></span>
+<span id="cb49-6"><a href="trouble.html#cb49-6" aria-hidden="true" tabindex="-1"></a>                     <span class="cf">if</span> (<span class="fu">is.null</span>(des_dir) <span class="sc">==</span> <span class="cn">FALSE</span>) {<span class="fu">includeHTML</span>(des_dir)},</span>
+<span id="cb49-7"><a href="trouble.html#cb49-7" aria-hidden="true" tabindex="-1"></a>                     <span class="cf">if</span> (<span class="fu">is.null</span>(image_dir) <span class="sc">==</span> <span class="cn">FALSE</span>) {<span class="fu">img</span>(<span class="at">src =</span> image_dir, <span class="at">height =</span> <span class="dv">150</span>, <span class="at">width =</span> <span class="dv">400</span>)}</span>
+<span id="cb49-8"><a href="trouble.html#cb49-8" aria-hidden="true" tabindex="-1"></a>        )),<span class="fu">br</span>(),</span>
+<span id="cb49-9"><a href="trouble.html#cb49-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">actionLink</span>(<span class="fu">NS</span>(id, <span class="st">&quot;link_to_home&quot;</span>), <span class="st">&quot;Home&quot;</span>, <span class="at">icon =</span> <span class="fu">icon</span>(<span class="st">&quot;home&quot;</span>)),<span class="fu">br</span>(),<span class="fu">br</span>(),</span>
+<span id="cb49-10"><a href="trouble.html#cb49-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">actionButton</span>(<span class="fu">NS</span>(id, <span class="st">&quot;load&quot;</span>), <span class="st">&quot;Plot Graphs&quot;</span>)</span>
+<span id="cb49-11"><a href="trouble.html#cb49-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="data-inputoutput-issues" class="section level2 hasAnchor" number="6.4">
 <h2><span class="header-section-number">6.4</span> Data input/output issues<a href="trouble.html#data-inputoutput-issues" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Ensure that the data you are inputting into the app is in the correct format, and that the output is being generated correctly. Check if there are any issues with the data or if there are errors in the code that is manipulating the data. You can print data at each step of pre-processing to evaluate their format.</p>
 <p>An example is the step of calculating median expression from all samples and grouping them based on experimental parameters. Use <code>print()</code> function throughout to monitor mistakes.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="trouble.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load count data and colData </span></span>
-<span id="cb51-2"><a href="trouble.html#cb51-2" aria-hidden="true" tabindex="-1"></a>count   <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;./data/CountTables/TPM_mouse.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb51-3"><a href="trouble.html#cb51-3" aria-hidden="true" tabindex="-1"></a>count<span class="sc">$</span>gene <span class="ot">=</span> count<span class="sc">$</span>X</span>
-<span id="cb51-4"><a href="trouble.html#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="do">## print(count)</span></span>
-<span id="cb51-5"><a href="trouble.html#cb51-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-6"><a href="trouble.html#cb51-6" aria-hidden="true" tabindex="-1"></a>colData <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(<span class="st">&quot;./data/colData/&quot;</span>, <span class="st">&quot;TPM_mouse_colData.csv&quot;</span>), <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb51-7"><a href="trouble.html#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(colData) <span class="ot">=</span> colData[,<span class="dv">1</span>]</span>
-<span id="cb51-8"><a href="trouble.html#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="do">## print(colData)</span></span>
-<span id="cb51-9"><a href="trouble.html#cb51-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-10"><a href="trouble.html#cb51-10" aria-hidden="true" tabindex="-1"></a><span class="co"># filter rows of genes queried </span></span>
-<span id="cb51-11"><a href="trouble.html#cb51-11" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> count[count<span class="sc">$</span>symbol <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Gnai3&quot;</span>, <span class="st">&quot;Scml12&quot;</span>),]</span>
-<span id="cb51-12"><a href="trouble.html#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="do">## print(df)</span></span>
-<span id="cb51-13"><a href="trouble.html#cb51-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-14"><a href="trouble.html#cb51-14" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the symbol column </span></span>
-<span id="cb51-15"><a href="trouble.html#cb51-15" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>gene <span class="ot">=</span> df<span class="sc">$</span>X</span>
-<span id="cb51-16"><a href="trouble.html#cb51-16" aria-hidden="true" tabindex="-1"></a>filt <span class="ot">=</span> df[,<span class="sc">!</span><span class="fu">names</span>(df) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;symbol&quot;</span>,<span class="st">&quot;X&quot;</span>)]</span>
-<span id="cb51-17"><a href="trouble.html#cb51-17" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(filt) <span class="ot">=</span> filt<span class="sc">$</span>gene</span>
-<span id="cb51-18"><a href="trouble.html#cb51-18" aria-hidden="true" tabindex="-1"></a><span class="do">## print(filt)</span></span>
-<span id="cb51-19"><a href="trouble.html#cb51-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-20"><a href="trouble.html#cb51-20" aria-hidden="true" tabindex="-1"></a><span class="co"># convert wide to long data frame based on the rownames of colData and rownames of count data </span></span>
-<span id="cb51-21"><a href="trouble.html#cb51-21" aria-hidden="true" tabindex="-1"></a><span class="co"># this requires rownames(tcounts) to be gene IDs and rownames(colData) to be the same as colnames(tcounts)</span></span>
-<span id="cb51-22"><a href="trouble.html#cb51-22" aria-hidden="true" tabindex="-1"></a><span class="co"># mistakes are generated if those columns do not match. </span></span>
-<span id="cb51-23"><a href="trouble.html#cb51-23" aria-hidden="true" tabindex="-1"></a>tcounts <span class="ot">&lt;-</span> <span class="fu">t</span>(filt) <span class="sc">%&gt;%</span></span>
-<span id="cb51-24"><a href="trouble.html#cb51-24" aria-hidden="true" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">merge</span>(colData, ., <span class="at">by=</span><span class="st">&quot;row.names&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb51-25"><a href="trouble.html#cb51-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(gene, expression, (<span class="fu">ncol</span>(.)<span class="sc">-</span><span class="fu">nrow</span>(filt)<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(<span class="fu">ncol</span>(.)))</span>
-<span id="cb51-26"><a href="trouble.html#cb51-26" aria-hidden="true" tabindex="-1"></a><span class="do">## print(tcounts)</span></span>
-<span id="cb51-27"><a href="trouble.html#cb51-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-28"><a href="trouble.html#cb51-28" aria-hidden="true" tabindex="-1"></a><span class="co"># add back symbols</span></span>
-<span id="cb51-29"><a href="trouble.html#cb51-29" aria-hidden="true" tabindex="-1"></a>tcounts<span class="sc">$</span>symbol <span class="ot">=</span> count[count<span class="sc">$</span>X <span class="sc">%in%</span> tcounts<span class="sc">$</span>gene,]<span class="sc">$</span>symbol</span>
-<span id="cb51-30"><a href="trouble.html#cb51-30" aria-hidden="true" tabindex="-1"></a><span class="do">## print(tcounts)</span></span>
-<span id="cb51-31"><a href="trouble.html#cb51-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-32"><a href="trouble.html#cb51-32" aria-hidden="true" tabindex="-1"></a><span class="co"># display datasets </span></span>
-<span id="cb51-33"><a href="trouble.html#cb51-33" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(tcounts <span class="sc">%&gt;%</span> head) <span class="sc">%&gt;%</span> <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>, <span class="st">&quot;responsive&quot;</span>), <span class="at">font_size =</span> <span class="dv">12</span>, <span class="at">latex_options =</span> <span class="st">&quot;scale_down&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>, <span class="at">height =</span> <span class="st">&quot;200px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="trouble.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load count data and colData </span></span>
+<span id="cb50-2"><a href="trouble.html#cb50-2" aria-hidden="true" tabindex="-1"></a>count   <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;./data/CountTables/TPM_mouse.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb50-3"><a href="trouble.html#cb50-3" aria-hidden="true" tabindex="-1"></a>count<span class="sc">$</span>gene <span class="ot">=</span> count<span class="sc">$</span>X</span>
+<span id="cb50-4"><a href="trouble.html#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="do">## print(count)</span></span>
+<span id="cb50-5"><a href="trouble.html#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="trouble.html#cb50-6" aria-hidden="true" tabindex="-1"></a>colData <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(<span class="st">&quot;./data/colData/&quot;</span>, <span class="st">&quot;TPM_mouse_colData.csv&quot;</span>), <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb50-7"><a href="trouble.html#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(colData) <span class="ot">=</span> colData[,<span class="dv">1</span>]</span>
+<span id="cb50-8"><a href="trouble.html#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="do">## print(colData)</span></span>
+<span id="cb50-9"><a href="trouble.html#cb50-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-10"><a href="trouble.html#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="co"># filter rows of genes queried </span></span>
+<span id="cb50-11"><a href="trouble.html#cb50-11" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> count[count<span class="sc">$</span>symbol <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Gnai3&quot;</span>, <span class="st">&quot;Scml12&quot;</span>),]</span>
+<span id="cb50-12"><a href="trouble.html#cb50-12" aria-hidden="true" tabindex="-1"></a><span class="do">## print(df)</span></span>
+<span id="cb50-13"><a href="trouble.html#cb50-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-14"><a href="trouble.html#cb50-14" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the symbol column </span></span>
+<span id="cb50-15"><a href="trouble.html#cb50-15" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>gene <span class="ot">=</span> df<span class="sc">$</span>X</span>
+<span id="cb50-16"><a href="trouble.html#cb50-16" aria-hidden="true" tabindex="-1"></a>filt <span class="ot">=</span> df[,<span class="sc">!</span><span class="fu">names</span>(df) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;symbol&quot;</span>,<span class="st">&quot;X&quot;</span>)]</span>
+<span id="cb50-17"><a href="trouble.html#cb50-17" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(filt) <span class="ot">=</span> filt<span class="sc">$</span>gene</span>
+<span id="cb50-18"><a href="trouble.html#cb50-18" aria-hidden="true" tabindex="-1"></a><span class="do">## print(filt)</span></span>
+<span id="cb50-19"><a href="trouble.html#cb50-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-20"><a href="trouble.html#cb50-20" aria-hidden="true" tabindex="-1"></a><span class="co"># convert wide to long data frame based on the rownames of colData and rownames of count data </span></span>
+<span id="cb50-21"><a href="trouble.html#cb50-21" aria-hidden="true" tabindex="-1"></a><span class="co"># this requires rownames(tcounts) to be gene IDs and rownames(colData) to be the same as colnames(tcounts)</span></span>
+<span id="cb50-22"><a href="trouble.html#cb50-22" aria-hidden="true" tabindex="-1"></a><span class="co"># mistakes are generated if those columns do not match. </span></span>
+<span id="cb50-23"><a href="trouble.html#cb50-23" aria-hidden="true" tabindex="-1"></a>tcounts <span class="ot">&lt;-</span> <span class="fu">t</span>(filt) <span class="sc">%&gt;%</span></span>
+<span id="cb50-24"><a href="trouble.html#cb50-24" aria-hidden="true" tabindex="-1"></a>  base<span class="sc">::</span><span class="fu">merge</span>(colData, ., <span class="at">by=</span><span class="st">&quot;row.names&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb50-25"><a href="trouble.html#cb50-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(gene, expression, (<span class="fu">ncol</span>(.)<span class="sc">-</span><span class="fu">nrow</span>(filt)<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(<span class="fu">ncol</span>(.)))</span>
+<span id="cb50-26"><a href="trouble.html#cb50-26" aria-hidden="true" tabindex="-1"></a><span class="do">## print(tcounts)</span></span>
+<span id="cb50-27"><a href="trouble.html#cb50-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-28"><a href="trouble.html#cb50-28" aria-hidden="true" tabindex="-1"></a><span class="co"># add back symbols</span></span>
+<span id="cb50-29"><a href="trouble.html#cb50-29" aria-hidden="true" tabindex="-1"></a>tcounts<span class="sc">$</span>symbol <span class="ot">=</span> count[count<span class="sc">$</span>X <span class="sc">%in%</span> tcounts<span class="sc">$</span>gene,]<span class="sc">$</span>symbol</span>
+<span id="cb50-30"><a href="trouble.html#cb50-30" aria-hidden="true" tabindex="-1"></a><span class="do">## print(tcounts)</span></span>
+<span id="cb50-31"><a href="trouble.html#cb50-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-32"><a href="trouble.html#cb50-32" aria-hidden="true" tabindex="-1"></a><span class="co"># display datasets </span></span>
+<span id="cb50-33"><a href="trouble.html#cb50-33" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(tcounts <span class="sc">%&gt;%</span> head) <span class="sc">%&gt;%</span> <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>, <span class="st">&quot;responsive&quot;</span>), <span class="at">font_size =</span> <span class="dv">12</span>, <span class="at">latex_options =</span> <span class="st">&quot;scale_down&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>, <span class="at">height =</span> <span class="st">&quot;200px&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <thead>
@@ -597,94 +597,94 @@ Gnai3
 <h2><span class="header-section-number">6.5</span> Debugging reactive code<a href="trouble.html#debugging-reactive-code" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Reavtive components respond to user inputs. This allows users to interact with the data in real-time, updating visualizations and other content as they change settings or filters. Reactive components can be created using the <code>reactive()</code> function in Shiny. An example is shown below:</p>
 <p>For example,</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="trouble.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb52-2"><a href="trouble.html#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-3"><a href="trouble.html#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the UI</span></span>
-<span id="cb52-4"><a href="trouble.html#cb52-4" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb52-5"><a href="trouble.html#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Input field for a number</span></span>
-<span id="cb52-6"><a href="trouble.html#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">numericInput</span>(<span class="at">inputId =</span> <span class="st">&quot;my_number&quot;</span>, <span class="at">label =</span> <span class="st">&quot;Enter a number:&quot;</span>, <span class="at">value =</span> <span class="dv">1</span>),</span>
-<span id="cb52-7"><a href="trouble.html#cb52-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Text output for the number squared</span></span>
-<span id="cb52-8"><a href="trouble.html#cb52-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;my_output&quot;</span>)</span>
-<span id="cb52-9"><a href="trouble.html#cb52-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb52-10"><a href="trouble.html#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-11"><a href="trouble.html#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the server</span></span>
-<span id="cb52-12"><a href="trouble.html#cb52-12" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb52-13"><a href="trouble.html#cb52-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define a reactive expression for the square of the number</span></span>
-<span id="cb52-14"><a href="trouble.html#cb52-14" aria-hidden="true" tabindex="-1"></a>  squared <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
-<span id="cb52-15"><a href="trouble.html#cb52-15" aria-hidden="true" tabindex="-1"></a>    input<span class="sc">$</span>my_number<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb52-16"><a href="trouble.html#cb52-16" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb52-17"><a href="trouble.html#cb52-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb52-18"><a href="trouble.html#cb52-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Output the squared number to the text output</span></span>
-<span id="cb52-19"><a href="trouble.html#cb52-19" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>my_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb52-20"><a href="trouble.html#cb52-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">&quot;The square of &quot;</span>, input<span class="sc">$</span>my_number, <span class="st">&quot; is &quot;</span>, <span class="fu">squared</span>())</span>
-<span id="cb52-21"><a href="trouble.html#cb52-21" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb52-22"><a href="trouble.html#cb52-22" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb52-23"><a href="trouble.html#cb52-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-24"><a href="trouble.html#cb52-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the app</span></span>
-<span id="cb52-25"><a href="trouble.html#cb52-25" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="trouble.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb51-2"><a href="trouble.html#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="trouble.html#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the UI</span></span>
+<span id="cb51-4"><a href="trouble.html#cb51-4" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb51-5"><a href="trouble.html#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Input field for a number</span></span>
+<span id="cb51-6"><a href="trouble.html#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">numericInput</span>(<span class="at">inputId =</span> <span class="st">&quot;my_number&quot;</span>, <span class="at">label =</span> <span class="st">&quot;Enter a number:&quot;</span>, <span class="at">value =</span> <span class="dv">1</span>),</span>
+<span id="cb51-7"><a href="trouble.html#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Text output for the number squared</span></span>
+<span id="cb51-8"><a href="trouble.html#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textOutput</span>(<span class="at">outputId =</span> <span class="st">&quot;my_output&quot;</span>)</span>
+<span id="cb51-9"><a href="trouble.html#cb51-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb51-10"><a href="trouble.html#cb51-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-11"><a href="trouble.html#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the server</span></span>
+<span id="cb51-12"><a href="trouble.html#cb51-12" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb51-13"><a href="trouble.html#cb51-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define a reactive expression for the square of the number</span></span>
+<span id="cb51-14"><a href="trouble.html#cb51-14" aria-hidden="true" tabindex="-1"></a>  squared <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb51-15"><a href="trouble.html#cb51-15" aria-hidden="true" tabindex="-1"></a>    input<span class="sc">$</span>my_number<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb51-16"><a href="trouble.html#cb51-16" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb51-17"><a href="trouble.html#cb51-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-18"><a href="trouble.html#cb51-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Output the squared number to the text output</span></span>
+<span id="cb51-19"><a href="trouble.html#cb51-19" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>my_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb51-20"><a href="trouble.html#cb51-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">&quot;The square of &quot;</span>, input<span class="sc">$</span>my_number, <span class="st">&quot; is &quot;</span>, <span class="fu">squared</span>())</span>
+<span id="cb51-21"><a href="trouble.html#cb51-21" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb51-22"><a href="trouble.html#cb51-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb51-23"><a href="trouble.html#cb51-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-24"><a href="trouble.html#cb51-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the app</span></span>
+<span id="cb51-25"><a href="trouble.html#cb51-25" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
 <p>The example above uses the <code>numericInput()</code> function to create an input field where the user can enter a number. We then use the <code>reactive()</code> function to define a reactive expression called squared, which calculates the square of the input number. Finally, we use the <code>renderText()</code> function to display the squared number in a text output component.</p>
 <p>Note that the <code>squared</code> reactive expression is not evaluated until it is actually used in the <code>renderText()</code> function. This means that it will only be re-evaluated when the input value <code>my_number</code> changes.</p>
 <p>To debug reactive code, there are a few tips.</p>
 <ol style="list-style-type: decimal">
 <li>Use the <code>print()</code> function to print out intermediate results of the reactive code to see where the problem is arising. For example, you can print the value of a reactive input or output to see if it is being calculated correctly. You can also use the <code>reactiveValues()</code> function to create reactive values that can be printed out for debugging purposes.</li>
 </ol>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="trouble.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of using print statements to debug reactive code</span></span>
-<span id="cb53-2"><a href="trouble.html#cb53-2" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>my_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb53-3"><a href="trouble.html#cb53-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> input<span class="sc">$</span>my_input</span>
-<span id="cb53-4"><a href="trouble.html#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(x) <span class="co"># Print the value of x for debugging purposes</span></span>
-<span id="cb53-5"><a href="trouble.html#cb53-5" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">*</span> <span class="dv">2</span> <span class="co"># Return the value of x times 2</span></span>
-<span id="cb53-6"><a href="trouble.html#cb53-6" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="trouble.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of using print statements to debug reactive code</span></span>
+<span id="cb52-2"><a href="trouble.html#cb52-2" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>my_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb52-3"><a href="trouble.html#cb52-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> input<span class="sc">$</span>my_input</span>
+<span id="cb52-4"><a href="trouble.html#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(x) <span class="co"># Print the value of x for debugging purposes</span></span>
+<span id="cb52-5"><a href="trouble.html#cb52-5" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">*</span> <span class="dv">2</span> <span class="co"># Return the value of x times 2</span></span>
+<span id="cb52-6"><a href="trouble.html#cb52-6" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Use the <code>browser()</code> function to pause the execution of the code at a particular point, which will allow you to inspect the current environment. This can be particularly useful for debugging complex reactive code. To use the <code>browser()</code> function, simply add it to the reactive expression where you want to pause the code.</li>
 </ol>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="trouble.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of using the browser function to debug reactive code</span></span>
-<span id="cb54-2"><a href="trouble.html#cb54-2" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>my_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb54-3"><a href="trouble.html#cb54-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> input<span class="sc">$</span>my_input</span>
-<span id="cb54-4"><a href="trouble.html#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">browser</span>() <span class="co"># Pause execution and allow user to inspect environment</span></span>
-<span id="cb54-5"><a href="trouble.html#cb54-5" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">*</span> <span class="dv">2</span> <span class="co"># Return the value of x times 2</span></span>
-<span id="cb54-6"><a href="trouble.html#cb54-6" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="trouble.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of using the browser function to debug reactive code</span></span>
+<span id="cb53-2"><a href="trouble.html#cb53-2" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>my_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb53-3"><a href="trouble.html#cb53-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> input<span class="sc">$</span>my_input</span>
+<span id="cb53-4"><a href="trouble.html#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">browser</span>() <span class="co"># Pause execution and allow user to inspect environment</span></span>
+<span id="cb53-5"><a href="trouble.html#cb53-5" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">*</span> <span class="dv">2</span> <span class="co"># Return the value of x times 2</span></span>
+<span id="cb53-6"><a href="trouble.html#cb53-6" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>When the app runs and the server function is called, it will pause at the <code>browser()</code> statement. In the R console or IDE, you can then examine the value of the input variable by typing input at the prompt, or check the current state of the app by typing other R commands.</p>
 <p>Once you are finished debugging, you can continue the app execution by typing <code>c</code> (for “continue”) in the R console. The app will resume execution and the output will be displayed in the Shiny app UI.</p>
 <ol start="3" style="list-style-type: decimal">
 <li>Check for dependencies: Reactive expressions can sometimes depend on other reactive expressions or reactive values, and it can be challenging to trace the dependencies. The <code>reactiveLog()</code> function in the <code>reactlog</code> package can be useful for visualizing the dependencies between reactive expressions.</li>
 </ol>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="trouble.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb55-2"><a href="trouble.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shinydebug)</span>
-<span id="cb55-3"><a href="trouble.html#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-4"><a href="trouble.html#cb55-4" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb55-5"><a href="trouble.html#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textInput</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;Enter your name:&quot;</span>),</span>
-<span id="cb55-6"><a href="trouble.html#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">verbatimTextOutput</span>(<span class="st">&quot;greeting&quot;</span>)</span>
-<span id="cb55-7"><a href="trouble.html#cb55-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb55-8"><a href="trouble.html#cb55-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-9"><a href="trouble.html#cb55-9" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb55-10"><a href="trouble.html#cb55-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use reactiveLog() to log the execution of the reactive expression</span></span>
-<span id="cb55-11"><a href="trouble.html#cb55-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reactiveLog</span>({</span>
-<span id="cb55-12"><a href="trouble.html#cb55-12" aria-hidden="true" tabindex="-1"></a>    name <span class="ot">&lt;-</span> input<span class="sc">$</span>name</span>
-<span id="cb55-13"><a href="trouble.html#cb55-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">&quot;Hello, &quot;</span>, name, <span class="st">&quot;!&quot;</span>)</span>
-<span id="cb55-14"><a href="trouble.html#cb55-14" aria-hidden="true" tabindex="-1"></a>  }, <span class="at">label =</span> <span class="st">&quot;greeting&quot;</span>)</span>
-<span id="cb55-15"><a href="trouble.html#cb55-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb55-16"><a href="trouble.html#cb55-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Render the greeting text in the output</span></span>
-<span id="cb55-17"><a href="trouble.html#cb55-17" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>greeting <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb55-18"><a href="trouble.html#cb55-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">reactiveValuesToList</span>(<span class="fu">reactiveLogData</span>()<span class="sc">$</span>greeting<span class="sc">$</span>value)[[<span class="dv">1</span>]]</span>
-<span id="cb55-19"><a href="trouble.html#cb55-19" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb55-20"><a href="trouble.html#cb55-20" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb55-21"><a href="trouble.html#cb55-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-22"><a href="trouble.html#cb55-22" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="trouble.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb54-2"><a href="trouble.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shinydebug)</span>
+<span id="cb54-3"><a href="trouble.html#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="trouble.html#cb54-4" aria-hidden="true" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb54-5"><a href="trouble.html#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textInput</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;Enter your name:&quot;</span>),</span>
+<span id="cb54-6"><a href="trouble.html#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">verbatimTextOutput</span>(<span class="st">&quot;greeting&quot;</span>)</span>
+<span id="cb54-7"><a href="trouble.html#cb54-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb54-8"><a href="trouble.html#cb54-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-9"><a href="trouble.html#cb54-9" aria-hidden="true" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb54-10"><a href="trouble.html#cb54-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use reactiveLog() to log the execution of the reactive expression</span></span>
+<span id="cb54-11"><a href="trouble.html#cb54-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reactiveLog</span>({</span>
+<span id="cb54-12"><a href="trouble.html#cb54-12" aria-hidden="true" tabindex="-1"></a>    name <span class="ot">&lt;-</span> input<span class="sc">$</span>name</span>
+<span id="cb54-13"><a href="trouble.html#cb54-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">&quot;Hello, &quot;</span>, name, <span class="st">&quot;!&quot;</span>)</span>
+<span id="cb54-14"><a href="trouble.html#cb54-14" aria-hidden="true" tabindex="-1"></a>  }, <span class="at">label =</span> <span class="st">&quot;greeting&quot;</span>)</span>
+<span id="cb54-15"><a href="trouble.html#cb54-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-16"><a href="trouble.html#cb54-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Render the greeting text in the output</span></span>
+<span id="cb54-17"><a href="trouble.html#cb54-17" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>greeting <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb54-18"><a href="trouble.html#cb54-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">reactiveValuesToList</span>(<span class="fu">reactiveLogData</span>()<span class="sc">$</span>greeting<span class="sc">$</span>value)[[<span class="dv">1</span>]]</span>
+<span id="cb54-19"><a href="trouble.html#cb54-19" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb54-20"><a href="trouble.html#cb54-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb54-21"><a href="trouble.html#cb54-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-22"><a href="trouble.html#cb54-22" aria-hidden="true" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
 <p>In this example, we’re using <code>reactiveLog()</code> to log the execution of a reactive expression that generates a greeting message based on the user’s input. We’re also using the label argument to assign a label to the reactive expression, which will be used to identify it in the log.</p>
 <p>When the app runs, the <code>reactiveLog()</code> function will log the execution of the reactive expression and display it in the R console or IDE, along with a timestamp and the label. You can use the log to observe the order in which reactive expressions are executed and identify any issues or unexpected behavior.</p>
 <p>In the <code>output$greeting</code> function, we’re using <code>reactiveLogData()</code> to retrieve the log data for the “greeting” label, and then extracting the value of the reactive expression using <code>reactiveValuesToList()</code>. This allows us to render the greeting text in the app output.</p>
 <ol start="4" style="list-style-type: decimal">
 <li>Use <code>tryCatch()</code>: If your reactive code is throwing errors, you can use the <code>tryCatch()</code> function to catch the errors and display a custom error message. This can be useful for debugging errors that occur during reactive code execution.</li>
 </ol>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="trouble.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of using the tryCatch function to catch errors in reactive code</span></span>
-<span id="cb56-2"><a href="trouble.html#cb56-2" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>my_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb56-3"><a href="trouble.html#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tryCatch</span>({</span>
-<span id="cb56-4"><a href="trouble.html#cb56-4" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> input<span class="sc">$</span>my_input</span>
-<span id="cb56-5"><a href="trouble.html#cb56-5" aria-hidden="true" tabindex="-1"></a>    x <span class="sc">*</span> <span class="dv">2</span> <span class="co"># Return the value of x times 2</span></span>
-<span id="cb56-6"><a href="trouble.html#cb56-6" aria-hidden="true" tabindex="-1"></a>  }, <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
-<span id="cb56-7"><a href="trouble.html#cb56-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;An error occurred while calculating the output.&quot;</span> <span class="co"># Display a custom error message</span></span>
-<span id="cb56-8"><a href="trouble.html#cb56-8" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb56-9"><a href="trouble.html#cb56-9" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="trouble.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of using the tryCatch function to catch errors in reactive code</span></span>
+<span id="cb55-2"><a href="trouble.html#cb55-2" aria-hidden="true" tabindex="-1"></a>output<span class="sc">$</span>my_output <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb55-3"><a href="trouble.html#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tryCatch</span>({</span>
+<span id="cb55-4"><a href="trouble.html#cb55-4" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> input<span class="sc">$</span>my_input</span>
+<span id="cb55-5"><a href="trouble.html#cb55-5" aria-hidden="true" tabindex="-1"></a>    x <span class="sc">*</span> <span class="dv">2</span> <span class="co"># Return the value of x times 2</span></span>
+<span id="cb55-6"><a href="trouble.html#cb55-6" aria-hidden="true" tabindex="-1"></a>  }, <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb55-7"><a href="trouble.html#cb55-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;An error occurred while calculating the output.&quot;</span> <span class="co"># Display a custom error message</span></span>
+<span id="cb55-8"><a href="trouble.html#cb55-8" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb55-9"><a href="trouble.html#cb55-9" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 </div>
 <div id="deployment" class="section level2 hasAnchor" number="6.6">
 <h2><span class="header-section-number">6.6</span> Deployment<a href="trouble.html#deployment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -699,40 +699,40 @@ Gnai3
 <div id="bioconductor-1" class="section level3 hasAnchor" number="6.6.2">
 <h3><span class="header-section-number">6.6.2</span> Bioconductor<a href="trouble.html#bioconductor-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Because this framework uses Biocondutor packages, it is likely you need to set the repository (URL).</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="trouble.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example error 1: you need to set a URL</span></span>
-<span id="cb57-2"><a href="trouble.html#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-3"><a href="trouble.html#cb57-3" aria-hidden="true" tabindex="-1"></a>May be unable to deploy package dependency <span class="st">&#39;AnnotationDbi&#39;</span>; could not</span>
-<span id="cb57-4"><a href="trouble.html#cb57-4" aria-hidden="true" tabindex="-1"></a>determine a repository URL <span class="cf">for</span> the source <span class="st">&#39;Bioconductor&#39;</span>.</span>
-<span id="cb57-5"><a href="trouble.html#cb57-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-6"><a href="trouble.html#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="co"># example error 2: the URL is set but not sufficient to compile packages, may need to try another Bioconductor version, update packages, fix compiling, turn off a firewall, or update R</span></span>
-<span id="cb57-7"><a href="trouble.html#cb57-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-8"><a href="trouble.html#cb57-8" aria-hidden="true" tabindex="-1"></a>Unhandled Exception<span class="sc">:</span> Child Task <span class="dv">873781155</span> failed<span class="sc">:</span> Error parsing manifest<span class="sc">:</span> </span>
-<span id="cb57-9"><a href="trouble.html#cb57-9" aria-hidden="true" tabindex="-1"></a>Unable to determine package source <span class="cf">for</span> Bioconductor package</span>
-<span id="cb57-10"><a href="trouble.html#cb57-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-11"><a href="trouble.html#cb57-11" aria-hidden="true" tabindex="-1"></a><span class="co"># example error 3: you likely have a mismatch in versions across packages, which may be compatible locally by cause issues on shinyapp.io. Here, use BiocManager::valid() to ensure all packages are in agreement</span></span>
-<span id="cb57-12"><a href="trouble.html#cb57-12" aria-hidden="true" tabindex="-1"></a>Error<span class="sc">:</span> Unhandled Exception<span class="sc">:</span> Child Task <span class="dv">1278414280</span> failed<span class="sc">:</span> Error building image<span class="sc">:</span> Error fetching <span class="fu">GenomeInfoDbData</span> (<span class="dv">1</span>.<span class="fl">2.9</span>) source. Error downloading package source. Please update your BioConductor packages to the latest version and try again</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="trouble.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example error 1: you need to set a URL</span></span>
+<span id="cb56-2"><a href="trouble.html#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="trouble.html#cb56-3" aria-hidden="true" tabindex="-1"></a>May be unable to deploy package dependency <span class="st">&#39;AnnotationDbi&#39;</span>; could not</span>
+<span id="cb56-4"><a href="trouble.html#cb56-4" aria-hidden="true" tabindex="-1"></a>determine a repository URL <span class="cf">for</span> the source <span class="st">&#39;Bioconductor&#39;</span>.</span>
+<span id="cb56-5"><a href="trouble.html#cb56-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-6"><a href="trouble.html#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="co"># example error 2: the URL is set but not sufficient to compile packages, may need to try another Bioconductor version, update packages, fix compiling, turn off a firewall, or update R</span></span>
+<span id="cb56-7"><a href="trouble.html#cb56-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-8"><a href="trouble.html#cb56-8" aria-hidden="true" tabindex="-1"></a>Unhandled Exception<span class="sc">:</span> Child Task <span class="dv">873781155</span> failed<span class="sc">:</span> Error parsing manifest<span class="sc">:</span> </span>
+<span id="cb56-9"><a href="trouble.html#cb56-9" aria-hidden="true" tabindex="-1"></a>Unable to determine package source <span class="cf">for</span> Bioconductor package</span>
+<span id="cb56-10"><a href="trouble.html#cb56-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-11"><a href="trouble.html#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="co"># example error 3: you likely have a mismatch in versions across packages, which may be compatible locally by cause issues on shinyapp.io. Here, use BiocManager::valid() to ensure all packages are in agreement</span></span>
+<span id="cb56-12"><a href="trouble.html#cb56-12" aria-hidden="true" tabindex="-1"></a>Error<span class="sc">:</span> Unhandled Exception<span class="sc">:</span> Child Task <span class="dv">1278414280</span> failed<span class="sc">:</span> Error building image<span class="sc">:</span> Error fetching <span class="fu">GenomeInfoDbData</span> (<span class="dv">1</span>.<span class="fl">2.9</span>) source. Error downloading package source. Please update your BioConductor packages to the latest version and try again</span></code></pre></div>
 <p>Example (truncated) output from <code>BiocManager::valid()</code>. If you need to compile something by source to get the most recent version, make sure have installed the required packages (eg. <code>RTools</code> for Windows).</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="trouble.html#cb58-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">valid</span>()</span>
-<span id="cb58-2"><a href="trouble.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Bioconductor version &#39;3.16&#39;</span></span>
-<span id="cb58-3"><a href="trouble.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb58-4"><a href="trouble.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   * 1 packages out-of-date</span></span>
-<span id="cb58-5"><a href="trouble.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   * 0 packages too new</span></span>
-<span id="cb58-6"><a href="trouble.html#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb58-7"><a href="trouble.html#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create a valid installation with</span></span>
-<span id="cb58-8"><a href="trouble.html#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb58-9"><a href="trouble.html#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  BiocManager::install(&quot;sfheaders&quot;, update = TRUE, ask = FALSE, force = TRUE) ## run this part to fix</span></span>
-<span id="cb58-10"><a href="trouble.html#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb58-11"><a href="trouble.html#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="co"># more details: BiocManager::valid()$too_new, BiocManager::valid()$out_of_date</span></span>
-<span id="cb58-12"><a href="trouble.html#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="trouble.html#cb57-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">valid</span>()</span>
+<span id="cb57-2"><a href="trouble.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Bioconductor version &#39;3.16&#39;</span></span>
+<span id="cb57-3"><a href="trouble.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb57-4"><a href="trouble.html#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   * 1 packages out-of-date</span></span>
+<span id="cb57-5"><a href="trouble.html#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   * 0 packages too new</span></span>
+<span id="cb57-6"><a href="trouble.html#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb57-7"><a href="trouble.html#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create a valid installation with</span></span>
+<span id="cb57-8"><a href="trouble.html#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb57-9"><a href="trouble.html#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  BiocManager::install(&quot;sfheaders&quot;, update = TRUE, ask = FALSE, force = TRUE) ## run this part to fix</span></span>
+<span id="cb57-10"><a href="trouble.html#cb57-10" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb57-11"><a href="trouble.html#cb57-11" aria-hidden="true" tabindex="-1"></a><span class="co"># more details: BiocManager::valid()$too_new, BiocManager::valid()$out_of_date</span></span>
+<span id="cb57-12"><a href="trouble.html#cb57-12" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span></code></pre></div>
 <p>You can specific the bioconductor repository here (depending on updates, a very new version may be incompatible with <code>Shiny</code> briefly). You can check which repositories have been set using <code>getOption("repos")</code>.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="trouble.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setRepositories</span>(<span class="at">addURLs =</span> <span class="fu">c</span>(<span class="at">BioC =</span> <span class="st">&quot;https://bioconductor.org/packages/3.16/bioc&quot;</span>)) <span class="co">#specify version here</span></span>
-<span id="cb59-2"><a href="trouble.html#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-3"><a href="trouble.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="co"># alternatively, this can be run at the top of the UI and *may* help</span></span>
-<span id="cb59-4"><a href="trouble.html#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiocManager)</span>
-<span id="cb59-5"><a href="trouble.html#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repos =</span> BiocManager<span class="sc">::</span><span class="fu">repositories</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="trouble.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setRepositories</span>(<span class="at">addURLs =</span> <span class="fu">c</span>(<span class="at">BioC =</span> <span class="st">&quot;https://bioconductor.org/packages/3.16/bioc&quot;</span>)) <span class="co">#specify version here</span></span>
+<span id="cb58-2"><a href="trouble.html#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="trouble.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># alternatively, this can be run at the top of the UI and *may* help</span></span>
+<span id="cb58-4"><a href="trouble.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiocManager)</span>
+<span id="cb58-5"><a href="trouble.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repos =</span> BiocManager<span class="sc">::</span><span class="fu">repositories</span>())</span></code></pre></div>
 <p>If there is a specific package referred to, check the installation to make sure it was successful (see above). You can force a new install using <code>force = TRUE</code>, but restart R before trying again.</p>
 <p>If you are planning to update many packages, you can check which are valid first.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="trouble.html#cb60-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">valid</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="trouble.html#cb59-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">valid</span>() </span></code></pre></div>
 <p>Still not working? A few other things to look for:</p>
 <ol style="list-style-type: decimal">
 <li>Package dependency mismatch between CRAN and Bioconductor (check <code>rsconnect::appDependencies()</code>)</li>
@@ -741,7 +741,7 @@ Gnai3
 </ol>
 <p>If all else fails, try posting on the community forum for help (&lt;<a href="https://community.rstudio.com/" class="uri">https://community.rstudio.com/</a>) and tag <em>Shiny</em> and <em>shinyapp.io</em> with a reproducible example (ie. <em>reprex</em>). See <a href="https://community.rstudio.com/t/faq-tips-for-writing-r-related-questions/6824" class="uri">https://community.rstudio.com/t/faq-tips-for-writing-r-related-questions/6824</a> for how to best format this.</p>
 <p>For reference, the following were used for our database.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="trouble.html#cb61-1" aria-hidden="true" tabindex="-1"></a>rsconnect<span class="sc">::</span><span class="fu">appDependencies</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="trouble.html#cb60-1" aria-hidden="true" tabindex="-1"></a>rsconnect<span class="sc">::</span><span class="fu">appDependencies</span>()</span></code></pre></div>
 <pre><code>##              package   version       source
 ## 1      AnnotationDbi    1.60.0 Bioconductor
 ## 2            Biobase    2.58.0 Bioconductor
@@ -754,7 +754,7 @@ Gnai3
 ## 9            IRanges    2.32.0 Bioconductor
 ## 10          KEGGREST    1.38.0 Bioconductor
 ## 11              MASS  7.3-58.2         CRAN
-## 12            Matrix     1.5-4         CRAN
+## 12            Matrix     1.5-3         CRAN
 ## 13                R6     2.5.1         CRAN
 ## 14      RColorBrewer     1.1-3         CRAN
 ## 15             RCurl 1.98-1.10         CRAN
@@ -809,7 +809,7 @@ Gnai3
 ## 64         lifecycle     1.0.3         CRAN
 ## 65          magrittr     2.0.3         CRAN
 ## 66           memoise     2.0.1         CRAN
-## 67              mgcv    1.8-42         CRAN
+## 67              mgcv    1.8-41         CRAN
 ## 68              mime      0.12         CRAN
 ## 69           munsell     0.5.0         CRAN
 ## 70              nlme   3.1-162         CRAN
@@ -852,53 +852,44 @@ Gnai3
 ## 107             xml2     1.3.3         CRAN
 ## 108             yaml     2.3.7         CRAN
 ## 109         zlibbioc    1.44.0 Bioconductor</code></pre>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="trouble.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getOption</span>(<span class="st">&quot;repos&quot;</span>)</span></code></pre></div>
-<pre><code>##                       CRAN 
-## &quot;http://cran.rstudio.com/&quot; 
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="trouble.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getOption</span>(<span class="st">&quot;repos&quot;</span>)</span></code></pre></div>
+<pre><code>##                        CRAN 
+## &quot;https://cran.rstudio.com/&quot; 
 ## attr(,&quot;RStudio&quot;)
 ## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="trouble.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
-<pre><code>## R version 4.2.0 (2022-04-22 ucrt)
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="trouble.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.2.2 (2022-10-31 ucrt)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 10 x64 (build 22621)
+## Running under: Windows 10 x64 (build 19042)
 ## 
 ## Matrix products: default
 ## 
 ## locale:
-## [1] LC_COLLATE=English_United Kingdom.utf8  LC_CTYPE=English_United Kingdom.utf8   
-## [3] LC_MONETARY=English_United Kingdom.utf8 LC_NUMERIC=C                           
-## [5] LC_TIME=English_United Kingdom.utf8    
+## [1] LC_COLLATE=English_United Kingdom.1252  LC_CTYPE=English_United Kingdom.1252    LC_MONETARY=English_United Kingdom.1252
+## [4] LC_NUMERIC=C                            LC_TIME=English_United Kingdom.1252    
 ## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] viridis_0.6.2     viridisLite_0.4.1 biomaRt_2.54.0    ggrepel_0.9.3     ggplot2_3.4.1    
-##  [6] kableExtra_1.3.4  stringr_1.5.0     RSQLite_2.3.0     tidyr_1.3.0       dplyr_1.1.0      
-## [11] bookdown_0.32    
+##  [1] viridis_0.6.2     viridisLite_0.4.1 biomaRt_2.54.0    ggrepel_0.9.3     ggplot2_3.4.1     kableExtra_1.3.4  stringr_1.5.0     RSQLite_2.3.0    
+##  [9] tidyr_1.3.0       dplyr_1.1.0      
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Biobase_2.58.0         httr_1.4.5             sass_0.4.5             bit64_4.0.5           
-##  [5] jsonlite_1.8.4         bslib_0.4.2            BiocManager_1.30.20    highr_0.10            
-##  [9] stats4_4.2.0           BiocFileCache_2.6.1    blob_1.2.3             GenomeInfoDbData_1.2.9
-## [13] yaml_2.3.7             progress_1.2.2         pillar_1.8.1           glue_1.6.2            
-## [17] digest_0.6.31          XVector_0.38.0         rvest_1.0.3            colorspace_2.1-0      
-## [21] htmltools_0.5.4        XML_3.99-0.13          pkgconfig_2.0.3        zlibbioc_1.44.0       
-## [25] purrr_1.0.1            scales_1.2.1           webshot_0.5.4          svglite_2.1.1         
-## [29] tibble_3.1.8           KEGGREST_1.38.0        farver_2.1.1           generics_0.1.3        
-## [33] IRanges_2.32.0         ellipsis_0.3.2         cachem_1.0.7           withr_2.5.0           
-## [37] BiocGenerics_0.44.0    cli_3.6.0              magrittr_2.0.3         crayon_1.5.2          
-## [41] memoise_2.0.1          evaluate_0.20          fansi_1.0.4            xml2_1.3.3            
-## [45] rsconnect_0.8.29       tools_4.2.0            prettyunits_1.1.1      hms_1.1.2             
-## [49] lifecycle_1.0.3        S4Vectors_0.36.2       munsell_0.5.0          packrat_0.9.1         
-## [53] AnnotationDbi_1.60.0   Biostrings_2.66.0      compiler_4.2.0         jquerylib_0.1.4       
-## [57] GenomeInfoDb_1.34.9    systemfonts_1.0.4      rlang_1.0.6            grid_4.2.0            
-## [61] RCurl_1.98-1.10        rstudioapi_0.14        rappdirs_0.3.3         labeling_0.4.2        
-## [65] bitops_1.0-7           rmarkdown_2.20         gtable_0.3.1           DBI_1.1.3             
-## [69] curl_5.0.0             R6_2.5.1               gridExtra_2.3          knitr_1.42            
-## [73] fastmap_1.1.1          bit_4.0.5              utf8_1.2.3             filelock_1.0.2        
-## [77] stringi_1.7.12         Rcpp_1.0.10            vctrs_0.5.2            png_0.1-8             
-## [81] dbplyr_2.3.1           tidyselect_1.2.0       xfun_0.37</code></pre>
+##  [1] Biobase_2.58.0         httr_1.4.5             sass_0.4.5             bit64_4.0.5            jsonlite_1.8.4         bslib_0.4.2           
+##  [7] BiocManager_1.30.20    highr_0.10             stats4_4.2.2           BiocFileCache_2.6.1    blob_1.2.3             GenomeInfoDbData_1.2.9
+## [13] yaml_2.3.7             progress_1.2.2         pillar_1.8.1           glue_1.6.2             digest_0.6.31          XVector_0.38.0        
+## [19] rvest_1.0.3            colorspace_2.1-0       htmltools_0.5.4        XML_3.99-0.13          pkgconfig_2.0.3        bookdown_0.32         
+## [25] zlibbioc_1.44.0        purrr_1.0.1            scales_1.2.1           webshot_0.5.4          svglite_2.1.1          tibble_3.1.8          
+## [31] KEGGREST_1.38.0        farver_2.1.1           generics_0.1.3         IRanges_2.32.0         ellipsis_0.3.2         cachem_1.0.7          
+## [37] withr_2.5.0            BiocGenerics_0.44.0    cli_3.6.0              magrittr_2.0.3         crayon_1.5.2           memoise_2.0.1         
+## [43] evaluate_0.20          fansi_1.0.4            xml2_1.3.3             rsconnect_0.8.29       tools_4.2.2            prettyunits_1.1.1     
+## [49] hms_1.1.2              lifecycle_1.0.3        S4Vectors_0.36.2       munsell_0.5.0          packrat_0.9.1          AnnotationDbi_1.60.0  
+## [55] Biostrings_2.66.0      compiler_4.2.2         jquerylib_0.1.4        GenomeInfoDb_1.34.9    systemfonts_1.0.4      rlang_1.0.6           
+## [61] grid_4.2.2             RCurl_1.98-1.10        rstudioapi_0.14        rappdirs_0.3.3         labeling_0.4.2         bitops_1.0-7          
+## [67] rmarkdown_2.20         gtable_0.3.1           DBI_1.1.3              curl_5.0.0             R6_2.5.1               gridExtra_2.3         
+## [73] knitr_1.42             fastmap_1.1.1          bit_4.0.5              utf8_1.2.3             filelock_1.0.2         stringi_1.7.12        
+## [79] Rcpp_1.0.10            vctrs_0.5.2            png_0.1-8              dbplyr_2.3.1           tidyselect_1.2.0       xfun_0.37</code></pre>
 <p>Happy building!</p>
 
 </div>
