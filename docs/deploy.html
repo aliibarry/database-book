@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Deploying your application | Sequencing databases in Shiny</title>
   <meta name="description" content="Here we will describe how to build a Shiny app for sequencing data using the code base described in CITE PAPER HERE." />
-  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Deploying your application | Sequencing databases in Shiny" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="AMB and NZ" />
 
 
-<meta name="date" content="2023-03-08" />
+<meta name="date" content="2023-04-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -94,7 +94,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -107,7 +107,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -158,13 +158,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.1" data-path="ui.html"><a href="ui.html#basic-structure"><i class="fa fa-check"></i><b>3.1</b> Basic structure</a></li>
 <li class="chapter" data-level="3.2" data-path="ui.html"><a href="ui.html#header"><i class="fa fa-check"></i><b>3.2</b> Header</a></li>
-<li class="chapter" data-level="3.3" data-path="ui.html"><a href="ui.html#sidebar"><i class="fa fa-check"></i><b>3.3</b> Sidebar</a></li>
-<li class="chapter" data-level="3.4" data-path="ui.html"><a href="ui.html#body"><i class="fa fa-check"></i><b>3.4</b> Body</a>
+<li class="chapter" data-level="3.3" data-path="ui.html"><a href="ui.html#styling"><i class="fa fa-check"></i><b>3.3</b> Styling</a></li>
+<li class="chapter" data-level="3.4" data-path="ui.html"><a href="ui.html#sidebar"><i class="fa fa-check"></i><b>3.4</b> Sidebar</a></li>
+<li class="chapter" data-level="3.5" data-path="ui.html"><a href="ui.html#body"><i class="fa fa-check"></i><b>3.5</b> Body</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="ui.html"><a href="ui.html#homepage"><i class="fa fa-check"></i><b>3.4.1</b> Homepage</a></li>
-<li class="chapter" data-level="3.4.2" data-path="ui.html"><a href="ui.html#grouped-comparisons"><i class="fa fa-check"></i><b>3.4.2</b> Grouped comparisons</a></li>
-<li class="chapter" data-level="3.4.3" data-path="ui.html"><a href="ui.html#individual-analysis"><i class="fa fa-check"></i><b>3.4.3</b> Individual Analysis</a></li>
-<li class="chapter" data-level="3.4.4" data-path="ui.html"><a href="ui.html#network-page"><i class="fa fa-check"></i><b>3.4.4</b> Network page</a></li>
+<li class="chapter" data-level="3.5.1" data-path="ui.html"><a href="ui.html#homepage"><i class="fa fa-check"></i><b>3.5.1</b> Homepage</a></li>
+<li class="chapter" data-level="3.5.2" data-path="ui.html"><a href="ui.html#grouped-comparisons"><i class="fa fa-check"></i><b>3.5.2</b> Grouped comparisons</a></li>
+<li class="chapter" data-level="3.5.3" data-path="ui.html"><a href="ui.html#individual-analysis"><i class="fa fa-check"></i><b>3.5.3</b> Individual Analysis</a></li>
+<li class="chapter" data-level="3.5.4" data-path="ui.html"><a href="ui.html#network-page"><i class="fa fa-check"></i><b>3.5.4</b> Network page</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="server.html"><a href="server.html"><i class="fa fa-check"></i><b>4</b> Server</a>
@@ -200,7 +201,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="trouble.html"><a href="trouble.html#package-installation"><i class="fa fa-check"></i><b>6.1</b> Package installation</a></li>
 <li class="chapter" data-level="6.2" data-path="trouble.html"><a href="trouble.html#file-setup"><i class="fa fa-check"></i><b>6.2</b> File setup</a></li>
-<li class="chapter" data-level="6.3" data-path="trouble.html"><a href="trouble.html#styling"><i class="fa fa-check"></i><b>6.3</b> Styling</a></li>
+<li class="chapter" data-level="6.3" data-path="trouble.html"><a href="trouble.html#styling-1"><i class="fa fa-check"></i><b>6.3</b> Styling</a></li>
 <li class="chapter" data-level="6.4" data-path="trouble.html"><a href="trouble.html#data-inputoutput-issues"><i class="fa fa-check"></i><b>6.4</b> Data input/output issues</a></li>
 <li class="chapter" data-level="6.5" data-path="trouble.html"><a href="trouble.html#debugging-reactive-code"><i class="fa fa-check"></i><b>6.5</b> Debugging reactive code</a></li>
 <li class="chapter" data-level="6.6" data-path="trouble.html"><a href="trouble.html#deployment"><i class="fa fa-check"></i><b>6.6</b> Deployment</a>
@@ -239,9 +240,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="bioconductor" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Bioconductor<a href="deploy.html#bioconductor" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Before deploying, you should specific the bioconductor repository (depending on updates, a very new version may be incompatible with <code>Shiny</code> briefly). You can also check which repositories have been set using <code>getOption("repos")</code>.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="deploy.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setRepositories</span>(<span class="at">addURLs =</span> <span class="fu">c</span>(<span class="at">BioC =</span> <span class="st">&quot;https://bioconductor.org/packages/3.16/bioc&quot;</span>)) <span class="co">#specify version here</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="deploy.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setRepositories</span>(<span class="at">addURLs =</span> <span class="fu">c</span>(<span class="at">BioC =</span> <span class="st">&quot;https://bioconductor.org/packages/3.16/bioc&quot;</span>)) <span class="co">#specify version here</span></span></code></pre></div>
 <p>And, DEPLOY! (this may take awhile). If you are using RStudio, you can also deploy using the blue icon in the top-right corner.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="deploy.html#cb52-1" aria-hidden="true" tabindex="-1"></a>rsconnect<span class="sc">::</span><span class="fu">deployApp</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="deploy.html#cb49-1" aria-hidden="true" tabindex="-1"></a>rsconnect<span class="sc">::</span><span class="fu">deployApp</span>()</span></code></pre></div>
 <p>Still not working? Check our troubleshooting guide (<a href="trouble.html#trouble">6</a>) for more help. It may be as simple as turning off your firewall.</p>
 
 </div>

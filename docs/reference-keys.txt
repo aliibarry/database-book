@@ -11,6 +11,7 @@ processing-multiple-files
 ui
 basic-structure
 header
+styling
 sidebar
 body
 homepage
@@ -39,9 +40,10 @@ bioconductor
 trouble
 package-installation
 file-setup
-styling
+styling-1
 data-inputoutput-issues
 debugging-reactive-code
 deployment
 basics
 bioconductor-1
+url-your-book-url-like-httpsbookdown.orgyihuibookdown

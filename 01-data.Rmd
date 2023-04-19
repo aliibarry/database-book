@@ -15,7 +15,7 @@ img
 
 
 1. Prepare data tables (minimum: count matrix, column data)
-2. Compile all data into an `.RData` or `.db` object using `setup.R`.
+2. Compile all data into an `.RData` or `.db` object.
 
 ---
 
@@ -35,19 +35,16 @@ library(ggrepel)
 # load data
 count   = read.csv("./data/CountTables/TPM_mouse.csv", header = TRUE)
 colData = read.csv(paste0("./data/colData/", "TPM_mouse_colData.csv"), header = TRUE)
+rownames(colData) = colData[,1]
 deg     = read.csv(paste("./data/DegData/b10d2.csv", sep=""), header = TRUE, row.names = 1)
-
-get_median <- function(df, sex, var, ...){
-  ifelse(sex=="Both", data <- df %>% dplyr::group_by(...) %>%
-           dplyr::summarise(expression=median(as.double({{var}}))), df <- tcounts %>% dplyr::group_by(..., Sex) %>%
-           dplyr::summarise(expression=median(as.double({{var}}))))
-  return(data)
-}
 ```
 
 To implement this app, you will need three types of data:
 
 1. Count tables in `./data/CountTables/` folder  
+ * This contains the count matrix  
+ * The first column of count matrix **must** gene symbols  
+ * The column names of your count table **must** be the same as the rownames of your 'colData' (see below).  
 
 ```{r, message=FALSE , echo=FALSE}
 kbl(count %>% head) %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 12, latex_options = "scale_down") %>% scroll_box(width = "100%", height = "250px")
@@ -56,10 +53,11 @@ kbl(count %>% head) %>% kable_styling(bootstrap_options = c("striped", "hover", 
 &nbsp;
 
 
-2. Column Data (abbrev: `colData`) in `./data/ColDatas/` folder
-  * This contains the info about each sample
-  * The colnames of `colData` should include `Population`, `Timepoint`, `Sex`, `Dataset`, and `Species`
-  * If your experiment does not separate those samples based on any of those parameters, you will need to create a column that specifies this. E.g. if your samples are of mixed sex, you can creates a `Sex` column containing ‘mixed’ for all samples.  
+2. Column Data (abbrev: `colData`) in `./data/ColDatas/` folder  
+ * This contains the info about each sample  
+ * The rownames of 'colData' **must** be the same as the column names of your count table. 
+ * The colnames of `colData` **must** include 'Condition', which specifies the disease/healthy condition of your samples.  
+ * If your experiment contains additional parameters such as `Population`, `Timepoint`, and `Sex`, you will need to rename them to this format. 
   
 ```{r , echo=FALSE}
 kbl(colData %>% head) %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 12, latex_options = "scale_down") %>% scroll_box(width = "100%", height = "400px")
@@ -85,7 +83,7 @@ library("biomaRt")
 mouse = useMart("ensembl", dataset = "mmusculus_gene_ensembl", verbose = TRUE, host = "https://dec2021.archive.ensembl.org")
 human = useMart("ensembl", dataset = "hsapiens_gene_ensembl", verbose = TRUE, host = "https://dec2021.archive.ensembl.org")
 
-geneV1 = getLDS(attributes = c("mgi_symbol","ensembl_gene_id"), 
+human_gene_data = getLDS(attributes = c("mgi_symbol","ensembl_gene_id"), 
                 filters = "ensembl_gene_id", 
                 values = count$X, 
                 mart = mouse, 
@@ -93,27 +91,73 @@ geneV1 = getLDS(attributes = c("mgi_symbol","ensembl_gene_id"),
                 martL = human, 
                 uniqueRows=T)
 
-colnames(geneV1) = c("mgi_symbol", "mouse_gene_id", "hgnc_symbol", "human_gene_id")
+colnames(human_gene_data) = c("mgi_symbol", "mouse_gene_id", "hgnc_symbol", "human_gene_id")
 ```
 
 ```{r, echo=FALSE}
-kbl(geneV1 %>% head) %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 12, latex_options = "scale_down") %>% scroll_box(width = "100%", height = "450px")
+kbl(human_gene_data %>% head) %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 12, latex_options = "scale_down") %>% scroll_box(width = "100%", height = "450px")
 ```
 
 ## RData _(option 1)_
-You can store data frames into .RData using the `save()` function. For example, we can use the save() function to save the `count` data frame to a file called `my_data.RData`. 
 
-```{r}
-save(count, file = "my_data.RData")
+If your experimental data contains managable number of files, you can read them one by one and store them into a list. Name each dataframe object with the name that you will use later. 
+
+You can then store the list of dataframes into .RData using the `save()` function. For example, we can read the  the `count` data frame to list called "mat" and then use the `save()` function to save it into a file called `my_data.RData`. 
+
+Read count data 
+```{r, eval = FALSE}
+mat = list()
+
+# read count data csv into a dataframe 
+count = read.csv("./data/CountTables/TPM_mouse.csv", header = TRUE)
+
+# store into 'mat', name the dataframe for accessing it later
+mat = append(mat, list("TPM_mouse" = count))
+
+save(mat, file = "my_data.RData")
 ```
 
-To load the data frame from the `.RData` file later, you can use the `load()` function in your server. Y
-```{r}
+Read colData, remember to set the rownames to the colnames of your count table 
+```{r, eval = FALSE}
+# read count data csv into a dataframe 
+colData = read.csv("./data/colData/TPM_mouse_colData.csv", header = TRUE)
+
+# set the rownames 
+rownames(colData) = colData[,1]
+
+# store into 'mat', name the dataframe for accessing it later 
+mat = append(mat, list("TPM_mouse_colData" = colData))
+
+```
+
+Process and read differential expression data: If you have multiple DE data, you will need to combine them and add an additional column called 'Population'.
+
+```{r, eval = FALSE}
+# read all DE data 
+b10d2 = read.csv("./data/DegData/b10d2.csv", header = TRUE)
+balb = read.csv("./data/DegData/balb.csv", header = TRUE)
+
+# add 'Population column' 
+b10d2$Population = rep("b10d2", nrow(b10d2))
+balb$Population = rep("balb", nrow(balb))
+
+# combine them 
+deg_df = rbind(b10d2, balb)
+
+# store into 'mat', name the dataframe for accessing it later 
+mat = append(mat, list("mouse_deg_df" = deg_df))
+```
+
+To load the data frame from the `.RData` file later, you can use the `load()` function in your server. 
+```{r, eval = FALSE}
 load("my_data.RData") # add to server
+
+# you can then access the dataframe using its name 
+df = mat[["TPM_mouse"]]
+
 ```
 
 *NOTE*, some functions will need to be modified to read from a `.RData` instead. This can be done by uncommentng the relevant lines of code. For example:
-
 
 ```{r, eval=FALSE}
   shiny::observeEvent(input$load, {
@@ -137,6 +181,7 @@ load("my_data.RData") # add to server
       ## uncomment here for .RData file
       # using R Data 
       {
+        # count_df = mat[["count_df"]]
         # if (species == "human"){
         #   filt = count_df[count_df$mgi_symbol %in% genes(),]
         #   X = rownames(filt)
@@ -159,7 +204,7 @@ While `.RData` files can be useful small or medium-sized datasets in R, SQL data
 
 An SQLite database consists of one or more tables, which are composed of rows and columns. An RSQLite `.db` object is a database connection to a SQLite database file through R. The following functions will be useful in creating and updating the `.db` object in R. 
 
-Here, we provide an overview for bulk count data (provided as `setup.R`). `Seurat` objects (for sc/snRNA-seq or ATAC-seq) are read in separately in our example.
+Here, we provide an overview for bulk count data. `Seurat` objects (for sc/snRNA-seq or ATAC-seq) are read in separately.
 
 ```{r}
 # This function connects to a SQLite database file called `example_database.db`
@@ -167,16 +212,21 @@ db_dir = "example_database.db"
 conn  <- dbConnect(RSQLite::SQLite(), db_dir)
 ```
 
-```{r, eval = FALSE}
+```{r}
 # This function stores dataframe objects into `.db` object 
-dbWriteTable(conn, name = "count_df", value = count)
+dbWriteTable(conn, name = "count_df", value = count, row.names = TRUE, append=TRUE)
 ```
 
 ### SQL manipulation 
 
-```{r}
+```{r, eval = FALSE}
 # List table names that you have already stored  
 dbListTables(conn)
+```
+
+```{r, eval = FALSE}
+# Modify a table by using 'overwrite' argument 
+dbWriteTable(conn, name = "count_df", value = count_modified, overwrite = TRUE)
 ```
 
 Each table in a SQLite database has a schema that defines the columns in the table and their data types. In R, you can retrieve the schema of a table using the `dbListFields()` function, which returns a character vector of the column names.
@@ -185,22 +235,17 @@ Each table in a SQLite database has a schema that defines the columns in the tab
 fields <- dbListFields(conn, "count_df")
 ```
 
-
-```{r, eval = FALSE}
-# Modify a table by using 'overwrite' argument 
-dbWriteTable(conn, name = "count_df", value = count_modified, overwrite = TRUE)
-```
-
-```{r, eval = FALSE}
-# Delete a table 
-dbRemoveTable(conn, "count_df")
-```
-
 The `dbGetQuery()` function in RSQLite allows you to execute SQL queries and return the results as a data frame.
 ```{r}
 # Select all rows from the "count_df" table
 result <- dbGetQuery(conn, "SELECT * FROM count_df")
 ```
+
+```{r}
+# Delete a table 
+dbRemoveTable(conn, "count_df")
+```
+
 
 ```{r}
 # Close the connection after you stored all tables
@@ -213,7 +258,7 @@ These functions are sufficient for users without prior knowledge in the RSQLite 
 
 If your experimental data contains multiple files, it can become labor intensive to write tables one by one. To reduce the burden, you can read files by folders. 
 
-• Read all count tables in `./data/CountTables` folder into `.db` object, using their file names as table names.  
+Read all count tables in `./data/CountTables` folder into `.db` object, using their file names as table names.  
 ```{r, eval = FALSE}
 
 # all file names 
@@ -226,11 +271,12 @@ names = as.vector(substr(Counts, 0, nchar(Counts) - 4))
 for (i in 1:length(names)){
   name  = names[i]
   value = read.csv(paste0("./data/CountTables/", Counts[i]), header = TRUE)
-  dbWriteTable(conn, name, value)
+  dbWriteTable(conn, name, value, row.names = TRUE)
 }
 ```
 
-• Read ColDatas files in `./data/ColDatas` directory into tables. 
+Read ColDatas files in `./data/ColDatas` directory into tables.    
+*NOTE* you must set and read in the row names of colData  
 ```{r, eval = FALSE}
 CDs <- str_sort(list.files(path = "./data/ColDatas", pattern = "*.csv")) # names of colDatas 
 

@@ -111,7 +111,7 @@ shiny::updateSelectizeInput(session,
                           label = "Search Genes:",
                           choices = allgenes,
                           server = TRUE,
-                          selected = c("Trpv1", "Scn10a","Atf3") ## can change to relevant genes
+                          selected = c("Tubb3","Gap43","Atf3") ## can change to relevant genes
 )
   
 # a reactive variable that records whether a file is uploaded.
