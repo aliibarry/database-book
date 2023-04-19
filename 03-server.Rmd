@@ -24,32 +24,45 @@ _(but lots of details are provided below so you can dive into the code)_
 For the `Server.R` page to run, you will need to create a `des_df`, a description df that describes your datasets. An example is shown below: 
 
 * **Dataset**: The name of the dataset 
-* **disease_condition**: The experimental disease group name
+* **condition**: The experimental disease group name
 * **species**: the species in the experiment
-* **count_df_name**: the name of the count matrix 
-* **colData_name**: The name of experimental design 
+* **count**: the name of the count matrix 
+* **colDatas**: The name of experimental design 
 * **deg_df_name**: the name of differential expression data
 * **type**: Name of the RNA sequencing technique; either bulk or single 
-* **identifier**: This identifier is useful for loading description files specific for each experiment. E.g. subtype.Rhtml . Name your description files and add their names to this column. 
+* **page_id**: This identifier is useful for loading description files specific for each experiment. E.g. subtype.Rhtml . Name your description files and add their names to this column. 
 * **include_subtypes**: This specifies if there are different subtypes of samples in the experiment. E.g. different species strains. If TRUE, there will be an additional line plot showing subtype-specific changes in gene expression. 
 * **include_degs**: This specifies if there are differential expression data files for this experiment. If TRUE, the visualisation page will yield differential expression dot plots and volcano plots. 
-* **include_gois**: Whether to display the count table on the site; i.e. some studies utilises human patient data which are sensitive to disclose. For studies like this, include_gois will be FALSE. 
 
 ```{r}
+### example with one bulk dataset
 des_df = data.frame(
-  Dataset = c("Subtype DRG (Barry)", "Mouse DRG Bulk", "Rat DRG Bulk",
-              "Human iPSC HSN1", "Human skin Diabetes", "Human skin Carpal Tunnel (CTS)",
-              "Mouse DRG Subtype (Zheng)","Human DRG RNAseq", "Human DRG spatial-seq"),
-  disease_condition = c("ipsi", "SNI", "SNT", "patient", "PDPN", "pre_Surgery", "", "P", ""),
-  species = c("mouse", "mouse", "rat", "human", "human", "human", "mouse", "human", "human"),
-  count_df_name = c("TPM_subtype", "TPM_mouse", "TPM_rat", "TPM_ipsc", "TPM_HS_diabetes", "TPM_HS_CTS", "TPM_zheng", "TPM_humandrg", ""),
-   colData_name = c("bulkseq_colData", "TPM_mouse_colData", "TPM_rat_colData", "ipsc_colData", "db_colData", "skin_colData", "zheng_colData", "humandrg_colData", ""),
-  deg_df_name = c("subtype_deg_df", "mouse_deg_df", "rat_deg_df", "ipsc_deg_df", "db_deg_df", "cts_deg_df", "", "", ""),
-  type = c("bulk","bulk","bulk","bulk","bulk","bulk","bulk","bulk", "single"),
-  identifier = c("subtype", "mouse", "rat", "ipsc", "HS_diabetes", "HS_CTS", "zheng", "humandrg", "scrna"),
-  include_subtypes = c(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE),
-  include_degs = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE),
-  include_gois = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, TRUE))
+  Dataset = c("Subtype DRG (Barry)"),
+  condition = c("ipsi"),
+  Species = c("mouse"),
+  count = c("bulkseq_mat"),
+  include_subtypes = c(TRUE),
+  include_degs = c(TRUE),
+  page_id = c("subtype"),
+  deg_df_name = c("subtype_deg_df"),
+  colDatas = c("bulkseq_colData"),
+  type = c("bulk"),
+  Tissue = c("DRG"))
+
+### example with bulk and single cell datasets
+des_df = data.frame(
+  Dataset = c("Subtype DRG (Barry)", "Mouse DRG Bulk", "Human DRG spatial-seq"),
+  condition = c("ipsi", "SNI", "N/A"),
+  Species = c("mouse", "mouse", "human"),
+  count = c("bulkseq_mat", "TPM_mouse", ""),
+  include_subtypes = c(TRUE, FALSE, FALSE),
+  include_degs = c(TRUE, TRUE, FALSE),
+  page_id = c("subtype", "mouse", "scrna"),
+  deg_df_name = c("subtype_deg_df", "mouse_deg_df", ""),
+  colDatas = c("bulkseq_colData", "TPM_mouse_colData", ""),
+  type = c("bulk","bulk", "single"),
+  Tissue = c("DRG", "DRG", "DRG"))
+
 
 kbl(des_df %>% head) %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), font_size = 12, latex_options = "scale_down") %>% scroll_box(width = "100%", height = "500px")
 ```
@@ -58,17 +71,26 @@ kbl(des_df %>% head) %>% kable_styling(bootstrap_options = c("striped", "hover",
 The table names of `countdata` and `colData` for each experiment will be written. This allows the app to directly query those tables from the database object. In addition, you will need to specify directory that storing your data 
 
 ```{r, eval = FALSE}
-## directory for scRNA sequencing data; leave it for "" if none 
-scRNA_dir = "data/drg.combined.rds"
+## directory for scRNA sequencing data;  
+{
+  scRNA_dir   = NULL # leave it for NULL if none
+  scRNA_names = NULL # leave it for NULL if none
+  scRNA_dir = list()
+  scRNA_dir = c(scRNA_dir, list("drg.combined.rds")) #set for single  cell data
+  scRNA_names = c("Human DRG spatial-seq") #names for single  cell data
 
-## a file containing themes for plots and labels for axis 
-theme_dir = "global.R"
+  names(scRNA_dir) = scRNA_names
+
+  if (length(scRNA_dir) != 0) {
+    library(Seurat) # for scRNA; only load library if scRNA data is present
+  }
+}
 
 ## RData that contains DEG files for network analysis 
 network_dir = "data/network.RData"
 
 ## directory for the sql database 
-db_dir = "test.db"
+sql_dir = "test.db"
 ```
 
 
@@ -183,68 +205,127 @@ output$meta_table = DT::renderDataTable({
 ### this doesn't need to be modified
 # plot in reponse to the 'load' button 
 observeEvent(input$load, {
-  
-  file_input <- reactive({
-    if (rv$clear == TRUE) {
-      return(NULL)
+    
+    # load scRNA data if it exists 
+    if (is.null(scRNA_dir) == FALSE) {
+      for (c in scRNA_dir) {
+        variables$pbmc <- c(variables$pbmc, readRDS(scRNA_dir[[1]]))
+      }
+      names(variables$pbmc) = scRNA_names
     }
-    if(rv$clear==FALSE && rv$data == TRUE) {
-      goi = read.table(input$file$datapath)
-      rownames(goi) <- goi[,1]
-      goi <- goi[which(rownames(goi) %in% allgenes==TRUE),]
-      return(goi)}
+    
+    # read geneids from file if it exists 
+    file_input <- reactive({
+      if (rv$clear == TRUE) {
+        return(NULL)
+      }
+      if(rv$clear==FALSE && rv$data == TRUE) {
+        goi = read.table(input$file$datapath)
+        rownames(goi) <- goi[,1]
+        goi <- goi[which(rownames(goi) %in% allgenes==TRUE),]
+        return(goi)}
+    })
+    
+    if (is.null(file_input())) {
+      genes = input$geneid
+    }
+    else {
+      genes = file_input()
+    }
+    
+    # plot homepage dot plots and DEG plots
+    if (nrow(bulk_df) != 0) {
+      
+      # include all bulk datasets in the combined plots
+      selected_data = c(1:nrow(bulk_df))
+      
+      df_list = list()
+      for (i in c(1:nrow(bulk_df))){
+        curr = bulk_df[i,]
+        d = curr$count
+
+        # if using sql 
+        if (!is.null(sql_dir)) {
+          if (curr$Species == "human"){
+            sql = paste("SELECT * FROM", d, "WHERE mgi_symbol = ?")
+          }
+          else {
+            sql = paste("SELECT * FROM", d, "WHERE symbol = ?")
+          }
+          count_data = as.data.frame(dbGetPreparedQuery(conn, sql, bind.data=data.frame(symbol=genes)))
+        }
+        
+        # if using RData
+        if (!is.null(rdata_dir)) {
+          ct = mat[[d]]
+          if (curr$Species == "human"){
+            count_data = ct[ct$mgi_symbol %in% genes,]
+          }
+          else {
+            count_data = ct[ct$symbol %in% genes,]
+          }
+        }
+        
+        # a list of filtered count data 
+        df_list = append(df_list, list(count_data))
+      }
+      
+    
+      final_df = generate_combine_dataset(df_list, genes, input$sex, col_list[selected_data], des_df$condition[selected_data], des_df$Species[selected_data], 
+                                          expression, Condition, Population, symbol, Dataset, Species)
+      
+      # homepage dotplot
+      combine_dot = plotcombine_server("dot", final_df, input$sex, genes, Population, symbol, expression, "Dataset") #dotplot
+      
+      # deg plot
+      
+      # first, convert gene symbols to species specific 
+      hgenes = human_gene_data[human_gene_data$mgi_symbol %in% genes,]$hgnc_symbol
+      rgenes = rat_gene_data[rat_gene_data$mgi_symbol %in% genes,]$rgd_symbol
+      
+      # filter differential expression data 
+      degr = degrat[degrat$symbol %in% rgenes,]
+      degm = degmouse[degmouse$symbol %in% genes,]
+      degh = deghuman[deghuman$symbol %in% hgenes,]
+      
+      combine_degplot = deg_combine_server("deg_plot",degr, degm, degh, Population,symbol, log2FoldChange,sig, "Dataset")
+    }
+   
+    # give scRNA dot plots if data exists 
+    if (is.null(variables$pbmc) != TRUE){
+      scrna_dot = plothomescdot_server("homespat", variables$pbmc, genes)
+    }
+    
+    # download all plots into a zip
+    output$combineplots <- downloadHandler(
+      filename = function() {
+        paste("combined", "zip", sep=".")
+      },
+      
+      content = function(file){
+        # Set temporary working directory
+        owd <- setwd(tempdir())
+        on.exit(setwd(owd))
+        fs = c()
+        
+        # Save the plots
+        ggsave('combine_deg.png', plot = combine_degplot, width = 14, height = 6, dpi = 300, units = "in", device='png')
+        ggsave('combine_dot.png', plot = combine_dot, width = 14, height = 6, dpi = 300, units = "in", device='png')
+        ggsave('scrna_dot.png', plot = scrna_dot, width = 10, height = 8, dpi = 300, units = "in", device='png')
+        fs = c(fs, 'combine_deg.png')
+        fs = c(fs, 'combine_dot.png')
+        fs = c(fs, 'scrna_dot.png')
+        
+        # csv files for gene count data
+        write.csv(final_df,"result_table.csv", row.names = FALSE, col.names = TRUE)
+        
+        fs = c(fs, "result_table.csv")
+        
+        zip(file, fs)
+      }
+    )
+    
   })
-  
-  if (is.null(file_input())) {
-    genes = input$geneid
-  }
-  else {
-    genes = file_input()
-  }
-  
-  # retrieve count data of selected datasets 
-  df_list = list()
-  
-  selected_data = c(1:nrow(bulk_df))
-  for (i in selected_data){
-    curr = bulk_df[i,]
-    d    = curr$count
-    if (d!=""){
-      if (curr$Species == "human"){
-        sql = paste("SELECT * FROM", d, "WHERE mgi_symbol = ?")
-      }
-      else {
-        sql = paste("SELECT * FROM", d, "WHERE symbol = ?")
-      }
-      count_data = as.data.frame(dbGetPreparedQuery(conn, sql, bind.data=data.frame(symbol=genes)))
-      df_list    = append(df_list, list(count_data))
-    }
-  }
-  
-  # generate a data frame containing count data from all experiments 
-  final_df = generate_combine_dataset(df_list, genes, input$sex, col_list[selected_data], des_df$pain[selected_data], des_df$Species[selected_data], 
-                                      expression, Condition, Population, symbol, Dataset, Species)
-  
-  
-  # plot the combined gene expression dot plot 
-  combine_dot = plotcombine_server("dot", final_df, input$sex, genes, Population, symbol, expression, "Dataset") #dotplot
-  if (is.null(variables$pbmc) != TRUE){
-    scrna_dot = plothomescdot_server("homespat", variables$pbmc, genes)
-  }
-  
-  # query differential expression (DE) data frames for plotting
-  degm = RSQLite::dbGetPreparedQuery(conn, "SELECT * FROM mouse_all_deg_df WHERE symbol = ?", bind.data=data.frame(symbol=genes))
-  sql  = "SELECT * FROM rat_gene_data WHERE mgi_symbol = ?"
-  rg   = as.data.frame(dbGetPreparedQuery(conn, sql, bind.data=data.frame(mgi_symbol= genes)))$rgd_symbol
-  degr = RSQLite::dbGetPreparedQuery(conn, "SELECT * FROM rat_deg_df WHERE symbol = ?", bind.data=data.frame(symbol=rg))
-  sql  = "SELECT * FROM human_gene_data WHERE mgi_symbol = ?"
-  hg   = as.data.frame(dbGetPreparedQuery(conn, sql, bind.data=data.frame(mgi_symbol= genes)))$hgnc_symbol
-  degh = RSQLite::dbGetPreparedQuery(conn, "SELECT * FROM human_deg_df WHERE symbol = ?", bind.data=data.frame(symbol=hg))
-  
-  # generate combined DE data frames 
-  combine_degplot = deg_combine_server("deg_plot",degr, degm, degh, Population,symbol, log2FoldChange,sig, "Dataset")
-  
-}) 
   
 ```
 
@@ -278,57 +359,58 @@ shiny::observe({
   })
 
 output$shinypages  = shiny::renderUI({
-    j = variables$indrows
+    j = input$dataset_table_rows_selected
     select = des_df[j,]
     
-    # if a scRNA sequencing data is selected 
     if (select$type == "single"){
-      shinyscrnapageUI("spatpage", "Human DRG spatial-seq", des_dir="des/spatial.Rhtml")
+      shinyscrnapageUI("spatpage", select$Dataset)
     }
     
     else {
-      identifier = select$Name
-      
-      # directory for description html files 
-      des_dir = paste("des/",identifier, ".Rhtml", sep = "") ## you should put your description files here
-      
-      # render ui 
-      shinypageUI(name, select$Dataset,
+      page_id = select$page_id
+      shinypageUI(page_id, select$Dataset,
                   select$include_degs,
-                  select$include_subtypes, des_dir = des_dir, includegoi = select$include_gois, 
-                  include_count = select$include_count)
+                  select$include_subtypes, des_dir = NULL)
     }
     
-    
-  })
+})
 ```
 
 The server functions for each study-specific ui called is shown below. The shinypage server module contains code for generating plots and result tables. 
 ```{r, eval = FALSE}
 
 shiny::observe({
-
-# retrieve the row number selected 
-i = input$dataset_table_rows_selected
-
-if (is.null(i) == FALSE) {
-  selected = des_df[i,]
-  name = selected$Name
-  
-  # the scRNA seq dataset requires different UI 
-  if (selected$Dataset == "Human DRG spatial-seq"){
-    shiny::callModule(shinyscrna, "spatpage", reactive({genes()}), variables$pbmc)
-  }
-  
-  # for bulk RNA seq datasets
-  else {
-    shiny::callModule(shinypage, name, input$sex, selected$count, as.data.frame(col_list[i]),
-                      selected$Species, selected$pain, reactive({genes()}), include_deg = selected$include_degs, deg_df_name = selected$deg_df_name,
-                      dataset = selected$Dataset, include_subtype = selected$include_subtypes, include_count = selected$include_count,parent = session)
-  }
-}
-
-})
+    i = input$dataset_table_rows_selected
+    
+    if (is.null(i) == FALSE) {
+      selected = des_df[i,]
+      page_id = selected$page_id
+      
+      # bulk rnaseq 
+      if (selected$type == "bulk") {
+        shiny::callModule(shinypage, page_id, input$sex, selected$count, as.data.frame(col_list[i]),
+                          selected$Species, selected$condition, reactive({genes()}), deg_df_name = selected$deg_df_name,
+                          dataset = selected$Dataset, parent = session)
+      }
+      
+      # single rnaseq
+      if (selected$type == "single"){
+        
+        if (is.null(variables$pbmc[[selected$Dataset]]) == TRUE) {
+          
+          # make sure that scRNA data is already read into reactive variables
+          for (c in scRNA_dir) {
+            variables$pbmc <- c(variables$pbmc, readRDS(scRNA_dir[[1]]))
+          }
+          names(variables$pbmc) = scRNA_names
+        }
+        
+        shiny::callModule(shinyscrna, "spatpage", reactive({genes()}), variables$pbmc[[selected$Dataset]])
+      }
+    
+    }
+    
+  })
 ```
 
 ## Network Analysis 
@@ -367,101 +449,103 @@ _For reference only, you don't need to modify this._
 ### this doesn't need to be modified
 # generates network  when the submit button is clicked 
 observeEvent(input$submit, {
-  
-  # Query gene interactions 
-  genes_list  = as.vector(input$gene_symbols)
-  genes       = paste(genes_list, collapse = "%0d")
-  interactions <- query_interactions(genes, 15)
-  proteins    = unique(c(unique(interactions$preferredName_A), unique(interactions$preferredName_B)))
-  nodes       = data.frame()
-  id          = unique(c(unique(interactions$stringId_A), unique(interactions$stringId_B)))
-  nodes       = as.data.frame(id)
-  nodes$label = proteins
-  nodes       = mutate(nodes, shape = ifelse(nodes$label %in% input$gene_symbols, "diamond", "circle"))
-  
+    # Query gene interactions
+    genes_list = as.vector(input$gene_symbols)
+    genes = paste(genes_list, collapse = "%0d")
+    interactions <- query_interactions(genes, 10)
+    proteins = unique(c(unique(interactions$preferredName_A), unique(interactions$preferredName_B)))
+    nodes = data.frame()
+    id = unique(c(unique(interactions$stringId_A), unique(interactions$stringId_B)))
+    nodes= as.data.frame(id)
+    nodes$label = proteins
+    nodes = mutate(nodes, shape = ifelse(nodes$label %in% input$gene_symbols, "diamond", "circle"))
+    
+    
+    if (input$pop == "Composite Enrichment Score") {
+      mode = "meta"
+      metrics = score_df
+      dt = score_df[score_df$symbol %in% proteins,]
+    }
+    else {
+      mode = "indiv"
+      # the dict contains deg_df based on the name of datasets
+      # res = network_df[network_df$experiment_id == input$pop,]
+      res = degall[degall$Dataset == input$pop,]
+      res = subset(res, !duplicated(symbol))
+      res = mutate(res, sig=ifelse((res$padj<0.05), "SIG", "NS"))
+      metrics = res
+      
+      # account for species differences 
+      
+      if (unique(res$Species) == "mouse") {
+        proteins = human_gene_data[human_gene_data$hgnc_symbol %in% proteins,]$mgi_symbol
+      }
+      if (unique(res$Species) == "rat") {
+        proteins = human_gene_data[human_gene_data$hgnc_symbol %in% proteins,]$mgi_symbol
+      }
+      dt = filter(res, symbol %in% proteins)  # this means the proteins must be in human symbol
+      
+      # remove duplicate 
+      
+      rownames(dt) = dt$symbol
+      dt = dt[c("log2FoldChange","padj", "sig")]
 
-  # annotate nodes by PES  
-  if (input$pop == "Enrichment Score") {
-    mode = "meta"
+    }
     
-    # set metrics to PES 
-    metrics = score_df
-    dt = score_df[score_df$symbol %in% proteins,]
+    # network construction
+    nodes = get_nodes(interactions, genes_list, metrics, mode=mode, snps, pg1, pg2)
+    edges <- data.frame(from = interactions$stringId_A, to = interactions$stringId_B, width = interactions$score,
+                        color = "#444444")
     
-    # legends 
-    output$netlegend = renderUI({
-      HTML(paste0(
-        "<br><br>",
-        "<p style = 'display: block; margin-left: 20px; margin-right: auto;'>&emsp;&emsp;&emsp;PES</p>",
-        "<img style = 'display: block; margin-left: auto; margin-right: auto;' src='bitmap.png' width = '80' height = '130'>","<br>")
+    lnodes <- data.frame(shape = c( "icon"), 
+                         icon.color = c("#961252", "#d8aec4ff", "lightgrey", "#aed5eaff","#0277bd"),
+                         icon.code  = c("f35b", "f111", "f111", "f111", "f358"),
+                         icon.size = 30) 
+    
+    # network visualisation
+    nw = visNetwork::visNetwork(nodes, edges, height = "500px", width = "100%") %>%
+      visPhysics(enabled = FALSE,solver = "forceAtlas2Based",
+                 forceAtlas2Based = list(avoidOverlap = 1)) %>%
+      visEdges(smooth = FALSE) %>%
+      visInteraction(navigationButtons = TRUE, zoomSpeed = 0.6) %>%
+      visLegend(addNodes = lnodes, 
+                #main = list(text = "Enrichment", style = "font-family:Gadugi"),
+                useGroups = FALSE, 
+                width = 0.2, 
+                position = "right",
+                ncol = 1,
+                stepY = 50,
+                #stepX = 50,
+                zoom = FALSE)
+    output$network <- renderVisNetwork({nw})
+    
+    output$downloadnet <- downloadHandler(
+      filename = "graph.html",
+      content = function(file) {
+        visSave(nw, file)
+      }
+    )
+    
+    output$contrast_table <- DT::renderDataTable({
+      DT::datatable(
+        dt,
+        width = 6,
+        class = 'nowrap',
+        options = list(scrollX = TRUE, pageLength = 8)
       )
     })
-  }
-  
-  # annotate by individual study 
-  else {
-    mode = "indiv"
-
-    # "data" contains DEG data for all experiments 
-    sql = paste("SELECT * FROM ", input$pop, "_deg_df", sep = "")
     
-    # filter data by the selected experiment 
-    res = data[data$experiment_id == input$pop,]
-    res = mutate(res, sig=ifelse((res$padj<0.05), "SIG", "NS"))
-    
-    # set metrics to DEG daata from a single study 
-    metrics = res
-    dt = filter(res, symbol %in% proteins)  # this means the proteins must be in human symbol
-    rownames(dt) = dt$symbol
-    dt = dt[c("log2FoldChange","padj", "sig")]
-    
-    # display legend for deg  
-    output$netlegend = renderUI({
-      HTML(paste0(
-        "<br><br>","<p style = 'display: block; margin-left: 20px; margin-right: auto;'>&emsp;&emsp;&emsp;LFC</p>
-                      <img style = 'display: block; margin-left: auto; margin-right: auto;' src='legend.png' width = '80' height = '130'>
-                      ","<br>")
+    # a table containing description and information of genes included
+    output$protein_table <- DT::renderDataTable({
+      DT::datatable(
+        query_information(proteins),
+        width = 6,
+        class = "wrap",
+        options = list(scrollX = TRUE, pageLength = 8)
       )
     })
-  }
-  
-  # node construction using get_node() function
-  nodes = get_nodes(interactions, gene_list, metrics, mode=mode)
-  
-  # construct edges 
-  edges <- data.frame(from = interactions$stringId_A, to = interactions$stringId_B, width = interactions$score,
-                      color = "#444444")
-  
-  # network visualisation
-  nw = visNetwork::visNetwork(nodes, edges, height = "500px", width = "100%") %>%
-    visPhysics(enabled = FALSE,solver = "forceAtlas2Based",
-               forceAtlas2Based = list(avoidOverlap = 1)) %>%
-    visEdges(smooth = FALSE) %>%
-    visInteraction(navigationButtons = TRUE, zoomSpeed = 0.6)
-  
-  output$network <- renderVisNetwork({nw})
-  
-  # score metrics table 
-  output$contrast_table <- DT::renderDataTable({
-    DT::datatable(
-      dt,
-      width = 6,
-      class = 'nowrap',
-      options = list(scrollX = TRUE, pageLength = 8)
-    )
+    
   })
-  
-  # a table containing description and information of nodes(proteins) in the PPI network 
-  output$protein_table <- DT::renderDataTable({
-    DT::datatable(
-      query_information(proteins),
-      width = 6,
-      class = "wrap",
-      options = list(scrollX = TRUE, pageLength = 8)
-    )
-  })
-  
-})
 ```
 
 
@@ -470,8 +554,18 @@ observeEvent(input$submit, {
 _An run-down of functions used throughout the app. For basic applications these don't need to be modified._ A function can be called and reused multiple times by passing parameters. For this example database, functions are written for rendering plots. To illustrate them, we will use an example count dataset. 
 
 ### Data processing  
-```{r, message = FALSE}
 
+```{r}
+#' a function that gets the median expression of a count data 
+get_median <- function(df, sex, var, ...){
+  ifelse(sex=="Both", data <- df %>% dplyr::group_by(...) %>%
+           dplyr::summarise(expression=median(as.double({{var}}))), df <- tcounts %>% dplyr::group_by(..., Sex) %>%
+           dplyr::summarise(expression=median(as.double({{var}}))))
+  return(data)
+}
+```
+
+```{r, message = FALSE}
 genes = c("Atf3", "Msh6", "Dlst", "Slc2a9")
 sex = "Both"
 
@@ -498,16 +592,6 @@ tcounts$symbol = filt[filt$X %in% tcounts$gene,]$symbol
 # get median expression
 tcounts_med = get_median(tcounts, sex, expression, Condition, Population, symbol, Dataset, Species)
 tcounts_med <- tcounts_med[!tcounts_med$Condition %in% "SNI", ] # remove pain samples
-```
-
-```{r}
-#' a function that gets the median expression of a count data 
-get_median <- function(df, sex, var, ...){
-  ifelse(sex=="Both", data <- df %>% dplyr::group_by(...) %>%
-           dplyr::summarise(expression=median(as.double({{var}}))), df <- tcounts %>% dplyr::group_by(..., Sex) %>%
-           dplyr::summarise(expression=median(as.double({{var}}))))
-  return(data)
-}
 ```
 
 

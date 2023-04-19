@@ -42,8 +42,14 @@ _Places commented in red texts are sites for customisation. Otherwise, this does
 ## Header
 
 ```{r, eval=FALSE}
-shinydashboard::dashboardHeader(title= "The Database", ## Customise title
+shinydashboard::dashboardHeader(title= "Title", ## Customise title
                                     titleWidth = 225)
+```
+
+## Styling
+
+```{r, eval=FALSE}
+  includeCSS("www/style.css"), ## uncomment to add a css style sheet (example included)
 ```
 
 ## Sidebar 
@@ -131,28 +137,31 @@ knitr::include_graphics("./data/Images/skeleton.png")
 ```
 ```{r, eval = FALSE}
 shinydashboard::tabItem(tabName = "tabhome", 
-        shinydashboard::box(
-          width = 12,
-          status = "primary",
-          column(width = 6, offset = 4,
-                 
-                 ## place for adding titles 
-                 h1(strong("Title"))), column(width = 8, offset = 2,
-                 
-                 ## place for customising descriptions 
-                 h4("ADD TEXT")
-          ),
-          
-          column(width = 4, offset = 4, 
-                 actionButton("metaa","Meta Analysis", class = "btn-success btn-lg btn-block", icon = icon("dashboard")),
-                 actionButton("inda","Individual Analysis", class = "btn-success btn-lg btn-block", icon = icon("database")),
-                 actionButton("neta","Network Analysis", class = "btn-success btn-lg btn-block", icon = icon("circle-nodes")),
-                 br(),br()
-          )
-  )
-)
-```
+                  shinydashboard::box(
+                    width = 12,
+                    status = "primary",
+                    column(width = 6, offset = 4,
+                            #h1(strong("Title")) ##add title
+                            ),
+                    column(width = 8, offset = 2,
+                            #h4("Description..."), ## add description
+                            #br(),
+                            br()
+                    ),
+                                  
+                    column(width = 4, offset = 4, 
+                            actionButton("meta_tab","Grouped Analysis", class = "btn-success btn-lg btn-block", icon = icon("dashboard")),
+                            actionButton("ind_tab","Individual Analysis", class = "btn-success btn-lg btn-block", icon = icon("database")),
+                            actionButton("net_tab","Network Analysis", class = "btn-success btn-lg btn-block", icon = icon("circle-nodes")),
+                            br(),br()
+                    )
+                  ),
+                  br()
+                                
+), 
 
+# next tab follows
+```
 
 ### Grouped comparisons 
 Grouped comparisons contains integrative visualisation of multiple datasets. This page contains a table containing descriptions of each dataset, as well as integrative plots. Each item is contained within boxes, and their width can be adjusted by changing the width parameter. 
