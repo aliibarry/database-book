@@ -15,7 +15,7 @@ github-repo: aliibarry/omics-database
 
 # Overview
 
-Here we will describe how to build a Shiny app for sequencing data using the code base described in _A simple database framework for hosting and visualising sequencing data through Shiny_ *(CITATION HERE)*.
+Here we will describe how to build a Shiny app for sequencing data using the code base described in _Predicting “pain genes”: multi-modal data integration using probabilistic classifiers and interaction networks_ *(Zhao et al., in review)*.
 
 A working example of this app is hosted at <https://livedataoxford.shinyapps.io/drg-directory/> and the code base is provided at <https://github.com/aliibarry/omics-database>.
 
