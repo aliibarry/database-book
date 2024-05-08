@@ -2,15 +2,16 @@
 title: "Sequencing databases in Shiny"
 author: "AMB and NZ"
 date: "`r Sys.Date()`"
-site: bookdown::bookdown_site
+output: pdf_document
 documentclass: book
-bibliography: [book.bib, packages.bib]
-# url: your book url like https://bookdown.org/yihui/bookdown
-# cover-image: path to the social sharing image like images/cover.jpg
+bibliography:
+- book.bib
+- packages.bib
 description: |
   Here we will describe how to build a Shiny app for sequencing data using the code base described in _CITE PAPER HERE_.
 link-citations: yes
-github-repo: aliibarry/omics-database
+github-repo: "aliibarry/omics-database"
+site: bookdown::bookdown_site
 ---
 
 # Overview
