@@ -8,14 +8,14 @@ bibliography: [book.bib, packages.bib]
 # url: your book url like https://bookdown.org/yihui/bookdown
 # cover-image: path to the social sharing image like images/cover.jpg
 description: |
-  Here we will describe how to build a Shiny app for sequencing data using the code base described in _CITE PAPER HERE_.
+  Here we will describe how to build a Shiny app for sequencing data using the code base described in Zhao et al.
 link-citations: yes
 github-repo: aliibarry/omics-database
 ---
 
 # Overview
 
-Here we will describe how to build a Shiny app for sequencing data using the code base described in _CITE PAPER HERE_.
+Here we will describe how to build a Shiny app for sequencing data using the code base described in _Predicting “pain genes”: multi-modal data integration using probabilistic classifiers and interaction networks_ *(Zhao et al., in review)*.
 
 A working example of this app is hosted at <https://livedataoxford.shinyapps.io/drg-directory/> and the code base is provided at <https://github.com/aliibarry/omics-database>.
 
